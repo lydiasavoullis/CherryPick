@@ -93,7 +93,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 514873826264469367, guid: a1c80c68a01afba4faebb8c648773548, type: 3}
       propertyPath: m_Name
-      value: speech reversed
+      value: speechCustomer
       objectReference: {fileID: 0}
     - target: {fileID: 1242002971043083184, guid: a1c80c68a01afba4faebb8c648773548, type: 3}
       propertyPath: m_LocalRotation.w
@@ -110,6 +110,18 @@ PrefabInstance:
     - target: {fileID: 1242002971043083184, guid: a1c80c68a01afba4faebb8c648773548, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 1256715981138810616, guid: a1c80c68a01afba4faebb8c648773548, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3881707959158120682, guid: a1c80c68a01afba4faebb8c648773548, type: 3}
+      propertyPath: m_fontSize
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 3881707959158120682, guid: a1c80c68a01afba4faebb8c648773548, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7215653190393927841, guid: a1c80c68a01afba4faebb8c648773548, type: 3}
       propertyPath: m_LocalRotation.w

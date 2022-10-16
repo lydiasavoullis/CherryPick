@@ -153,7 +153,7 @@ public class DialogueController : MonoBehaviour
             if (customerContainer.transform.GetChild(i).name == name) {
                 //Debug.Log(customerContainer.transform.GetChild(i).GetComponent<RectTransform>().position);
                 Vector3 pos = customerContainer.transform.GetChild(i).GetComponent<RectTransform>().position;
-                return new Vector3(pos.x, pos.y-3.5f, pos.z);
+                return new Vector3(pos.x, pos.y-2f, pos.z);
             }
         }
         return new Vector3(0, 0, 0);
@@ -189,21 +189,22 @@ public class DialogueController : MonoBehaviour
             }
             if (GameVars.story.variablesState["currentSpeaker"].ToString() =="you") {
                 string you = GameVars.story.variablesState["currentSpeaker"].ToString();
-                GameObject speechBubbleReversed = Instantiate(speechReversedPrefab, new Vector3(customerContainer.transform.position.x, customerContainer.transform.position.y-4f, customerContainer.transform.position.z), speechReversedPrefab.transform.rotation, speechContainer.transform);
-                TextMeshProUGUI yourName = speechBubbleReversed.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+                Vector3 characterSpeechPos = new Vector3(customerContainer.transform.position.x, customerContainer.transform.position.y - 4f, customerContainer.transform.position.z);
+                GameObject speechBubbleReversed = Instantiate(speechReversedPrefab, characterSpeechPos, speechReversedPrefab.transform.rotation, speechContainer.transform);
+                TextMeshProUGUI yourName = speechBubbleReversed.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
                 yourName.text = "Polly";
                 //yourName.color = uIControl.SetNameColour(you);
-                TextMeshProUGUI yourTextBox = speechBubbleReversed.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-                StartCoroutine(uIControl.WriteText(text, yourTextBox));//typewriter effect
+                TextMeshProUGUI yourTextBox = speechBubbleReversed.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>();
+                StartCoroutine(uIControl.WriteText(text, yourTextBox, speechBubbleReversed, characterSpeechPos));//typewriter effect
                 return;
 
             }
             string speaker = GameVars.story.variablesState["currentSpeaker"].ToString();
             GameObject speechBubble = Instantiate(speechPrefab, GetCharacterPos(speaker), speechPrefab.transform.rotation, speechContainer.transform);
-            TextMeshProUGUI tag = speechBubble.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+            TextMeshProUGUI tag = speechBubble.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>();
             tag.text = speaker;
             tag.color = uIControl.SetNameColour(speaker);
-            TextMeshProUGUI textBox = speechBubble.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+            TextMeshProUGUI textBox = speechBubble.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
             
             StartCoroutine(uIControl.WriteText(text, textBox));//typewriter effect
             

@@ -86,6 +86,50 @@ public class UIController
         }
         GameVars.finishedTyping = true;
     }
+    public IEnumerator WriteText(string passage, TextMeshProUGUI storyText, GameObject speechBox, Vector3 pos)
+    {
+        storyText.text = passage;
+        int lineCount = 0;
+        storyText.maxVisibleCharacters = 0;
+        
+        
+        
+        //while (true)
+        //{
+        //    if (lineCount != 0)
+        //    {
+        //        Debug.Log(storyText.textInfo.lineCount);
+        //        speechBox.transform.position = new Vector3(pos.x, pos.y + (storyText.textInfo.lineCount / 10f), pos.z);
+        //        storyText.maxVisibleCharacters = 0;
+        //        break;
+        //    }
+
+        //}
+        GameVars.finishedTyping = false;
+        yield return new WaitForSeconds(0.01f);
+        lineCount = storyText.textInfo.lineCount;
+        if (lineCount>3) {
+            speechBox.transform.position = new Vector3(pos.x, pos.y + ((storyText.textInfo.lineCount) / 5f), pos.z);
+        }
+        
+        for (int i = 0; i < passage.Length; i++)
+        {
+            
+            if (Keyboard.current.spaceKey.wasPressedThisFrame)
+            {
+                storyText.maxVisibleCharacters = passage.Length;
+                break;
+            }
+            else
+            {
+                storyText.maxVisibleCharacters = passage.Substring(0, i).Length;
+                yield return new WaitForSeconds(GameVars.delay);
+            }
+
+        }
+        GameVars.finishedTyping = true;
+
+    }
     public Color32 SetNameColour(string name) {
         Color32 colour = new Color(0, 0, 0, 255);
         switch (name.ToLower()) {

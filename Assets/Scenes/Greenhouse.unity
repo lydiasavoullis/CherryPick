@@ -16488,8 +16488,8 @@ MonoBehaviour:
   saveSlot: {fileID: 0}
   endOfDayBtn: {fileID: 693167791}
   taskBoard: {fileID: 1328938254}
-  speechPrefab: {fileID: 3916531767341123147, guid: 059176adf60f29548836706606e37490, type: 3}
-  speechReversedPrefab: {fileID: 514873826264469367, guid: a1c80c68a01afba4faebb8c648773548, type: 3}
+  speechPrefab: {fileID: 6366175342768548170, guid: a61761b75e3d0fb40a88b8b541766858, type: 3}
+  speechReversedPrefab: {fileID: 3808042625420316343, guid: 1158c4d10ef76d748b8e633e2e193232, type: 3}
   speechContainer: {fileID: 1655523506}
   customerContainer: {fileID: 1297990292}
   storyText: {fileID: 0}
