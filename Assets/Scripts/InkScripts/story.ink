@@ -69,38 +69,39 @@ We can lose reputation from failed tasks so please be punctual
 Great, you're ready to start the day
 ->day_0
 ==day_0==
-// ~characters+=beatrice
-// //Uh hi, what can I help you with?
-// ~currentSpeaker = "Beatrice"
-// ¬
-// Hey 
-// Sorry to bother you
-// I'm here to collect whatever you have
-// ~task = "Beatrice,2,3,colour:red,height:tall"
-// ~currentSpeaker = "you"
-// Ok, thanks for putting in that order
-// ~currentSpeaker = "Alex"
-// Hi, what's your name?
-// ~currentSpeaker = "Beatrice"
-// I'm Beatrice, you?
-// ~currentSpeaker = "Alex"
-// Alex
-// ~task = "Charlie,1,3,colour:white,height:short"
-// ~characters+=charlie
-// ~currentSpeaker = "Charlie"
-// ¬
-// Boo
-// Hey
-// Over here
-// ~characters-=alex
-// ~characters-=beatrice
-// ~characters-=charlie
+ ~characters+=beatrice
+ ~currentSpeaker = "you"
+ ¬
+Uh hi, what can I help you with?
+~currentSpeaker = "Beatrice"
+Hey 
+Sorry to bother you
+I'm here to collect whatever you have
+~task = "Beatrice,2,3,colour:red,height:tall"
+~currentSpeaker = "you"
+Ok, thanks for putting in that order
+~currentSpeaker = "Alex"
+Hi, what's your name?
+~currentSpeaker = "Beatrice"
+I'm Beatrice, you?
+~currentSpeaker = "Alex"
+Alex
+~task = "Charlie,1,3,colour:white,height:short"
+~characters+=charlie
+~currentSpeaker = "Charlie"
+¬
+Boo
+Hey
+Over here
+~characters-=alex
+~characters-=beatrice
+~characters-=charlie
 ~currentSpeaker = "you"
 Ok
 they're gone
 great
 ~end_of_day = "true"
-I can close up the shop and go to bed now Maybe I'll work on a few orders before it gets dark I can close up the shop and go to bed now Maybe I'll work on a few orders before
+I can close up the shop and go to bed now Maybe I'll work on a few orders before it gets dark
 ¬
 -> END
 ==day_1==
