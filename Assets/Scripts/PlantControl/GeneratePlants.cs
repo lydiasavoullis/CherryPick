@@ -8,20 +8,23 @@ public static class GeneratePlants
     //always lowercase
     static string heightGene = "t";
     static string colourGene = "r";
-    static string[] genotypesRange = { "colour", "height"};
+    static string petalGene = "p";
+    static string[] genotypesRange = { "colour", "height", "petals"};
     public static Plant GenerateRandomNewPlant() {
         Plant plant = new Plant();
         plant.genotypes.Add("colour", NewGeno(colourGene));
         plant.genotypes.Add("height", NewGeno(heightGene));
-
+        plant.genotypes.Add("petals", NewGeno(petalGene));
         plant.phenotypes.Add(CheckColour(plant.genotypes["colour"]));
         plant.phenotypes.Add(CheckHeight(plant.genotypes["height"]));
+        plant.phenotypes.Add(CheckPetals(plant.genotypes["petals"]));
         return plant;
     }
     public static List<string> GetPlantPhenotype(Plant plant) {
         List<string> phenotypes = new List<string>();
         phenotypes.Add(CheckColour(plant.genotypes["colour"]));
         phenotypes.Add(CheckHeight(plant.genotypes["height"]));
+        phenotypes.Add(CheckPetals(plant.genotypes["petals"]));
         return phenotypes;
     }
     public static Plant GenerateHeterozygousPlant()
@@ -29,6 +32,7 @@ public static class GeneratePlants
         Plant plant = new Plant();
         plant.phenotypes.Add(CheckColour(plant.genotypes["colour"]));
         plant.phenotypes.Add(CheckHeight(plant.genotypes["height"]));
+        plant.phenotypes.Add(CheckPetals(plant.genotypes["petals"]));
         return plant;
     }
     public static void CombineGametes(Plant plant1, Plant plant2, Plant childPlant)
@@ -40,6 +44,7 @@ public static class GeneratePlants
 
         childPlant.phenotypes.Add(CheckColour(childPlant.genotypes["colour"]));
         childPlant.phenotypes.Add(CheckHeight(childPlant.genotypes["height"]));
+        childPlant.phenotypes.Add(CheckPetals(childPlant.genotypes["petals"]));
     }
     public static void CombineGametes(Plant plant1, Plant plant2, Seed childPlant)
     {
@@ -87,6 +92,18 @@ public static class GeneratePlants
         }
         else {
             return "tall";
+        }
+    }
+    public static string CheckPetals(string[] genotype)
+    {
+        string geno = string.Join("", genotype);
+        if (geno.Contains(petalGene))
+        {
+            return "four";
+        }
+        else
+        {
+            return "five";
         }
     }
     public static string CheckColour(string[] genotype) {

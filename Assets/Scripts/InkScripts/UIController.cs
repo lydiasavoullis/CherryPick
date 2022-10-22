@@ -113,6 +113,7 @@ public class UIController
             }
 
         }
+        GameVars.loadedSpeechPos = speechBox.transform.position;
         GameVars.finishedTyping = true;
 
     }
@@ -126,11 +127,13 @@ public class UIController
         {
             speechBox.transform.position = new Vector3(pos.x, pos.y + ((storyText.textInfo.lineCount) / 5f), pos.z);
         }
+        speechBox.transform.position = GameVars.loadedSpeechPos;
     }
     public IEnumerator WriteTextNoTyping(string passage, TextMeshProUGUI storyText)
     {
         storyText.text = passage;
         yield return new WaitForSeconds(0.01f);
+        
     }
     public Color32 SetNameColour(string name) {
         Color32 colour = new Color(0, 0, 0, 255);

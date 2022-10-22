@@ -177,6 +177,7 @@ public class DialogueController : MonoBehaviour
     public void ShowSpeech(string text) {
         GameObject speechBubble;
         string speaker;
+        
         if (GameVars.story.variablesState["currentSpeaker"].ToString()=="you")
         {
             Vector3 characterSpeechPos = new Vector3(customerContainer.transform.position.x, customerContainer.transform.position.y - 4f, customerContainer.transform.position.z);
@@ -190,7 +191,8 @@ public class DialogueController : MonoBehaviour
         }
         else {
             speaker = GameVars.story.variablesState["currentSpeaker"].ToString();
-            speechBubble = Instantiate(speechPrefab, GetCharacterPos(speaker), speechPrefab.transform.rotation, speechContainer.transform);
+            GameVars.loadedSpeechPos = GetCharacterPos(speaker);
+            speechBubble = Instantiate(speechPrefab, GameVars.loadedSpeechPos, speechPrefab.transform.rotation, speechContainer.transform);
             TextMeshProUGUI tag = speechBubble.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>();
             tag.text = speaker;
             tag.color = uIControl.SetNameColour(speaker);
@@ -214,7 +216,7 @@ public class DialogueController : MonoBehaviour
     public void LoadSpeech(string text) {
         GameObject speechBubble;
         string speaker;
-        if (GameVars.story.variablesState["currentSpeaker"].ToString() == "you")
+        if (GameVars.loadedCurrentSpeaker == "you")//GameVars.story.variablesState["currentSpeaker"].ToString()
         {
             Vector3 characterSpeechPos = new Vector3(customerContainer.transform.position.x, customerContainer.transform.position.y - 4f, customerContainer.transform.position.z);
             speechBubble = Instantiate(speechReversedPrefab, characterSpeechPos, speechReversedPrefab.transform.rotation, speechContainer.transform);
@@ -227,8 +229,9 @@ public class DialogueController : MonoBehaviour
         }
         else
         {
-            speaker = GameVars.story.variablesState["currentSpeaker"].ToString();
-            speechBubble = Instantiate(speechPrefab, GetCharacterPos(speaker), speechPrefab.transform.rotation, speechContainer.transform);
+            speaker = GameVars.loadedCurrentSpeaker;//GameVars.story.variablesState["currentSpeaker"].ToString();
+            //GameVars.loadedSpeechPos = GetCharacterPos(speaker);
+            speechBubble = Instantiate(speechPrefab, GameVars.loadedSpeechPos, speechPrefab.transform.rotation, speechContainer.transform);
             TextMeshProUGUI tag = speechBubble.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>();
             tag.text = speaker;
             tag.color = uIControl.SetNameColour(speaker);
@@ -259,7 +262,7 @@ public class DialogueController : MonoBehaviour
                 
                 break;
             case "currentSpeaker":
-                speechPosition = GetCharacterPos(GameVars.story.variablesState["currentSpeaker"].ToString());
+                GameVars.loadedCurrentSpeaker = GameVars.story.variablesState["currentSpeaker"].ToString();
                 //get current speaker pos
                 break;
             case "gift":

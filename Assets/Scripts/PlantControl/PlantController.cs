@@ -53,7 +53,9 @@ public class PlantController : MonoBehaviour, IDropHandler
     public void SetCurrentPhenotype() {  
         stem.sprite = GetPhenotypeSprite(GeneratePlants.CheckHeight(plant.genotypes["height"]));
         petals.color = SetColour(GeneratePlants.CheckColour(plant.genotypes["colour"]));
+        petals.sprite = GetPhenotypeSprite(GeneratePlants.CheckPetals(plant.genotypes["petals"]));
     }
+    
     public Color32 SetColour(string colour) {
         Color32 color;
         switch (colour)
@@ -146,8 +148,7 @@ public class PlantController : MonoBehaviour, IDropHandler
         
     }
     public void SetPlantInfo() {
-        WriteToTextObject("colour", plant.genotypes["colour"]);
-        WriteToTextObject("height", plant.genotypes["height"]);
+        WriteToTextObject(plant.genotypes);
     }
     
     public void DisplayPlantInfo() {
@@ -157,8 +158,11 @@ public class PlantController : MonoBehaviour, IDropHandler
     {
         GameManager.Instance.RemoveItemInfo();
     }
-    public void WriteToTextObject(string name, string[] geneticInfo) {
-        plant.description += $"{name} : {geneticInfo[0]} {geneticInfo[1]}\n";
+    public void WriteToTextObject(Dictionary<string, string[]> genotype) {
+        //plant.description += $"{name} : {geneticInfo[0]} {geneticInfo[1]}\n";
+        foreach (var item in genotype) {
+            plant.description += $"{item.Key} : {item.Value[0]} {item.Value[1]}\n";
+        }
     }
 
 

@@ -5,10 +5,12 @@ using UnityEngine;
 using System.IO;
 public static class GameVars
 {
+    public static Vector3 loadedSpeechPos = new Vector3(0,0,0);
     public static string loadedState = "";
     public static string loadedScene = "";
     public static List<string> loadedChars = new List<string>();
     public static List<string> loadedTextLog = new List<string>();
+    public static string loadedCurrentSpeaker = "";
     public static bool hasLoadedButtons = false;
     public static bool justLoaded = false;//is this a loaded save or new story
     public static bool dontAdvanceStory = false;//DONT advance the story if our scenes are transitioning!

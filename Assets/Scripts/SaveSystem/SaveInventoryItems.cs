@@ -138,16 +138,18 @@ public class SaveInventoryItems : MonoBehaviour
         //INK
         GameVars.story.state.LoadJson(data.saveState);
         GameManager.Instance.ChangeBackground();
+        GameVars.loadedCurrentSpeaker = data.currentSpeaker;
+        GameVars.loadedSpeechPos = new Vector3(data.speechPos.Item1, data.speechPos.Item2, data.speechPos.Item3);
         //Debug.Log(this.name +" "+ (GameVars.loadedTextLog.Count -1));
         GameVars.loadedTextLog = data.storyLog;
-        
-        if ((GameVars.loadedTextLog.Count - 1)>0) {
-            dialogueController.GetComponent<DialogueController>().LoadSpeech(GameVars.loadedTextLog[GameVars.loadedTextLog.Count - 1]);
-        }
         dialogueController.GetComponent<DialogueController>().LoadTextLog();
         GameVars.loadedChars = data.loadedChars;
         dialogueController.GetComponent<DialogueController>().LoadCharacters(data.loadedChars);
         GameVars.finishedTyping = true;
+        if ((GameVars.loadedTextLog.Count)>0) {
+            dialogueController.GetComponent<DialogueController>().LoadSpeech(GameVars.loadedTextLog[GameVars.loadedTextLog.Count - 1]);
+        }
+        
         //load taskboard
         LoadTasks(data);
         //Debug.Log("Load plants "+ data.inventoryPlants.Count());

@@ -203,6 +203,18 @@ MonoBehaviour:
     colour:
       serializedVersion: 2
       rgba: 4294967295
+  - category: petals
+    name: four
+    sprite: {fileID: 21300000, guid: c08f46f5c463c504da25f431d8a38043, type: 3}
+    colour:
+      serializedVersion: 2
+      rgba: 4294967295
+  - category: petals
+    name: five
+    sprite: {fileID: 21300000, guid: d481cba515843f5448c66034e9c6799b, type: 3}
+    colour:
+      serializedVersion: 2
+      rgba: 4294967295
   audioSourcePop: {fileID: 0}
 --- !u!114 &5163340992090571610
 MonoBehaviour:

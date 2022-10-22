@@ -10,7 +10,7 @@ VAR tutorialpt2 = "complete"
 VAR tutorialpt3 = "complete"
 VAR tutorialCounter = 2
 ~characters+=alex
-~currentSpeaker = "Alex"
+~currentSpeaker = ""
 VAR task = ""
 VAR end_of_day = "false"
 VAR gift = ""
@@ -69,33 +69,33 @@ We can lose reputation from failed tasks so please be punctual
 Great, you're ready to start the day
 ->day_0
 ==day_0==
- ~characters+=beatrice
- ~currentSpeaker = "you"
- ¬
-Uh hi, what can I help you with?
-~currentSpeaker = "Beatrice"
-Hey 
-Sorry to bother you
-I'm here to collect whatever you have
-~task = "Beatrice,2,3,colour:red,height:tall"
-~currentSpeaker = "you"
-Ok, thanks for putting in that order
-~currentSpeaker = "Alex"
-Hi, what's your name?
-~currentSpeaker = "Beatrice"
-I'm Beatrice, you?
-~currentSpeaker = "Alex"
-Alex
-~task = "Charlie,1,3,colour:white,height:short"
-~characters+=charlie
-~currentSpeaker = "Charlie"
-¬
-Boo
-Hey
-Over here
-~characters-=alex
-~characters-=beatrice
-~characters-=charlie
+//  ~characters+=beatrice
+//  ~currentSpeaker = "you"
+//  ¬
+// Uh hi, what can I help you with?
+// ~currentSpeaker = "Beatrice"
+// Hey 
+// Sorry to bother you
+// I'm here to collect whatever you have
+// ~task = "Beatrice,2,3,colour:red,height:tall"
+// ~currentSpeaker = "you"
+// Ok, thanks for putting in that order
+// ~currentSpeaker = "Alex"
+// Hi, what's your name?
+// ~currentSpeaker = "Beatrice"
+// I'm Beatrice, you?
+// ~currentSpeaker = "Alex"
+// Alex
+// ~task = "Charlie,1,3,colour:white,height:short"
+// ~characters+=charlie
+// ~currentSpeaker = "Charlie"
+// ¬
+// Boo
+// Hey
+// Over here
+// ~characters-=alex
+// ~characters-=beatrice
+// ~characters-=charlie
 ~currentSpeaker = "you"
 Ok
 they're gone
@@ -115,6 +115,36 @@ Oh look
 It's the end of the day
 ->END
 ==day_2==
+~end_of_day = "false"
+Wow
+It's another day
+time for some new work
+I guess
+~end_of_day = "true"
+Oh look
+It's the end of the day
+->END
+==day_3==
+~end_of_day = "false"
+Wow
+It's another day
+time for some new work
+I guess
+~end_of_day = "true"
+Oh look
+It's the end of the day
+->END
+==day_4==
+~end_of_day = "false"
+Wow
+It's another day
+time for some new work
+I guess
+~end_of_day = "true"
+Oh look
+It's the end of the day
+->END
+==day_5==
 ~end_of_day = "false"
 Wow
 It's another day

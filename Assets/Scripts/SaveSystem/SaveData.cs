@@ -10,6 +10,7 @@ public class SaveData
     public string saveState;
     public List<string> storyLog;
     public List<string> loadedChars;
+    public string currentSpeaker;
     public List<Tuple<string, Dictionary<string, object>, int>> inventoryPlants = new List<Tuple<string, Dictionary<string, object>, int>>(); //a list of key values, the key is the name of the item. The value dictionary of the item's genetic information
     //number of pots in greenhouse and if they contain plant /seed and their hydration level 
     public List<Tuple<string, Dictionary<string, object>, float>> potsInGreenhouse = new List<Tuple<string, Dictionary<string, object>, float>>();
@@ -19,6 +20,7 @@ public class SaveData
     public int currentDay = 0;
     public int funds = 0;
     public int reputation = 0;
+    public Tuple<float, float, float> speechPos = new Tuple<float, float, float>(0f,0f,0f);
     //public List<string> inventoryObjects; //list of objects by name
     //public List<string> storyLog;
     public SaveData(SaveInventoryItems saveItems)//InkController script
@@ -34,6 +36,8 @@ public class SaveData
         this.saveState = GameVars.story.state.ToJson();
         this.storyLog = GameVars.loadedTextLog;
         this.loadedChars = GameVars.loadedChars;
+        this.currentSpeaker = GameVars.story.variablesState["currentSpeaker"].ToString();
+        this.speechPos = new Tuple<float, float, float>(GameVars.loadedSpeechPos.x, GameVars.loadedSpeechPos.y, GameVars.loadedSpeechPos.z);
         //in another class loop through all items in inventory
         //if they are a plant save them to inventory plants
 
