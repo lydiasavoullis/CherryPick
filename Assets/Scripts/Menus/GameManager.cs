@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour
             newPlant.genotypes = plantGenotypes;
             newPlant.phenotypes = GeneratePlants.GetPlantPhenotype(newPlant);
             GameObject slot = Instantiate(newSlotPrefab, new Vector3(0, 0, 0), Quaternion.identity, inventory.transform);
-            slot.name = "itemSlot";
+            slot.name = "slot";
             GameObject plantGO = Instantiate(plantPrefab, new Vector3(0, 0, 0), Quaternion.identity, slot.transform.GetChild(0));
             plantGO.GetComponent<PlantController>().plant = newPlant;
             plantGO.name = "plant";

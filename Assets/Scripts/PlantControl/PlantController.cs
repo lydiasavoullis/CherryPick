@@ -50,10 +50,15 @@ public class PlantController : MonoBehaviour, IDropHandler
     }
 
 
-    public void SetCurrentPhenotype() {  
-        stem.sprite = GetPhenotypeSprite(GeneratePlants.CheckHeight(plant.genotypes["height"]));
-        petals.color = SetColour(GeneratePlants.CheckColour(plant.genotypes["colour"]));
-        petals.sprite = GetPhenotypeSprite(GeneratePlants.CheckPetals(plant.genotypes["petals"]));
+    public void SetCurrentPhenotype() {
+        try {
+            stem.sprite = GetPhenotypeSprite(GeneratePlants.CheckHeight(plant.genotypes["height"]));
+            petals.color = SetColour(GeneratePlants.CheckColour(plant.genotypes["colour"]));
+            petals.sprite = GetPhenotypeSprite(GeneratePlants.CheckPetals(plant.genotypes["petals"]));
+        }
+        catch (Exception e) { 
+        }
+        
     }
     
     public Color32 SetColour(string colour) {
@@ -97,8 +102,12 @@ public class PlantController : MonoBehaviour, IDropHandler
             //Debug.Log("Right click");
             if (parent1 != null && parent1 != gameObject)
             {
+                if (parent1.GetComponent<PlantController>().plant.maxGenotypes == this.plant.maxGenotypes)
+                {
+                    GenerateChildSeed(parent1, gameObject);
+                }
                 //GenerateChildPlant(parent1, gameObject);
-                GenerateChildSeed(parent1, gameObject);
+                
             }
         }
     }
@@ -160,6 +169,7 @@ public class PlantController : MonoBehaviour, IDropHandler
     }
     public void WriteToTextObject(Dictionary<string, string[]> genotype) {
         //plant.description += $"{name} : {geneticInfo[0]} {geneticInfo[1]}\n";
+        plant.description += $"Genotypes : {genotype.Count}\n\n";
         foreach (var item in genotype) {
             plant.description += $"{item.Key} : {item.Value[0]} {item.Value[1]}\n";
         }

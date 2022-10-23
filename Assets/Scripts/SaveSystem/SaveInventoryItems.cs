@@ -190,6 +190,7 @@ public class SaveInventoryItems : MonoBehaviour
 
         }
     }
+
     public void LoadGreenhouse(SaveData data) {
         int counter = 0;
         for (int i = 0; i < data.potsInGreenhouse.Count; i++)//greenhouse.transform.childCount
@@ -255,6 +256,7 @@ public class SaveInventoryItems : MonoBehaviour
         seed.genotypes = (Dictionary<string, string[]>)geneticInfo["genotypes"];
         seed.timeGrowing = (int)geneticInfo["timeGrowing"];
         seed.growthDuration = (int)geneticInfo["growthDuration"];
+        seed.maxGenotypes = seed.genotypes.Count;
         return seed;
     }
     public Plant LoadPlantFromList(Dictionary<string, object> geneticInfo)
@@ -266,6 +268,7 @@ public class SaveInventoryItems : MonoBehaviour
         //plant.genotypes.Add("colour", plant.height);
         //plant.genotypes.Add("height", plant.colour);
         plant.genotypes = (Dictionary<string, string[]>)geneticInfo["genotypes"];
+        plant.maxGenotypes = plant.genotypes.Count;
         return plant;
     }
     public Dictionary<string, object> AddItemInfoToList(Seed seed)

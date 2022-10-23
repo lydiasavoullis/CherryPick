@@ -9,4 +9,5 @@ public class Seed
     public Dictionary<string, string[]> genotypes = new Dictionary<string, string[]>();
     public int growthDuration = 1;
     public int timeGrowing = 0;
+    public int maxGenotypes;
 }

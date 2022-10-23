@@ -35,7 +35,7 @@ public class SlotQuantity : MonoBehaviour
             return;
         }
         else {
-            if (gameObject.name == "itemSlot")
+            if (gameObject.name == "slot")
             {
                 Destroy(gameObject);
             }

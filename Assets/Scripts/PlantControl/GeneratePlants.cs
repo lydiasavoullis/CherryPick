@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,22 +10,41 @@ public static class GeneratePlants
     static string heightGene = "t";
     static string colourGene = "r";
     static string petalGene = "p";
-    static string[] genotypesRange = { "colour", "height", "petals"};
+    static string[] genotypesRange = { "colour", "height", "petals" };
+    static string[] geneRange = { colourGene, heightGene, petalGene };
+    //static Dictionary<string, string> genotypesAndGenes = new Dictionary<string, string>() { {"colour", colourGene }, { "height", heightGene }, { "petals", petalGene} };
     public static Plant GenerateRandomNewPlant() {
         Plant plant = new Plant();
-        plant.genotypes.Add("colour", NewGeno(colourGene));
-        plant.genotypes.Add("height", NewGeno(heightGene));
-        plant.genotypes.Add("petals", NewGeno(petalGene));
-        plant.phenotypes.Add(CheckColour(plant.genotypes["colour"]));
-        plant.phenotypes.Add(CheckHeight(plant.genotypes["height"]));
-        plant.phenotypes.Add(CheckPetals(plant.genotypes["petals"]));
+        plant.maxGenotypes = MaxGenotypes();
+        for (int i = 0;i< plant.maxGenotypes; i++) {
+            plant.genotypes.Add(genotypesRange[i], NewGeno(geneRange[i]));
+        }
+        //plant.genotypes.Add("colour", NewGeno(colourGene));
+        //plant.genotypes.Add("height", NewGeno(heightGene));
+        //plant.genotypes.Add("petals", NewGeno(petalGene));
+        try {
+            plant.phenotypes.Add(CheckColour(plant.genotypes["colour"]));
+            plant.phenotypes.Add(CheckHeight(plant.genotypes["height"]));
+            plant.phenotypes.Add(CheckPetals(plant.genotypes["petals"]));
+        }
+        catch (Exception e) { 
+        }
+        
         return plant;
+    }
+    public static int MaxGenotypes() {
+        return UnityEngine.Random.Range(2, 4);
     }
     public static List<string> GetPlantPhenotype(Plant plant) {
         List<string> phenotypes = new List<string>();
-        phenotypes.Add(CheckColour(plant.genotypes["colour"]));
-        phenotypes.Add(CheckHeight(plant.genotypes["height"]));
-        phenotypes.Add(CheckPetals(plant.genotypes["petals"]));
+        try {
+            phenotypes.Add(CheckColour(plant.genotypes["colour"]));
+            phenotypes.Add(CheckHeight(plant.genotypes["height"]));
+            phenotypes.Add(CheckPetals(plant.genotypes["petals"]));
+        }
+        catch (Exception e) { 
+        }
+        
         return phenotypes;
     }
     public static Plant GenerateHeterozygousPlant()
@@ -48,12 +68,13 @@ public static class GeneratePlants
     }
     public static void CombineGametes(Plant plant1, Plant plant2, Seed childPlant)
     {
-        foreach (string s in genotypesRange) {
+        foreach (string s in plant1.genotypes.Keys) {
             childPlant.genotypes.Add(s, CombineGeno(plant1.genotypes[s], plant2.genotypes[s]));
         }
+        childPlant.maxGenotypes = childPlant.genotypes.Count;
     }
     public static string[] CombineGeno(string[] gen1, string[] gen2) {
-        string[] childType = { gen1[Random.Range(0, 2)], gen2[Random.Range(0, 2)] };
+        string[] childType = { gen1[UnityEngine.Random.Range(0, 2)], gen2[UnityEngine.Random.Range(0, 2)] };
         return childType;
     }
     public static string[] NewHetGeno(string type)
@@ -62,7 +83,7 @@ public static class GeneratePlants
     }
 
     public static string[] NewGeno(string type) {
-        int scenario = Random.Range(0, 4);
+        int scenario = UnityEngine.Random.Range(0, 4);
         string[] newGenotype;
         switch (scenario) {
             case 0:
@@ -125,7 +146,10 @@ public static class GeneratePlants
     }
     public static bool CheckIfTwoPlantsAreTheSame(Plant plant1, Plant plant2)
     {
-        foreach (string s in genotypesRange) {
+        if (plant1.maxGenotypes!=plant2.maxGenotypes) {
+            return false;
+        }
+        foreach (string s in plant1.genotypes.Keys) {
             if (!Enumerable.SequenceEqual(plant1.genotypes[s].OrderBy(e => e), plant2.genotypes[s].OrderBy(e => e)))
             {
                 return false;
@@ -135,7 +159,11 @@ public static class GeneratePlants
     }
     public static bool CheckIfTwoPlantsLookTheSame(Plant plant1, Plant plant2)
     {
-        foreach (string s in genotypesRange)
+        if (plant1.maxGenotypes != plant2.maxGenotypes)
+        {
+            return false;
+        }
+        foreach (string s in plant1.genotypes.Keys)
         {
             if (!Enumerable.SequenceEqual(plant1.phenotypes.OrderBy(e => e), plant2.phenotypes.OrderBy(e => e)))
             {

@@ -199,7 +199,6 @@ public class DialogueController : MonoBehaviour
             TextMeshProUGUI textBox = speechBubble.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
             StartCoroutine(uIControl.WriteText(text, textBox));//typewriter effect
         }
-        
     }
     public void LoadCharacters(List<string> characters) {
         foreach (string s in characters)
@@ -225,7 +224,6 @@ public class DialogueController : MonoBehaviour
             //yourName.color = uIControl.SetNameColour(you);
             TextMeshProUGUI yourTextBox = speechBubble.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>();
             StartCoroutine(uIControl.WriteTextNoTyping(text, yourTextBox, speechBubble, characterSpeechPos));
-
         }
         else
         {
@@ -259,7 +257,6 @@ public class DialogueController : MonoBehaviour
                 else{
                     endOfDayBtn.SetActive(false);
                 }
-                
                 break;
             case "currentSpeaker":
                 GameVars.loadedCurrentSpeaker = GameVars.story.variablesState["currentSpeaker"].ToString();
@@ -277,9 +274,7 @@ public class DialogueController : MonoBehaviour
                     string taskInfo = GameVars.story.variablesState["task"].ToString();
                     GameVars.story.variablesState["task"] = "";
                     taskBoard.GetComponent<CreateTask>().GenerateTask(taskInfo);
-
                 }
-                
                 break;
             //case "music":
             //    audioControl.PlayMusic(newValue.ToString(), audioManager);

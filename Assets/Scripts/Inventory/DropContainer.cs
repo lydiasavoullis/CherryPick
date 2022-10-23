@@ -64,7 +64,7 @@ public class DropContainer : MonoBehaviour, IDropHandler
 
     public void SetItemAsChildOfNewSlot(GameObject newItem) {
         GameObject newSlotPrefab = Instantiate(itemSlotPrefab, new Vector3(0, 0, 0), Quaternion.identity, panel.transform);
-        newSlotPrefab.name = "itemSlot";
+        newSlotPrefab.name = "slot";
         newItem.transform.SetParent(newSlotPrefab.transform.GetChild(0));
         newItem.GetComponent<RectTransform>().sizeDelta = new Vector2(100, 100);
         newItem.transform.position = Vector3.zero;
