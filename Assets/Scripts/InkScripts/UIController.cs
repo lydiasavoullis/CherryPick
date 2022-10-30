@@ -135,8 +135,8 @@ public class UIController
         yield return new WaitForSeconds(0.01f);
         
     }
-    public Color32 SetNameColour(string name) {
-        Color32 colour = new Color(0, 0, 0, 255);
+    public Color SetNameColour(string name) {
+        Color colour = new Color(0, 0, 0, 255);
         switch (name.ToLower()) {
             case "alex":
                 colour = new Color32(150, 100, 255, 255);

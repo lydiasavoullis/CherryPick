@@ -41,9 +41,13 @@ public class DialogueController : MonoBehaviour
     [SerializeField]
     GameObject quitDialogue;
     [SerializeField]
-    GameObject textLogBox;
+    TextMeshProUGUI logTextBox;
     [SerializeField]
-    GameObject textLogList;
+    Scrollbar scrollBar;
+    //[SerializeField]
+    //GameObject textLogBox;
+    //[SerializeField]
+    //GameObject textLogList;
     [SerializeField]
     GameObject backgroundDialogueBox;
     [SerializeField]
@@ -107,6 +111,7 @@ public class DialogueController : MonoBehaviour
 
     private void Update()
     {
+        //scrollBar.value = 0;
         //if (Keyboard.current.fKey.wasPressedThisFrame)
         //{
 
@@ -166,10 +171,22 @@ public class DialogueController : MonoBehaviour
             string text = GameVars.story.Continue();//get text from ink
             if (text.Contains("¬"))
             {
+                //scrollBar.value = 0;
                 return;
             }
             ShowSpeech(text);
-            textLogControl.AddToTextLog(text, textLogBox, textLogList);//log all text
+            //textLogControl.AddToTextLog(text, textLogBox, textLogList);//log all text
+            string speaker = GameVars.story.variablesState["currentSpeaker"].ToString();
+            if (speaker == "you")
+            {
+                StartCoroutine(textLogControl.AddToTextLogBox($"\n<color=#14A7A8>Polly:</color> {text.TrimStart('\n')}", logTextBox, scrollBar));
+            }
+            else {
+                string hexCol = ColorUtility.ToHtmlStringRGB(uIControl.SetNameColour(speaker));
+                StartCoroutine(textLogControl.AddToTextLogBox($"\n<color=#{hexCol}>{speaker}:</color> {text.TrimStart('\n')}", logTextBox, scrollBar));
+                
+            }
+            
         }
 
         GameVars.story.variablesState.variableChangedEvent -= ObserveAnyVar;
@@ -210,7 +227,9 @@ public class DialogueController : MonoBehaviour
         
     }
     public void LoadTextLog() {
-        textLogControl.LoadTextLogContent(textLogList, textLogBox);//load text log
+        //textLogControl.LoadTextLogContent(textLogList, textLogBox);//load text log
+        textLogControl.LoadTextLogText(logTextBox);
+        
     }
     public void LoadSpeech(string text) {
         GameObject speechBubble;
@@ -444,7 +463,7 @@ public class DialogueController : MonoBehaviour
         uIControl.SetNameTag(GameVars.story.variablesState["currentSpeaker"].ToString(), nameTag);
         //Dialogue control
         uIControl.GetLastLineOfDialogue(storyText);
-        textLogControl.LoadTextLogContent(textLogList, textLogBox);//load text log
+        //textLogControl.LoadTextLogContent(textLogList, textLogBox);//load text log
         //sound control
         //audioControl.PlayMusic(GameVars.story.variablesState["music"].ToString(), audioManager);
         //audioControl.PlaySound(GameVars.story.variablesState["sfx"].ToString(), audioManager);

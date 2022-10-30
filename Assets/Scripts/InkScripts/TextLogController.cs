@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TextLogController 
 {
@@ -12,6 +13,15 @@ public class TextLogController
     {//GameObject textLogList, GameObject textLogBox
         //this.textLogBox = textLogBox;
         //this.textLogList = textLogList;
+    }
+    public IEnumerator AddToTextLogBox(string text, TextMeshProUGUI textLogTextBox, Scrollbar scrollbar)
+    {
+        bool addedTxt = false;
+        GameVars.loadedTextLog.Add(text);//add current string to save list
+        textLogTextBox.text += $"{text}";
+        addedTxt = true;
+        yield return new WaitUntil(() => addedTxt);
+        scrollbar.value = 0;
     }
     public void AddToTextLog(string text, GameObject textLogBox, GameObject textLogList)
     {
@@ -38,6 +48,15 @@ public class TextLogController
         {
 
             AddToTextLogOnLoad(s, textLogList, textLogBox);
+        }
+    }
+    public void LoadTextLogText(TextMeshProUGUI textLog)
+    {
+        textLog.text = "";
+        foreach (string s in GameVars.loadedTextLog)
+        {
+
+            textLog.text += s;
         }
     }
 }

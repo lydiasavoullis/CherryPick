@@ -146,8 +146,12 @@ public class SaveInventoryItems : MonoBehaviour
         GameVars.loadedChars = data.loadedChars;
         dialogueController.GetComponent<DialogueController>().LoadCharacters(data.loadedChars);
         GameVars.finishedTyping = true;
+        //load last line and remove colour label
         if ((GameVars.loadedTextLog.Count)>0) {
-            dialogueController.GetComponent<DialogueController>().LoadSpeech(GameVars.loadedTextLog[GameVars.loadedTextLog.Count - 1]);
+            // GameVars.loadedTextLog.Last();
+            string[] stringSeparators = new string[] { "</color> " };
+            string[] lastLine = GameVars.loadedTextLog.Last().Split(stringSeparators, StringSplitOptions.None);//[GameVars.loadedTextLog.Count - 1]
+            dialogueController.GetComponent<DialogueController>().LoadSpeech(lastLine[1]);
         }
         
         //load taskboard
