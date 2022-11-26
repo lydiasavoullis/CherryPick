@@ -7,8 +7,10 @@ public class TaskController : MonoBehaviour
 {
     
     public Task task;// = new Task();
-    [SerializeField]
-    TextMeshProUGUI reputationText;
+    //[SerializeField]
+    //TextMeshProUGUI reputationText;
+    public List<string> requiredPhenotypes;
+    
     void Awake()
     {
         if (task==null) {

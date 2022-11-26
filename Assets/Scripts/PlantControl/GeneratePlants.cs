@@ -32,6 +32,7 @@ public static class GeneratePlants
         
         return plant;
     }
+    //change number of genotypes available
     public static int MaxGenotypes() {
         return UnityEngine.Random.Range(2, 4);
     }
@@ -143,6 +144,25 @@ public static class GeneratePlants
         else {
             return "red";
         } 
+    }
+    public static bool CheckIfPlantHasPhenotype(Plant plant, string phenotype)
+    {
+        if (plant.phenotypes.Contains(phenotype))
+        {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    //dropped plant must contain all characteristics of desired plant, but dropped plant may have some that desired plant does not
+    public static bool CheckIfDroppedPlantContainsAllDesiredPhenotypes(List<string> phenotypes, Plant droppedPlant) {
+        foreach (string s in phenotypes) {
+            if (!droppedPlant.phenotypes.Contains(s)) {
+                return false;
+            }
+        }
+        return true;
     }
     public static bool CheckIfTwoPlantsAreTheSame(Plant plant1, Plant plant2)
     {

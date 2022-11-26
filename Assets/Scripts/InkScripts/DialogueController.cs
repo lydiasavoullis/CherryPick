@@ -80,7 +80,7 @@ public class DialogueController : MonoBehaviour
     #region Ink libraries
     public TextAsset inkJSON;
     public Vector3 speechPosition;
-
+    string yourname = "You";
     //public InkFile storyVariables;
 
     #endregion
@@ -179,7 +179,7 @@ public class DialogueController : MonoBehaviour
             string speaker = GameVars.story.variablesState["currentSpeaker"].ToString();
             if (speaker == "you")
             {
-                StartCoroutine(textLogControl.AddToTextLogBox($"\n<color=#14A7A8>Polly:</color> {text.TrimStart('\n')}", logTextBox, scrollBar));
+                StartCoroutine(textLogControl.AddToTextLogBox($"\n<color=#14A7A8>You:</color> {text.TrimStart('\n')}", logTextBox, scrollBar));
             }
             else {
                 string hexCol = ColorUtility.ToHtmlStringRGB(uIControl.SetNameColour(speaker));
@@ -200,7 +200,7 @@ public class DialogueController : MonoBehaviour
             Vector3 characterSpeechPos = new Vector3(customerContainer.transform.position.x, customerContainer.transform.position.y - 4f, customerContainer.transform.position.z);
             speechBubble = Instantiate(speechReversedPrefab, characterSpeechPos, speechReversedPrefab.transform.rotation, speechContainer.transform);
             TextMeshProUGUI yourName = speechBubble.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
-            yourName.text = "Polly";
+            yourName.text = yourname;
             //yourName.color = uIControl.SetNameColour(you);
             TextMeshProUGUI yourTextBox = speechBubble.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>();
             StartCoroutine(uIControl.WriteText(text, yourTextBox, speechBubble, characterSpeechPos));//typewriter effect
@@ -239,7 +239,7 @@ public class DialogueController : MonoBehaviour
             Vector3 characterSpeechPos = new Vector3(customerContainer.transform.position.x, customerContainer.transform.position.y - 4f, customerContainer.transform.position.z);
             speechBubble = Instantiate(speechReversedPrefab, characterSpeechPos, speechReversedPrefab.transform.rotation, speechContainer.transform);
             TextMeshProUGUI yourName = speechBubble.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
-            yourName.text = "Polly";
+            yourName.text = "You";
             //yourName.color = uIControl.SetNameColour(you);
             TextMeshProUGUI yourTextBox = speechBubble.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>();
             StartCoroutine(uIControl.WriteTextNoTyping(text, yourTextBox, speechBubble, characterSpeechPos));

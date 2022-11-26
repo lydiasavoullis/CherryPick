@@ -169,15 +169,16 @@ public class GameManager : MonoBehaviour
         {
 
 
-            if (slot.transform.childCount > 0)
+            if (slot.transform.childCount == quantity)
             {
+                Transform plantSlot = slot.transform.GetChild(0);
                 List<string> desiredPheno = phenotypes;
-                List<string> droppedPlantPheno = slot.transform.GetChild(0).gameObject.GetComponent<PlantController>().plant.phenotypes;
-                //Debug.Log(droppedPlantPheno[0] + " " + desiredPheno[0] + " " + droppedPlantPheno[1] + " " + desiredPheno[1] + " ");
-                //Debug.Log(droppedPlantPheno.Except(desiredPheno).ToList().Count == 0);
-
-                if ((droppedPlantPheno.Except(desiredPheno).ToList().Count == 0) && slot.transform.childCount == quantity)
-                {
+                //List<string> droppedPlantPheno = plantSlot.gameObject.GetComponent<PlantController>().plant.phenotypes;
+                for (int j = 0; j> plantSlot.childCount; j++) {
+                    if (!GeneratePlants.CheckIfDroppedPlantContainsAllDesiredPhenotypes(desiredPheno, plantSlot.gameObject.GetComponent<PlantController>().plant)) {
+                        return;
+                    }
+                }
                     int moneyCounter = 0;
                     int repCounter = 0;
                     for (int i = 0; i < slot.transform.childCount; i++)
@@ -199,9 +200,6 @@ public class GameManager : MonoBehaviour
                         GameVars.story.ChoosePathString("tutorial_pt4");
                     }
                     Destroy(newTaskPrefab);
-                }
-                
-
             }
         });
         Task task = newTaskPrefab.GetComponent<TaskController>().task;

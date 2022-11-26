@@ -1,5 +1,5 @@
 LIST characters=alex,beatrice,charlie
-VAR currentSpeaker = "Alex"
+VAR currentSpeaker = ""
 
 LIST Alex = (alex_normal)
 LIST Beatrice = (beatrice_normal)
@@ -9,19 +9,19 @@ VAR tutorialpt1 = "complete"
 VAR tutorialpt2 = "complete"
 VAR tutorialpt3 = "complete"
 VAR tutorialCounter = 2
-~characters+=alex
+// ~characters+=alex
 ~currentSpeaker = ""
 VAR task = ""
 VAR end_of_day = "false"
 VAR gift = ""
-//->tutorial_pt1
+// ->tutorial_pt1
 ->day_0
 ==tutorial_pt1==
 ~tutorialpt1 = "incomplete"
 ~tutorialpt2 = "incomplete"
 ~tutorialpt3 = "incomplete"
 ~tutorialCounter = 0
-
+~currentSpeaker = "Alex"
 ¬
 Hi
 You must be the new recruit
@@ -67,8 +67,13 @@ And you must place the correct quantity of flowers
 Also tasks will have a deadline, they must be completed in a certain number of days
 We can lose reputation from failed tasks so please be punctual
 Great, you're ready to start the day
+Ok byee
+~characters-=alex
 ->day_0
+
+
 ==day_0==
+
  ~characters+=beatrice
  ~currentSpeaker = "you"
  ¬
@@ -76,41 +81,34 @@ Uh hi, what can I help you with?
 ~currentSpeaker = "Beatrice"
 Hey 
 Sorry to bother you
-I'm here to collect whatever you have
+I would like two tall plants with red flowers
 ~task = "Beatrice,2,3,colour:red,height:tall"
 ~currentSpeaker = "you"
 Ok, thanks for putting in that order
-~currentSpeaker = "Alex"
-Hi, what's your name?
-~currentSpeaker = "Beatrice"
-I'm Beatrice, you?
-~currentSpeaker = "Alex"
-Alex
-~task = "Charlie,1,3,colour:white,height:short"
-~characters+=charlie
-~currentSpeaker = "Charlie"
-¬
-Boo
-Hey
-Over here
-~characters-=alex
 ~characters-=beatrice
-~characters-=charlie
 ~currentSpeaker = "you"
 Ok
 they're gone
 great
 ~end_of_day = "true"
 I can close up the shop and go to bed now Maybe I'll work on a few orders before it gets dark
-¬
 -> END
 ==day_1==
 ~end_of_day = "false"
+~currentSpeaker = "you"
 Wow
 It's a new day
 time for some new work
-I guess
+~currentSpeaker = "Charlie"
+~characters+=charlie
+¬
+Hey
+Over here
+I want a short white flower please
+~task = "Charlie,1,3,colour:white,height:short"
+~characters-=charlie
 ~end_of_day = "true"
+~currentSpeaker = "you"
 Oh look
 It's the end of the day
 ->END
@@ -119,7 +117,16 @@ It's the end of the day
 Wow
 It's another day
 time for some new work
-I guess
+~currentSpeaker = "Beatrice"
+ ~characters+=beatrice
+¬
+Hey 
+Sorry to bother you
+I would like a tall plant with pink flowers
+~task = "Beatrice,1,3,colour:pink,height:tall"
+~currentSpeaker = "you"
+Ok, thanks for putting in that order
+~characters-=beatrice
 ~end_of_day = "true"
 Oh look
 It's the end of the day
@@ -129,8 +136,16 @@ It's the end of the day
 Wow
 It's another day
 time for some new work
-I guess
+~currentSpeaker = "Charlie"
+~characters+=charlie
+¬
+Hey
+Over here
+I want a short pink flower please
+~task = "Charlie,1,2,colour:pink,height:short"
+~characters-=charlie
 ~end_of_day = "true"
+~currentSpeaker = "you"
 Oh look
 It's the end of the day
 ->END
@@ -139,7 +154,15 @@ It's the end of the day
 Wow
 It's another day
 time for some new work
-I guess
+ ~characters+=beatrice
+¬
+Hey 
+Sorry to bother you
+I would like a tall plant with pink flowers
+~task = "Beatrice,1,3,colour:pink,height:tall"
+~currentSpeaker = "you"
+Ok, thanks for putting in that order
+~characters-=beatrice
 ~end_of_day = "true"
 Oh look
 It's the end of the day
@@ -149,8 +172,16 @@ It's the end of the day
 Wow
 It's another day
 time for some new work
-I guess
+~currentSpeaker = "Charlie"
+~characters+=charlie
+¬
+Hey
+Over here
+I want a short pink flower please
+~task = "Charlie,1,2,colour:pink,height:short"
+~characters-=charlie
 ~end_of_day = "true"
+~currentSpeaker = "you"
 Oh look
 It's the end of the day
 ->END

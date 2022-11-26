@@ -14,7 +14,8 @@ public class SaveData
     public List<Tuple<string, Dictionary<string, object>, int>> inventoryPlants = new List<Tuple<string, Dictionary<string, object>, int>>(); //a list of key values, the key is the name of the item. The value dictionary of the item's genetic information
     //number of pots in greenhouse and if they contain plant /seed and their hydration level 
     public List<Tuple<string, Dictionary<string, object>, float>> potsInGreenhouse = new List<Tuple<string, Dictionary<string, object>, float>>();
-
+    //plants in taskboard
+    public List<Tuple<string, Dictionary<string, object>, int>> taskBoardPlants = new List<Tuple<string, Dictionary<string, object>, int>>();
     //task list
     public List<Tuple<int, int, string, string, List<string>>> taskBoardList = new List<Tuple<int, int, string, string, List<string>>>();
     public int currentDay = 0;
@@ -33,6 +34,7 @@ public class SaveData
         //this.plantPots = saveItems.plantPots;
         this.potsInGreenhouse = saveItems.potsInGreenhouse;
         this.taskBoardList = saveItems.taskBoardList;
+        this.taskBoardPlants = saveItems.taskBoardPlants;
         this.saveState = GameVars.story.state.ToJson();
         this.storyLog = GameVars.loadedTextLog;
         this.loadedChars = GameVars.loadedChars;

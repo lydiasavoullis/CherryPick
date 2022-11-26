@@ -40,7 +40,13 @@ public class PlantController : MonoBehaviour, IDropHandler
         SetCurrentPhenotype();
     }
     public void OnDrop(PointerEventData eventData) {
-        if (DragHandler.itemBeingDragged.name.ToLower().Contains("plant") && transform.parent.tag == "sellSlot" && GeneratePlants.CheckIfTwoPlantsLookTheSame(this.plant, DragHandler.itemBeingDragged.GetComponent<PlantController>().plant))
+        //GeneratePlants.CheckIfTwoPlantsLookTheSame(this.plant, DragHandler.itemBeingDragged.GetComponent<PlantController>().plant)
+        List<string> phenotypes = new List<string>();
+        if (transform.parent.tag == "sellSlot") {
+            //get object where Task script is attached
+            phenotypes = this.transform.parent.parent.parent.GetComponent<TaskController>().task.phenotypes;
+        }
+        if (DragHandler.itemBeingDragged.name.ToLower().Contains("plant") && transform.parent.tag == "sellSlot" && GeneratePlants.CheckIfDroppedPlantContainsAllDesiredPhenotypes(phenotypes, DragHandler.itemBeingDragged.GetComponent<PlantController>().plant))
         {
 
             DragHandler.itemBeingDragged.transform.SetParent(transform.parent);

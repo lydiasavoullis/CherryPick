@@ -10,6 +10,8 @@ using TMPro;
 public class SaveInventoryItems : MonoBehaviour
 {
     [SerializeField]
+    GameObject endOfDayBtn;
+    [SerializeField]
     GameObject inventory;
     [SerializeField]
     GameObject greenhouse;
@@ -46,6 +48,7 @@ public class SaveInventoryItems : MonoBehaviour
     //public List<Tuple<string, Dictionary<string, object>>> greenhousePlants = new List<Tuple<string, Dictionary<string, object>>>();
     //int quantity, int orderDeadline, string customerName, string phenotypeDescription, List<string> phenotypes
     public List<Tuple<int, int, string, string, List<string>>> taskBoardList = new List<Tuple<int, int, string, string, List<string>>>();
+    public List<Tuple<string, Dictionary<string, object>, int>> taskBoardPlants = new List<Tuple<string, Dictionary<string, object>, int>>();//int here denotes task it belongs to
     //public List<float> plantPots = new List<float>();
     public List<Tuple<string, Dictionary<string, object>, float>> potsInGreenhouse = new List<Tuple<string, Dictionary<string, object>, float>>();
     public int day = 0;
@@ -70,6 +73,7 @@ public class SaveInventoryItems : MonoBehaviour
         inventoryPlants.Clear();
         potsInGreenhouse.Clear();
         taskBoardList.Clear();
+        taskBoardPlants.Clear();
     }
     public void SaveInventoryContents() {
         int counter = 0;
@@ -138,6 +142,13 @@ public class SaveInventoryItems : MonoBehaviour
         //INK
         GameVars.story.state.LoadJson(data.saveState);
         GameManager.Instance.ChangeBackground();
+        if (GameVars.story.variablesState["end_of_day"].ToString() == "true")
+        {
+            endOfDayBtn.SetActive(true);
+        }
+        else {
+            endOfDayBtn.SetActive(false);
+        }
         GameVars.loadedCurrentSpeaker = data.currentSpeaker;
         GameVars.loadedSpeechPos = new Vector3(data.speechPos.Item1, data.speechPos.Item2, data.speechPos.Item3);
         //Debug.Log(this.name +" "+ (GameVars.loadedTextLog.Count -1));
@@ -233,7 +244,9 @@ public class SaveInventoryItems : MonoBehaviour
         {
             taskBoardList.Add(GameManager.Instance.GetTaskInfo(taskBoard.transform.GetChild(i).gameObject));
         }
+        SavePlantTasks();
     }
+   
     public void LoadTasks(SaveData data) {
         foreach (Tuple<int, int, string, string, List<string>> taskInfo in data.taskBoardList) {
             //GameObject taskGO = Instantiate(taskPrefab, new Vector3(0, 0, 0), Quaternion.identity, taskBoard.transform);
@@ -241,6 +254,38 @@ public class SaveInventoryItems : MonoBehaviour
             //taskGO.name = "task";
             GameManager.Instance.SetTaskInfo(taskInfo.Item1, taskInfo.Item2, taskInfo.Item3, taskInfo.Item4, taskInfo.Item5);
             //taskBoardPrefab
+        }
+        LoadPlantTasks(data);
+    }
+    public void SavePlantTasks()
+    {
+        for (int i = 0; i < taskBoard.transform.childCount; i++)
+        {
+            
+            // taskBoardList.Add(GameManager.Instance.GetTaskInfo(taskBoard.transform.GetChild(i).gameObject));
+            Transform slot = taskBoard.transform.GetChild(i).GetChild(1).GetChild(0);
+            for (int j = 0; j < slot.childCount; j++)
+            {
+                taskBoardPlants.Add(new Tuple<string, Dictionary<string, object>, int>("plant", AddItemInfoToList(slot.GetChild(j).gameObject.GetComponent<PlantController>().plant), i));
+            }
+            
+
+        }
+    }
+    public void LoadPlantTasks(SaveData data)
+    {
+        var plantList = data.taskBoardPlants;
+        for (int i = 0; i < plantList.Count; i++)
+        {
+            Transform slot = taskBoard.transform.GetChild(plantList[i].Item3).GetChild(1).GetChild(0);//load plant to task at certain index
+            GameObject plantGO = Instantiate(plantPrefab, new Vector3(0, 0, 0), Quaternion.identity, slot);
+            plantGO.GetComponent<PlantController>().plant = LoadPlantFromList(plantList[i].Item2);
+            plantGO.name = "plant";
+            plantGO.transform.localPosition = Vector3.zero;
+            if (slot.childCount>1) {
+                taskBoard.transform.GetChild(plantList[i].Item3).GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = slot.childCount.ToString();
+            }
+            
         }
     }
     //delete all children of a game object container
@@ -272,6 +317,7 @@ public class SaveInventoryItems : MonoBehaviour
         //plant.genotypes.Add("colour", plant.height);
         //plant.genotypes.Add("height", plant.colour);
         plant.genotypes = (Dictionary<string, string[]>)geneticInfo["genotypes"];
+        plant.phenotypes = GeneratePlants.GetPlantPhenotype(plant);
         plant.maxGenotypes = plant.genotypes.Count;
         return plant;
     }

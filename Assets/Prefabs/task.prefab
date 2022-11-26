@@ -982,6 +982,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 316c8bbf57390da478c3e28f8a6514a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskController: {fileID: 8265652541786715127}
 --- !u!1 &8855759319179367061
 GameObject:
   m_ObjectHideFlags: 0
@@ -1070,6 +1071,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 316c8bbf57390da478c3e28f8a6514a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskController: {fileID: 8265652541786715127}
 --- !u!1 &8855759319678464875
 GameObject:
   m_ObjectHideFlags: 0
