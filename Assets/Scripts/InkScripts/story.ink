@@ -77,12 +77,12 @@ Ok byee
  ~characters+=beatrice
  ~currentSpeaker = "you"
  ¬
-Uh hi, what can I help you with?
+Uh hi
 ~currentSpeaker = "Beatrice"
 Hey 
-Sorry to bother you
+//~gift = "5,colour:Rr,height:tt,petals:five,clusters:CC,split:ss"
 I would like two tall plants with red flowers
-~task = "Beatrice,2,3,colour:red,height:tall"
+~task = "Beatrice,2,3,colour:pink,height:tall,clusters:three"
 ~currentSpeaker = "you"
 Ok, thanks for putting in that order
 ~characters-=beatrice

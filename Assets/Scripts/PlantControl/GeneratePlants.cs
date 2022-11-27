@@ -10,8 +10,10 @@ public static class GeneratePlants
     static string heightGene = "t";
     static string colourGene = "r";
     static string petalGene = "p";
-    static string[] genotypesRange = { "colour", "height", "petals" };
-    static string[] geneRange = { colourGene, heightGene, petalGene };
+    static string clustersGene = "c";
+    static string colourSplitGene = "s";
+    public static string[] genotypesRange = { "colour", "height", "petals","clusters", "split" };
+    static string[] geneRange = { colourGene, heightGene, petalGene, clustersGene, colourSplitGene };
     //static Dictionary<string, string> genotypesAndGenes = new Dictionary<string, string>() { {"colour", colourGene }, { "height", heightGene }, { "petals", petalGene} };
     public static Plant GenerateRandomNewPlant() {
         Plant plant = new Plant();
@@ -19,13 +21,8 @@ public static class GeneratePlants
         for (int i = 0;i< plant.maxGenotypes; i++) {
             plant.genotypes.Add(genotypesRange[i], NewGeno(geneRange[i]));
         }
-        //plant.genotypes.Add("colour", NewGeno(colourGene));
-        //plant.genotypes.Add("height", NewGeno(heightGene));
-        //plant.genotypes.Add("petals", NewGeno(petalGene));
         try {
-            plant.phenotypes.Add(CheckColour(plant.genotypes["colour"]));
-            plant.phenotypes.Add(CheckHeight(plant.genotypes["height"]));
-            plant.phenotypes.Add(CheckPetals(plant.genotypes["petals"]));
+            plant.phenotypes = GetPlantPhenotype(plant);
         }
         catch (Exception e) { 
         }
@@ -34,7 +31,7 @@ public static class GeneratePlants
     }
     //change number of genotypes available
     public static int MaxGenotypes() {
-        return UnityEngine.Random.Range(2, 4);
+        return 5;// UnityEngine.Random.Range(2, 6);
     }
     public static List<string> GetPlantPhenotype(Plant plant) {
         List<string> phenotypes = new List<string>();
@@ -42,30 +39,30 @@ public static class GeneratePlants
             phenotypes.Add(CheckColour(plant.genotypes["colour"]));
             phenotypes.Add(CheckHeight(plant.genotypes["height"]));
             phenotypes.Add(CheckPetals(plant.genotypes["petals"]));
+            phenotypes.Add(CheckClusters(plant.genotypes["clusters"]));
+            phenotypes.Add(CheckColourSplit(plant.genotypes["split"]));
         }
         catch (Exception e) { 
         }
         
         return phenotypes;
     }
-    public static Plant GenerateHeterozygousPlant()
-    {
-        Plant plant = new Plant();
-        plant.phenotypes.Add(CheckColour(plant.genotypes["colour"]));
-        plant.phenotypes.Add(CheckHeight(plant.genotypes["height"]));
-        plant.phenotypes.Add(CheckPetals(plant.genotypes["petals"]));
-        return plant;
-    }
+    //public static Plant GenerateHeterozygousPlant()
+    //{
+    //    Plant plant = new Plant();
+    //    plant.phenotypes.Add(CheckColour(plant.genotypes["colour"]));
+    //    plant.phenotypes.Add(CheckHeight(plant.genotypes["height"]));
+    //    plant.phenotypes.Add(CheckPetals(plant.genotypes["petals"]));
+    //    plant.phenotypes.Add(CheckClusters(plant.genotypes["clusters"]));
+    //    return plant;
+    //}
     public static void CombineGametes(Plant plant1, Plant plant2, Plant childPlant)
     {
         foreach (string s in genotypesRange)
         {
             childPlant.genotypes.Add(s, CombineGeno(plant1.genotypes[s], plant2.genotypes[s]));
         }
-
-        childPlant.phenotypes.Add(CheckColour(childPlant.genotypes["colour"]));
-        childPlant.phenotypes.Add(CheckHeight(childPlant.genotypes["height"]));
-        childPlant.phenotypes.Add(CheckPetals(childPlant.genotypes["petals"]));
+        childPlant.phenotypes = GetPlantPhenotype(childPlant);
     }
     public static void CombineGametes(Plant plant1, Plant plant2, Seed childPlant)
     {
@@ -144,6 +141,44 @@ public static class GeneratePlants
         else {
             return "red";
         } 
+    }
+    public static string CheckClusters(string[] genotype)
+    {
+        string geno = string.Join("", genotype);
+        if (geno.Contains(clustersGene.ToLower()))
+        {
+            if (geno.Contains(clustersGene.ToUpper()))
+            {
+                return "two";
+            }
+            else
+            {
+                return "one";
+            }
+        }
+        else
+        {
+            return "three";
+        }
+    }
+    public static string CheckColourSplit(string[] genotype)
+    {
+        string geno = string.Join("", genotype);
+        if (geno.Contains(colourSplitGene.ToLower()))
+        {
+            if (geno.Contains(colourSplitGene.ToUpper()))
+            {
+                return "two";
+            }
+            else
+            {
+                return "three";
+            }
+        }
+        else
+        {
+            return "one";
+        }
     }
     public static bool CheckIfPlantHasPhenotype(Plant plant, string phenotype)
     {

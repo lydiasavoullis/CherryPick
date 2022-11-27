@@ -7,6 +7,7 @@ using System.Threading;
 using UnityEngine.EventSystems;
 using System;
 using UnityEngine.InputSystem;
+using System.Linq;
 
 public class PlantController : MonoBehaviour, IDropHandler
 {
@@ -17,9 +18,11 @@ public class PlantController : MonoBehaviour, IDropHandler
     public GameObject seedPrefab;
     public static GameObject parent1;
     public Plant plant;
-    public Image petals;
+    public Image[] petals;
     public Image stem;
     public Image center;
+    public GameObject cluster1;
+    public GameObject cluster2;
     //public GameObject background;
     public Phenotype[] phenotypes;
     public AudioSource audioSourcePop;
@@ -59,8 +62,14 @@ public class PlantController : MonoBehaviour, IDropHandler
     public void SetCurrentPhenotype() {
         try {
             stem.sprite = GetPhenotypeSprite(GeneratePlants.CheckHeight(plant.genotypes["height"]));
-            petals.color = SetColour(GeneratePlants.CheckColour(plant.genotypes["colour"]));
-            petals.sprite = GetPhenotypeSprite(GeneratePlants.CheckPetals(plant.genotypes["petals"]));
+            
+            foreach (Image p in petals) {
+                p.sprite = GetPhenotypeSprite(GeneratePlants.CheckPetals(plant.genotypes["petals"]));
+                p.color = SetColour(GeneratePlants.CheckColour(plant.genotypes["colour"]));
+            }
+            SetClustersActive(GeneratePlants.CheckClusters(plant.genotypes["clusters"]));
+            SetColourSplit(GeneratePlants.CheckColourSplit(plant.genotypes["split"]));
+
         }
         catch (Exception e) { 
         }
@@ -92,6 +101,38 @@ public class PlantController : MonoBehaviour, IDropHandler
 
         }
         return null;
+    }
+    public void SetClustersActive(string noClusters) {
+        if (noClusters == "two")
+        {
+            cluster1.SetActive(true);
+        }
+        if (noClusters == "three") 
+        {
+            cluster1.SetActive(true);
+            cluster2.SetActive(true);
+        }
+    }
+    public void SetColourSplit(string noSplit)
+    {
+        string geno = string.Join("", plant.genotypes["colour"]);
+        if (geno.Any(char.IsUpper) && geno.Any(char.IsLower))
+        {
+            string[] colour1 = { geno.Substring(0,1), geno.Substring(0,1) };
+            
+            string[] colour2 = { geno.Substring(1,1), geno.Substring(1,1) };
+            
+            if (noSplit == "two")
+            {
+                petals[1].color = SetColour(GeneratePlants.CheckColour(colour1));
+                petals[2].color = SetColour(GeneratePlants.CheckColour(colour1));
+            }
+            if (noSplit == "three")
+            {
+                petals[1].color = SetColour(GeneratePlants.CheckColour(colour1));
+                petals[2].color = SetColour(GeneratePlants.CheckColour(colour2));
+            }
+        }
     }
 
     void OnMouseOver()

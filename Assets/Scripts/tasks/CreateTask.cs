@@ -39,9 +39,13 @@ public class CreateTask : MonoBehaviour
             plant.phenotypes.Add(phenoPairs[1]);
             
         }
+        int count = 0;
+        phenotypeDescription += "\n";
         foreach (string s in plant.phenotypes)
         {
-            phenotypeDescription += $"{s} ";
+            string label = GeneratePlants.genotypesRange[count];
+            phenotypeDescription += $"{label}: {s}\n";
+            count++;
         }
         GameManager.Instance.SetTaskInfo(quantity, days, name, phenotypeDescription, plant.phenotypes);
         //return $"Hi, I'm {name}. I would like {info[1]} {phenotypeDescription} flower(s) please, and I need them in {days} days";

@@ -5,10 +5,10 @@ using UnityEngine;
 public class ProduceHeterozygous : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Awake()
-    {
-        this.GetComponent<PlantController>().plant = GeneratePlants.GenerateHeterozygousPlant();
-    }
+    //void Awake()
+    //{
+    //    this.GetComponent<PlantController>().plant = GeneratePlants.GenerateHeterozygousPlant();
+    //}
 
    
 }
