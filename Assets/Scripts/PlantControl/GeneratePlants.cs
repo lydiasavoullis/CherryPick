@@ -11,7 +11,7 @@ public static class GeneratePlants
     static string colourGene = "r";
     static string petalGene = "p";
     static string clustersGene = "c";
-    static string colourSplitGene = "s";
+    static string colourSplitGene = "v";
     public static string[] genotypesRange = { "colour", "height", "petals","clusters", "split" };
     static string[] geneRange = { colourGene, heightGene, petalGene, clustersGene, colourSplitGene };
     //static Dictionary<string, string> genotypesAndGenes = new Dictionary<string, string>() { {"colour", colourGene }, { "height", heightGene }, { "petals", petalGene} };

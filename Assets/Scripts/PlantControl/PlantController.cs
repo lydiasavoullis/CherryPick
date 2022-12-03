@@ -216,6 +216,7 @@ public class PlantController : MonoBehaviour, IDropHandler
     }
     public void WriteToTextObject(Dictionary<string, string[]> genotype) {
         //plant.description += $"{name} : {geneticInfo[0]} {geneticInfo[1]}\n";
+        plant.description = "";
         plant.description += $"Genotypes : {genotype.Count}\n\n";
         foreach (var item in genotype) {
             plant.description += $"{item.Key} : {item.Value[0]} {item.Value[1]}\n";

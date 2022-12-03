@@ -1,10 +1,10 @@
 LIST characters=alex,beatrice,charlie
 VAR currentSpeaker = ""
-
+VAR shop_state = "closed"
 LIST Alex = (alex_normal)
 LIST Beatrice = (beatrice_normal)
 LIST Charlie = (charlie_normal)
-
+VAR day = 0
 VAR tutorialpt1 = "complete"
 VAR tutorialpt2 = "complete"
 VAR tutorialpt3 = "complete"
@@ -82,7 +82,7 @@ Uh hi
 Hey 
 //~gift = "5,colour:Rr,height:tt,petals:five,clusters:CC,split:ss"
 I would like two tall plants with red flowers
-~task = "Beatrice,2,3,colour:pink,height:tall,clusters:three"
+~task = "Beatrice,2,3,colour:red,height:tall"
 ~currentSpeaker = "you"
 Ok, thanks for putting in that order
 ~characters-=beatrice
@@ -91,8 +91,14 @@ Ok
 they're gone
 great
 ~end_of_day = "true"
-I can close up the shop and go to bed now Maybe I'll work on a few orders before it gets dark
+~currentSpeaker = "you"
+It's the end of the day
+I can buy something new
+~shop_state = "open"
+And maybe work on a few orders before I go to bed
 -> END
+
+
 ==day_1==
 ~end_of_day = "false"
 ~currentSpeaker = "you"
@@ -109,10 +115,13 @@ I want a short white flower please
 ~characters-=charlie
 ~end_of_day = "true"
 ~currentSpeaker = "you"
-Oh look
 It's the end of the day
+I can buy something new
+~shop_state = "open"
+And maybe work on a few orders before I go to bed
 ->END
 ==day_2==
+~shop_state = "closed"
 ~end_of_day = "false"
 Wow
 It's another day

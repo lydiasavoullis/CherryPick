@@ -24,6 +24,7 @@ public class TimeManager : MonoBehaviour
             GameVars.story.ChoosePathString($"day_{dayText.text}");
             GameVars.story.variablesState["end_of_day"] = "false";
             GameManager.Instance.ChangeBackground();
+            GameManager.Instance.CloseShop();
             this.gameObject.SetActive(false);
             
         } 

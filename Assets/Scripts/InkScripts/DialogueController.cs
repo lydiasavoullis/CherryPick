@@ -277,6 +277,9 @@ public class DialogueController : MonoBehaviour
                     endOfDayBtn.SetActive(false);
                 }
                 break;
+            case "shop_state":
+                GameManager.Instance.IsShopOpen();
+                break;
             case "currentSpeaker":
                 GameVars.loadedCurrentSpeaker = GameVars.story.variablesState["currentSpeaker"].ToString();
                 //get current speaker pos

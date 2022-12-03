@@ -10,9 +10,11 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     [SerializeField]
+    GameObject shop;
+    [SerializeField]
     GameObject newSlotPrefab;
     [SerializeField]
-    GameObject inventory;
+    public GameObject inventory;
     [SerializeField]
     GameObject plantPrefab;
     [SerializeField]
@@ -49,6 +51,27 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+    }
+    public void CloseShop() {
+        GameVars.story.variablesState["shop_state"] = "closed";
+        shop.SetActive(false);
+    }
+    public void IsShopOpen()
+    {
+
+        switch (GameVars.story.variablesState["shop_state"])
+        {
+            case "open":
+                shop.SetActive(true);
+                break;
+            case "closed":
+                shop.SetActive(false);
+                break;
+        }
+    }
+    public void ChangeFunds(int money) {
+        funds += money;
+        fundsGO.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = funds.ToString();
     }
     public void ChangeBackground() {
         
