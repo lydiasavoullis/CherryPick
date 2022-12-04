@@ -10,6 +10,12 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     [SerializeField]
+    GameObject shopItemPrefab;
+    [SerializeField]
+    GameObject shopPlantPrefab;
+    [SerializeField]
+    public GameObject shopContent;
+    [SerializeField]
     GameObject shop;
     [SerializeField]
     GameObject newSlotPrefab;
@@ -52,6 +58,18 @@ public class GameManager : MonoBehaviour
     {
         Instance = this;
     }
+    public void GenerateShopItems()
+    {
+        for (int i = 0; i < shopContent.transform.childCount; i++)
+        {
+            Destroy(shopContent.transform.GetChild(i).gameObject);
+        }
+        Instantiate(shopPlantPrefab, new Vector3(0, 0, 0), Quaternion.identity, shopContent.transform);
+        Instantiate(shopPlantPrefab, new Vector3(0, 0, 0), Quaternion.identity, shopContent.transform);
+        Instantiate(shopPlantPrefab, new Vector3(0, 0, 0), Quaternion.identity, shopContent.transform);
+        Instantiate(shopItemPrefab, new Vector3(0, 0, 0), Quaternion.identity, shopContent.transform);
+
+    }
     public void CloseShop() {
         GameVars.story.variablesState["shop_state"] = "closed";
         shop.SetActive(false);
@@ -62,6 +80,7 @@ public class GameManager : MonoBehaviour
         switch (GameVars.story.variablesState["shop_state"])
         {
             case "open":
+                GenerateShopItems();
                 shop.SetActive(true);
                 break;
             case "closed":

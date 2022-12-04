@@ -18,6 +18,8 @@ public class SaveData
     public List<Tuple<string, Dictionary<string, object>, int>> taskBoardPlants = new List<Tuple<string, Dictionary<string, object>, int>>();
     //task list
     public List<Tuple<int, int, string, string, List<string>>> taskBoardList = new List<Tuple<int, int, string, string, List<string>>>();
+    //shop items
+    public List<Tuple<string, Dictionary<string, object>, int>> shopItems = new List<Tuple<string, Dictionary<string, object>, int>>();
     public int currentDay = 0;
     public int funds = 0;
     public int reputation = 0;
@@ -32,6 +34,7 @@ public class SaveData
         this.reputation = saveItems.reputation;
         //this.greenhousePlants = saveItems.greenhousePlants;
         //this.plantPots = saveItems.plantPots;
+        this.shopItems = saveItems.shopItems;
         this.potsInGreenhouse = saveItems.potsInGreenhouse;
         this.taskBoardList = saveItems.taskBoardList;
         this.taskBoardPlants = saveItems.taskBoardPlants;

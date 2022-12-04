@@ -21,6 +21,10 @@ public class SaveInventoryItems : MonoBehaviour
     [SerializeField]
     GameObject savesList;
     [SerializeField]
+    GameObject shopItemPrefab;
+    [SerializeField]
+    GameObject shopPlantPrefab;
+    [SerializeField]
     GameObject plantPrefab;
     [SerializeField]
     GameObject seedPrefab;
@@ -43,8 +47,11 @@ public class SaveInventoryItems : MonoBehaviour
     [SerializeField]
     GameObject speechContainer;
     [SerializeField]
+    GameObject shopContainer;
+    [SerializeField]
     GameObject dialogueController;
     public List<Tuple<string, Dictionary<string, object>, int>> inventoryPlants = new List<Tuple<string, Dictionary<string, object>, int>>();
+    public List<Tuple<string, Dictionary<string, object>, int>> shopItems = new List<Tuple<string, Dictionary<string, object>, int>>();
     //public List<Tuple<string, Dictionary<string, object>>> greenhousePlants = new List<Tuple<string, Dictionary<string, object>>>();
     //int quantity, int orderDeadline, string customerName, string phenotypeDescription, List<string> phenotypes
     public List<Tuple<int, int, string, string, List<string>>> taskBoardList = new List<Tuple<int, int, string, string, List<string>>>();
@@ -67,6 +74,7 @@ public class SaveInventoryItems : MonoBehaviour
         SaveInventoryContents();
         SaveGreenhouseContents();
         SaveTasks();
+        SaveShopItems();
         SaveSystem.SaveData(GenerateFileName(), this);
         CreateSaveSlot(lastFilename);
         //reset all this stored data
@@ -74,12 +82,75 @@ public class SaveInventoryItems : MonoBehaviour
         potsInGreenhouse.Clear();
         taskBoardList.Clear();
         taskBoardPlants.Clear();
+        shopItems.Clear();
+    }
+    public void SaveShopItems() {
+        GameObject shopObj = GameManager.Instance.shopContent;
+        for (int i = 0; i < shopObj.transform.childCount; i++)
+        {
+            //counter++;
+            //if (inventory.transform.GetChild(i).GetChild(0).GetChild(0).gameObject.TryGetComponent(out SeedController seedController))//get slot, get inner slot and then
+            //{
+            //    inventoryPlants.Add(new Tuple<string, Dictionary<string, object>, int>("seed", AddItemInfoToList(seedController.seed), 1));
+            //}
+
+            if (shopObj.transform.GetChild(i).GetChild(1).GetChild(0).GetChild(0).gameObject.TryGetComponent(out PlantController plantController))
+            {
+                shopItems.Add(new Tuple<string, Dictionary<string, object>, int>("plant", AddItemInfoToList(plantController.plant), 1));
+            }
+            else {
+               
+                shopItems.Add(new Tuple<string, Dictionary<string, object>, int>("shopItem", null, 1));
+                
+            }
+
+        }
+    }
+    public void LoadShopItems(SaveData data)
+    {
+        GameObject shopObj = GameManager.Instance.shopContent;
+        for (int i = 0; i < data.shopItems.Count(); i++)
+        {
+
+            //if (data.inventoryPlants[i].Item1 == "seed")
+            //{
+            //    GameObject slotGO = Instantiate(itemSlotPrefab, new Vector3(0, 0, 0), Quaternion.identity, inventory.transform);
+            //    slotGO.name = "slot";
+            //    GameObject seedGO = Instantiate(seedPrefab, new Vector3(0, 0, 0), Quaternion.identity, slotGO.transform.GetChild(0));
+            //    seedGO.GetComponent<SeedController>().seed = LoadSeedFromList(data.inventoryPlants[i].Item2);
+            //    seedGO.name = "seed";
+            //    seedGO.transform.localPosition = Vector3.zero;
+            //}
+            
+            if (data.shopItems[i].Item1 == "plant")
+            {
+
+                //for (int x = 0; x < data.shopItems[i].Item3; x++)
+                //{
+                    //foreach item in slot
+                    GameObject plantItemGO = Instantiate(shopPlantPrefab, new Vector3(0, 0, 0), Quaternion.identity, shopObj.transform);
+                    //get plant placeholder in shop item
+                    plantItemGO.transform.GetChild(1).GetChild(0).GetChild(0).gameObject.GetComponent<PlantController>().plant = LoadPlantFromList(data.shopItems[i].Item2);
+                    plantItemGO.name = "shopPlant";
+                    plantItemGO.transform.localPosition = Vector3.zero;
+                //}
+
+            }
+            else
+            {
+                GameObject itemGO = Instantiate(shopItemPrefab, new Vector3(0, 0, 0), Quaternion.identity, shopObj.transform);
+                //seedGO.GetComponent<SeedController>().seed = LoadSeedFromList(data.shopItems[i].Item2);
+                itemGO.name = "shopItem";
+                itemGO.transform.localPosition = Vector3.zero;
+            }
+
+        }
     }
     public void SaveInventoryContents() {
-        int counter = 0;
+        //int counter = 0;
         for (int i = 0; i < inventory.transform.childCount; i++)
         {
-            counter++;
+            //counter++;
             int quantity = inventory.transform.GetChild(i).GetChild(0).childCount;
             if (inventory.transform.GetChild(i).GetChild(0).GetChild(0).gameObject.TryGetComponent(out SeedController seedController))//get slot, get inner slot and then
             {
@@ -130,6 +201,7 @@ public class SaveInventoryItems : MonoBehaviour
         ClearObjectChildren(taskBoard);
         ClearObjectChildren(customerContainer);
         ClearObjectChildren(speechContainer);
+        
         SaveData data = SaveSystem.LoadData(filename);
         
         //progress variables
@@ -164,7 +236,10 @@ public class SaveInventoryItems : MonoBehaviour
             string[] lastLine = GameVars.loadedTextLog.Last().Split(stringSeparators, StringSplitOptions.None);//[GameVars.loadedTextLog.Count - 1]
             dialogueController.GetComponent<DialogueController>().LoadSpeech(lastLine[1]);
         }
-        
+        GameManager.Instance.IsShopOpen();
+        ClearObjectChildren(shopContainer);
+        //load shop items
+        LoadShopItems(data);
         //load taskboard
         LoadTasks(data);
         //Debug.Log("Load plants "+ data.inventoryPlants.Count());
@@ -172,6 +247,7 @@ public class SaveInventoryItems : MonoBehaviour
         LoadGreenhouse(data);
         //load inventory
         LoadInventory(data);
+        
         
     }
     public void LoadInventory(SaveData data) {
