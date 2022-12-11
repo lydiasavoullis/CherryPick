@@ -139,6 +139,9 @@ Ok, thanks for putting in that order
 ~end_of_day = "true"
 Oh look
 It's the end of the day
+I can buy something new
+~shop_state = "open"
+And maybe work on a few orders before I go to bed
 ->END
 ==day_3==
 ~end_of_day = "false"
@@ -157,6 +160,9 @@ I want a short pink flower please
 ~currentSpeaker = "you"
 Oh look
 It's the end of the day
+I can buy something new
+~shop_state = "open"
+And maybe work on a few orders before I go to bed
 ->END
 ==day_4==
 ~end_of_day = "false"
@@ -175,6 +181,9 @@ Ok, thanks for putting in that order
 ~end_of_day = "true"
 Oh look
 It's the end of the day
+I can buy something new
+~shop_state = "open"
+And maybe work on a few orders before I go to bed
 ->END
 ==day_5==
 ~end_of_day = "false"
@@ -193,4 +202,7 @@ I want a short pink flower please
 ~currentSpeaker = "you"
 Oh look
 It's the end of the day
+I can buy something new
+~shop_state = "open"
+And maybe work on a few orders before I go to bed
 ->END
