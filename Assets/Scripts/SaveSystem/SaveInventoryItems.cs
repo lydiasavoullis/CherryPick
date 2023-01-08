@@ -58,6 +58,7 @@ public class SaveInventoryItems : MonoBehaviour
     public List<Tuple<string, Dictionary<string, object>, int>> taskBoardPlants = new List<Tuple<string, Dictionary<string, object>, int>>();//int here denotes task it belongs to
     //public List<float> plantPots = new List<float>();
     public List<Tuple<string, Dictionary<string, object>, float>> potsInGreenhouse = new List<Tuple<string, Dictionary<string, object>, float>>();
+    public int temp = 0;
     public int day = 0;
     public int funds = 0;
     public int reputation = 0;
@@ -71,6 +72,7 @@ public class SaveInventoryItems : MonoBehaviour
         day = GameManager.Instance.day;
         funds = GameManager.Instance.funds;
         reputation = GameManager.Instance.reputation;
+        temp = GameManager.Instance.nightTemp;
         SaveInventoryContents();
         SaveGreenhouseContents();
         SaveTasks();
@@ -217,6 +219,8 @@ public class SaveInventoryItems : MonoBehaviour
         if (GameVars.story.variablesState["end_of_day"].ToString() == "true")
         {
             endOfDayBtn.SetActive(true);
+            GameManager.Instance.nightTemp = data.temp;
+            GameManager.Instance.SetNightTemp();
         }
         else {
             endOfDayBtn.SetActive(false);

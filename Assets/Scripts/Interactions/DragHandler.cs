@@ -62,6 +62,7 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
         }
         
+        
     }
     public void MoveToInventory() {
         //if already in inventory
@@ -136,6 +137,12 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         }
         GetComponent<CanvasGroup>().blocksRaycasts = true;
         itemBeingDragged = null;
+
+        if (gameObject.transform.name.Contains("pot"))
+        {
+            Debug.Log("Moved pot");
+            gameObject.transform.GetChild(0).GetComponent<Soil>().plantPotState.isHeated = false;
+        }
     }
 
    

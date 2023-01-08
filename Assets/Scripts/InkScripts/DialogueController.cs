@@ -272,6 +272,7 @@ public class DialogueController : MonoBehaviour
                 if (newValue.ToString()=="true") {
                     endOfDayBtn.SetActive(true);
                     GameManager.Instance.ChangeBackground();
+                    GameManager.Instance.SetNewNightTemp();
                 }
                 else{
                     endOfDayBtn.SetActive(false);

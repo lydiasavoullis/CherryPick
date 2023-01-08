@@ -20,6 +20,7 @@ public class SaveData
     public List<Tuple<int, int, string, string, List<string>>> taskBoardList = new List<Tuple<int, int, string, string, List<string>>>();
     //shop items
     public List<Tuple<string, Dictionary<string, object>, int>> shopItems = new List<Tuple<string, Dictionary<string, object>, int>>();
+    public int temp = 0;
     public int currentDay = 0;
     public int funds = 0;
     public int reputation = 0;
@@ -28,6 +29,7 @@ public class SaveData
     //public List<string> storyLog;
     public SaveData(SaveInventoryItems saveItems)//InkController script
     {
+        this.temp = saveItems.temp;
         this.inventoryPlants = saveItems.inventoryPlants;
         this.currentDay = saveItems.day;
         this.funds = saveItems.funds;

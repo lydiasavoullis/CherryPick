@@ -38,15 +38,27 @@ public class Soil : MonoBehaviour, IDropHandler
 
     private void OnParticleCollision(GameObject other)
     {
-        if (slider.value <= slider.maxValue) {
-            slider.value += slider.maxValue / 50;
-            plantPotState.hydrationValue = slider.value;
+        switch(other.name){
+            case "water":
+                if (slider.value <= slider.maxValue)
+                {
+                    slider.value += slider.maxValue / 50;
+                    plantPotState.hydrationValue = slider.value;
+                }
+                //Debug.Log(int.Parse(GameVars.story.variablesState["tutorialCounter"].ToString()));
+                if (int.Parse(GameVars.story.variablesState["tutorialCounter"].ToString()) == 1)
+                {
+                    GameVars.story.variablesState["tutorialCounter"] = (int.Parse(GameVars.story.variablesState["tutorialCounter"].ToString()) + 1).ToString();
+                    GameVars.story.ChoosePathString("tutorial_pt3");
+                }
+                break;
+            case "heat":
+                plantPotState.isHeated = true;
+                break;
+            default: 
+                break;
         }
-        //Debug.Log(int.Parse(GameVars.story.variablesState["tutorialCounter"].ToString()));
-        if (int.Parse(GameVars.story.variablesState["tutorialCounter"].ToString()) ==1) {
-            GameVars.story.variablesState["tutorialCounter"] = (int.Parse(GameVars.story.variablesState["tutorialCounter"].ToString()) + 1).ToString();
-            GameVars.story.ChoosePathString("tutorial_pt3");
-        }
+        
         //plantPotState.hydrationValue = slider.value;
     }
    

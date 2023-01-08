@@ -10,6 +10,8 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     [SerializeField]
+    GameObject deadPlantPrefab;
+    [SerializeField]
     GameObject shopItemPrefab;
     [SerializeField]
     GameObject shopPlantPrefab;
@@ -20,6 +22,10 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     GameObject newSlotPrefab;
     [SerializeField]
+    public GameObject heaterPrefab;
+    [SerializeField]
+    public GameObject heaterContainer;
+    [SerializeField]
     public GameObject inventory;
     [SerializeField]
     GameObject plantPrefab;
@@ -27,6 +33,8 @@ public class GameManager : MonoBehaviour
     GameObject taskPrefab;
     [SerializeField]
     GameObject taskList;
+    [SerializeField]
+    GameObject tempGO;
     [SerializeField]
     GameObject fundsGO;
     [SerializeField]
@@ -44,6 +52,7 @@ public class GameManager : MonoBehaviour
     public GameObject infoBoxPrefab;
     public GameObject taskBoard;
     public GameObject taskContent;
+    
     public TextMeshProUGUI reputationText;   
     GameObject infoBoxGO;
     public float posX=1.5f;
@@ -52,11 +61,30 @@ public class GameManager : MonoBehaviour
     public int funds = 500;
     public int reputation = 0;
     public int tasksGivenToday = 0;
+    public int nightTemp = 0;
     public CustomerController taskController;
     public string timeOfDay = "day";
     private void Awake()
     {
         Instance = this;
+    }
+    public void SetNewNightTemp()
+    {
+        nightTemp = UnityEngine.Random.Range(-6, 0);
+        tempGO.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = nightTemp.ToString();
+        tempGO.SetActive(true);
+        if (nightTemp<0) {
+            TurnHeatersOnOff(true);
+        }
+    }
+    public void SetNightTemp()
+    {
+        tempGO.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = nightTemp.ToString();
+        tempGO.SetActive(true);
+        if (nightTemp < 0)
+        {
+            TurnHeatersOnOff(true);
+        }
     }
     public void GenerateShopItems()
     {
@@ -64,12 +92,23 @@ public class GameManager : MonoBehaviour
         {
             Destroy(shopContent.transform.GetChild(i).gameObject);
         }
-        Instantiate(shopPlantPrefab, new Vector3(0, 0, 0), Quaternion.identity, shopContent.transform);
-        Instantiate(shopPlantPrefab, new Vector3(0, 0, 0), Quaternion.identity, shopContent.transform);
-        Instantiate(shopPlantPrefab, new Vector3(0, 0, 0), Quaternion.identity, shopContent.transform);
-        Instantiate(shopItemPrefab, new Vector3(0, 0, 0), Quaternion.identity, shopContent.transform);
+        //Instantiate(shopPlantPrefab, new Vector3(0, 0, 0), Quaternion.identity, shopContent.transform);
+        //Instantiate(shopPlantPrefab, new Vector3(0, 0, 0), Quaternion.identity, shopContent.transform);
+        //Instantiate(shopPlantPrefab, new Vector3(0, 0, 0), Quaternion.identity, shopContent.transform);
+        GameObject item = Instantiate(shopItemPrefab, new Vector3(0, 0, 0), Quaternion.identity, shopContent.transform);
+        item.transform.GetComponent<Buy>().SetItemDetails("pot");
+        item = Instantiate(shopItemPrefab, new Vector3(0, 0, 0), Quaternion.identity, shopContent.transform);
+        item.transform.GetComponent<Buy>().SetItemDetails("plant");
+        item = Instantiate(shopItemPrefab, new Vector3(0, 0, 0), Quaternion.identity, shopContent.transform);
+        item.transform.GetComponent<Buy>().SetItemDetails("plant");
+        item = Instantiate(shopItemPrefab, new Vector3(0, 0, 0), Quaternion.identity, shopContent.transform);
+        item.transform.GetComponent<Buy>().SetItemDetails("plant");
+        item = Instantiate(shopItemPrefab, new Vector3(0, 0, 0), Quaternion.identity, shopContent.transform);
+        item.transform.GetComponent<Buy>().SetItemDetails("heater");
+        //Instantiate(heaterPrefab, new Vector3(0, 0, 0), Quaternion.identity, shopContent.transform);
 
     }
+
     public void CloseShop() {
         GameVars.story.variablesState["shop_state"] = "closed";
         shop.SetActive(false);
@@ -92,15 +131,33 @@ public class GameManager : MonoBehaviour
         funds += money;
         fundsGO.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = funds.ToString();
     }
+    /**
+     * true = on false = off
+     */
+    public void TurnHeatersOnOff(bool heaterState) {
+        for (int i =0; i<heaterContainer.transform.childCount;i++) {
+            heaterContainer.transform.GetChild(i).GetChild(0).gameObject.SetActive(heaterState);
+        }
+    }
+    public void CheckHeater(GameObject heater) {
+        if (nightTemp < 0 && GameVars.story.variablesState["end_of_day"] == "true")
+        {
+            Debug.Log("turn on heaters");
+            heater.transform.GetChild(0).gameObject.SetActive(true);
+        }
+    }
     public void ChangeBackground() {
         
         switch (GameVars.story.variablesState["end_of_day"])
         {
             case "false":
                 background.GetComponent<ChangeBackground>().ChangeToImage("day");
+                tempGO.SetActive(false);
+                TurnHeatersOnOff(false);
                 break;
             case "true":
                 background.GetComponent<ChangeBackground>().ChangeToImage("night");
+                tempGO.SetActive(true);
                 break;
         }
     }
@@ -130,17 +187,27 @@ public class GameManager : MonoBehaviour
         }
         
     }
+    //if night temp <0 and no heater kill plant
+    public bool KillPlantIfTooCold(Transform soil) {
+        if (nightTemp<0 && !soil.gameObject.GetComponent<Soil>().plantPotState.isHeated) {
+            Destroy(soil.GetChild(0).gameObject);
+            GameObject deadPlantGO = Instantiate(deadPlantPrefab, new Vector3(0, 0, 0), Quaternion.identity, soil);
+            return true;
+        }
+        return false;
+    }
     public int NewDay()
     {
-        
+
         //timeOfDay = "night";
         //ChangeBackground();
+        
         GameObject greenhousePlanter = GameObject.FindGameObjectWithTag("greenhouseContainer");
         for (int i=0; i < greenhousePlanter.transform.childCount; i++) {
             //get number of pots inside greenhouse and then get soil inside pot and then see if there is anything in the soil
             Transform soil = greenhousePlanter.transform.GetChild(i).GetChild(0);
             if (soil.childCount>0) {
-                if(soil.GetChild(0).gameObject.TryGetComponent(out SeedController seedController) && soil.gameObject.GetComponent<Soil>().plantPotState.hydrationValue>0.2)
+                if(!KillPlantIfTooCold(soil) && soil.GetChild(0).gameObject.TryGetComponent(out SeedController seedController) && soil.gameObject.GetComponent<Soil>().plantPotState.hydrationValue>0.2)
                 {
                     seedController.GrowForOneDay();
                 }
@@ -149,6 +216,8 @@ public class GameManager : MonoBehaviour
             }
             
         }
+        tempGO.SetActive(false);
+        TurnHeatersOnOff(false);
         CountDownDayForAllTasks();
         tasksGivenToday = 0;
         taskController.GiveNewTask();

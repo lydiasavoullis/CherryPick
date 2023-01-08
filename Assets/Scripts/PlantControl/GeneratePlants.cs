@@ -31,7 +31,7 @@ public static class GeneratePlants
     }
     //change number of genotypes available
     public static int MaxGenotypes() {
-        return 5;// UnityEngine.Random.Range(2, 6);
+        return 4;// UnityEngine.Random.Range(2, 6);
     }
     public static List<string> GetPlantPhenotype(Plant plant) {
         List<string> phenotypes = new List<string>();
@@ -40,7 +40,7 @@ public static class GeneratePlants
             phenotypes.Add(CheckHeight(plant.genotypes["height"]));
             phenotypes.Add(CheckPetals(plant.genotypes["petals"]));
             phenotypes.Add(CheckClusters(plant.genotypes["clusters"]));
-            phenotypes.Add(CheckColourSplit(plant.genotypes["split"]));
+            //phenotypes.Add(CheckColourSplit(plant.genotypes["split"]));
         }
         catch (Exception e) { 
         }

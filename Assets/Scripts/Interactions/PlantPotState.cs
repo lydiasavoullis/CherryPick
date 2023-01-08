@@ -6,5 +6,6 @@ public class PlantPotState
 {
     public float hydrationValue = 0f;
     public bool isEmpty = true;
+    public bool isHeated = false;
 
 }
