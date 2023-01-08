@@ -261,6 +261,7 @@ public class GameManager : MonoBehaviour
     /* SetTaskInfo generates a new task prefab and sets the text values and also assigns a task object to the TaskController class with data about the task*/
     public void SetTaskInfo(int quantity, int orderDeadline, string customerName, string phenotypeDescription, List<string> phenotypes)
     {
+        taskBoard.SetActive(true);
         GameObject newTaskPrefab = Instantiate(taskPrefab, new Vector3(0, 0, 0), Quaternion.identity, taskList.transform);
         newTaskPrefab.transform.SetAsFirstSibling();
         GameObject requirementText = newTaskPrefab.transform.GetChild(0).gameObject;
