@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 public class GreenhouseContainer : MonoBehaviour, IDropHandler
 {
+    GameObject heaterContainer;
     public void OnDrop(PointerEventData eventData)
     {
         //Debug.Log("Has Dropped");

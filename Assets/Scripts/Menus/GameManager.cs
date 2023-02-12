@@ -139,13 +139,7 @@ public class GameManager : MonoBehaviour
             heaterContainer.transform.GetChild(i).GetChild(0).gameObject.SetActive(heaterState);
         }
     }
-    public void CheckHeater(GameObject heater) {
-        if (nightTemp < 0 && GameVars.story.variablesState["end_of_day"] == "true")
-        {
-            Debug.Log("turn on heaters");
-            heater.transform.GetChild(0).gameObject.SetActive(true);
-        }
-    }
+    
     public void ChangeBackground() {
         
         switch (GameVars.story.variablesState["end_of_day"])

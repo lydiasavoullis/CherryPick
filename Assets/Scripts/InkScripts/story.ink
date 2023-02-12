@@ -77,23 +77,23 @@ Ok byee
  ~characters+=beatrice
  ~currentSpeaker = "you"
  ¬
-Uh hi
+//Uh hi
 ~currentSpeaker = "Beatrice"
-Hey 
+// Hey 
 //~gift = "5,colour:Rr,height:tt,petals:five,clusters:CC,split:ss"
 I would like two tall plants with red flowers
 ~task = "Beatrice,2,3,colour:red,height:tall"
 ~currentSpeaker = "you"
 Ok, thanks for putting in that order
 ~characters-=beatrice
-~currentSpeaker = "you"
-Ok
-they're gone
-great
+// ~currentSpeaker = "you"
+// Ok
+// they're gone
+// great
 ~end_of_day = "true"
 ~currentSpeaker = "you"
-It's the end of the day
-I can buy something new
+// It's the end of the day
+// I can buy something new
 ~shop_state = "open"
 And maybe work on a few orders before I go to bed
 -> END
