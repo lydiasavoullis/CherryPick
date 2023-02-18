@@ -31,4 +31,19 @@ public class ChangeBackground : MonoBehaviour
                 break;
         }
     }
+    public void ChangeFrontScreen(string image)
+    {
+
+        switch (image)
+        {
+            case "night":
+                background.sprite = night;
+                break;
+            case "day":
+                background.sprite = day;
+                break;
+            default:
+                break;
+        }
+    }
 }

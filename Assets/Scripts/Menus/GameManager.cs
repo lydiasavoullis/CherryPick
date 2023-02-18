@@ -10,6 +10,8 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     [SerializeField]
+    GameObject frontScreen;
+    [SerializeField]
     GameObject deadPlantPrefab;
     [SerializeField]
     GameObject shopItemPrefab;
@@ -68,12 +70,51 @@ public class GameManager : MonoBehaviour
     {
         Instance = this;
     }
+    public IEnumerator ChangeDay() {
+        GameObject greenhousePlanter = GameObject.FindGameObjectWithTag("greenhouseContainer");
+        frontScreen.SetActive(true);
+        for (int i = 0; i < greenhousePlanter.transform.childCount; i++)
+        {
+            //get number of pots inside greenhouse and then get soil inside pot and then see if there is anything in the soil
+            Transform soil = greenhousePlanter.transform.GetChild(i).GetChild(0);
+            soil.GetComponent<Soil>().plantPotState.isHeated = false;
+
+        }
+        frontScreen.GetComponent<ChangeBackground>().ChangeFrontScreen("night");
+        yield return new WaitForSeconds(2f);
+        frontScreen.GetComponent<ChangeBackground>().ChangeFrontScreen("day");
+        yield return new WaitForSeconds(2f);
+        frontScreen.SetActive(false);
+
+        yield return new WaitUntil(()=>!frontScreen.activeSelf);
+        for (int i = 0; i < greenhousePlanter.transform.childCount; i++)
+        {
+            //get number of pots inside greenhouse and then get soil inside pot and then see if there is anything in the soil
+            Transform soil = greenhousePlanter.transform.GetChild(i).GetChild(0);
+            if (soil.childCount > 0)
+            {
+                if (!KillPlantIfTooCold(soil) && soil.GetChild(0).gameObject.TryGetComponent(out SeedController seedController) && soil.gameObject.GetComponent<Soil>().plantPotState.hydrationValue > 0.2)
+                {
+                    seedController.GrowForOneDay();
+                }
+                soil.gameObject.GetComponent<Soil>().ChangeHydration(-0.25f);
+                //greenhousePlanter.transform.GetChild(i).GetChild(0).gameObject.GetComponent<SeedController>().GrowForOneDay();
+            }
+
+        }
+        tempGO.SetActive(false);
+        TurnHeatersOnOff(false);
+        CountDownDayForAllTasks();
+        tasksGivenToday = 0;
+        taskController.GiveNewTask();
+    }
     public void SetNewNightTemp()
     {
         nightTemp = UnityEngine.Random.Range(-6, 0);
         tempGO.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = nightTemp.ToString();
         tempGO.SetActive(true);
-        if (nightTemp<0) {
+        if (nightTemp < 0)
+        {
             TurnHeatersOnOff(true);
         }
     }
@@ -147,7 +188,7 @@ public class GameManager : MonoBehaviour
             case "false":
                 background.GetComponent<ChangeBackground>().ChangeToImage("day");
                 tempGO.SetActive(false);
-                TurnHeatersOnOff(false);
+                //TurnHeatersOnOff(false);
                 break;
             case "true":
                 background.GetComponent<ChangeBackground>().ChangeToImage("night");
@@ -183,6 +224,7 @@ public class GameManager : MonoBehaviour
     }
     //if night temp <0 and no heater kill plant
     public bool KillPlantIfTooCold(Transform soil) {
+
         if (nightTemp<0 && !soil.gameObject.GetComponent<Soil>().plantPotState.isHeated) {
             Destroy(soil.GetChild(0).gameObject);
             GameObject deadPlantGO = Instantiate(deadPlantPrefab, new Vector3(0, 0, 0), Quaternion.identity, soil);
@@ -190,31 +232,14 @@ public class GameManager : MonoBehaviour
         }
         return false;
     }
+
     public int NewDay()
     {
 
         //timeOfDay = "night";
         //ChangeBackground();
+        StartCoroutine(ChangeDay());//start animation
         
-        GameObject greenhousePlanter = GameObject.FindGameObjectWithTag("greenhouseContainer");
-        for (int i=0; i < greenhousePlanter.transform.childCount; i++) {
-            //get number of pots inside greenhouse and then get soil inside pot and then see if there is anything in the soil
-            Transform soil = greenhousePlanter.transform.GetChild(i).GetChild(0);
-            if (soil.childCount>0) {
-                if(!KillPlantIfTooCold(soil) && soil.GetChild(0).gameObject.TryGetComponent(out SeedController seedController) && soil.gameObject.GetComponent<Soil>().plantPotState.hydrationValue>0.2)
-                {
-                    seedController.GrowForOneDay();
-                }
-                soil.gameObject.GetComponent<Soil>().ChangeHydration(-0.25f);
-                //greenhousePlanter.transform.GetChild(i).GetChild(0).gameObject.GetComponent<SeedController>().GrowForOneDay();
-            }
-            
-        }
-        tempGO.SetActive(false);
-        TurnHeatersOnOff(false);
-        CountDownDayForAllTasks();
-        tasksGivenToday = 0;
-        taskController.GiveNewTask();
         day++;
         return day;
     }

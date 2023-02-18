@@ -61,7 +61,7 @@ public class Soil : MonoBehaviour, IDropHandler
         
         //plantPotState.hydrationValue = slider.value;
     }
-   
+    
 
     IEnumerator WaterPlant() {
         while ((slider.value <= slider.maxValue) && watering)

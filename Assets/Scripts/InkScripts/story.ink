@@ -95,7 +95,7 @@ Ok, thanks for putting in that order
 // It's the end of the day
 // I can buy something new
 ~shop_state = "open"
-And maybe work on a few orders before I go to bed
+//And maybe work on a few orders before I go to bed
 -> END
 
 

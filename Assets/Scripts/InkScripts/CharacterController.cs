@@ -143,7 +143,7 @@ public class CharacterController
     /// <param name="character"></param>
     public void LoadCharacterSpriteType(string character, GameObject stage, GameObject characterBox)
     {
-        Debug.Log($"characters/{character}/" + GameVars.story.variablesState[character].ToString());
+        //Debug.Log($"characters/{character}/" + GameVars.story.variablesState[character].ToString());
         //Debug.Log(stage.name + " characterController");
         GameObject charPlaceholder = UnityEngine.Object.Instantiate(characterBox) as GameObject;
         charPlaceholder.transform.SetParent(stage.transform, false);
