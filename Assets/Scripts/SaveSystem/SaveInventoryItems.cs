@@ -31,6 +31,10 @@ public class SaveInventoryItems : MonoBehaviour
     [SerializeField]
     GameObject potPrefab;
     [SerializeField]
+    GameObject heaterPrefab;
+    [SerializeField]
+    GameObject deadPlantPrefab;
+    [SerializeField]
     GameObject taskPrefab;
     [SerializeField]
     TextMeshProUGUI dayTextObject;
@@ -62,6 +66,7 @@ public class SaveInventoryItems : MonoBehaviour
     public int day = 0;
     public int funds = 0;
     public int reputation = 0;
+    
 
     private void Start()
     {
@@ -154,13 +159,17 @@ public class SaveInventoryItems : MonoBehaviour
         {
             //counter++;
             int quantity = inventory.transform.GetChild(i).GetChild(0).childCount;
-            if (inventory.transform.GetChild(i).GetChild(0).GetChild(0).gameObject.TryGetComponent(out SeedController seedController))//get slot, get inner slot and then
+            GameObject item = inventory.transform.GetChild(i).GetChild(0).GetChild(0).gameObject;
+            if (item.TryGetComponent(out SeedController seedController))//get slot, get inner slot and then
             {
                 inventoryPlants.Add(new Tuple<string, Dictionary<string, object>, int>("seed", AddItemInfoToList(seedController.seed), quantity));
             }
-            else if (inventory.transform.GetChild(i).GetChild(0).GetChild(0).gameObject.TryGetComponent(out PlantController plantController))
+            else if (item.TryGetComponent(out PlantController plantController))
             {
                 inventoryPlants.Add(new Tuple<string, Dictionary<string, object>, int>("plant", AddItemInfoToList(plantController.plant), quantity));
+            }
+            else {
+                inventoryPlants.Add(new Tuple<string, Dictionary<string, object>, int>(item.name, null, quantity));
             }
 
         }
@@ -183,12 +192,13 @@ public class SaveInventoryItems : MonoBehaviour
                 if (greenhouse.transform.GetChild(i).GetChild(0).GetChild(0).gameObject.TryGetComponent(out SeedController seedController))
                 {
                     itemInPot = new Tuple<string, Dictionary<string, object>, float>("seed", AddItemInfoToList(seedController.seed), hydrationValue);
-                    
+
                 }
                 else if (greenhouse.transform.GetChild(i).GetChild(0).GetChild(0).gameObject.TryGetComponent(out PlantController plantController))
                 {
                     itemInPot = new Tuple<string, Dictionary<string, object>, float>("plant", AddItemInfoToList(plantController.plant), hydrationValue);
                 }
+                
             }
             potsInGreenhouse.Add(itemInPot);
         }
@@ -282,7 +292,37 @@ public class SaveInventoryItems : MonoBehaviour
 
                 slotGO.GetComponent<SlotQuantity>().UpdateQuantityText();
             }
+            //other misc item
+            else {
+                GameObject slotGO = Instantiate(itemSlotPrefab, new Vector3(0, 0, 0), Quaternion.identity, inventory.transform);
+                slotGO.name = "slot";
+                string itemName = data.inventoryPlants[i].Item1;
+                for (int x = 0; x < data.inventoryPlants[i].Item3; x++)
+                {
+                    //foreach item in slot
+                    GameObject itemGO = Instantiate(FindItem(itemName), new Vector3(0, 0, 0), Quaternion.identity, slotGO.transform.GetChild(0));
+                    itemGO.name = itemName;
+                    itemGO.GetComponent<RectTransform>().sizeDelta = new Vector2(100, 100);
+                    itemGO.transform.localPosition = Vector3.zero;
+                }
 
+                slotGO.GetComponent<SlotQuantity>().UpdateQuantityText();
+
+            }
+
+        }
+    }
+    //update for different game objects added
+    public GameObject FindItem(string name) {
+        switch (name) {
+            case "pot":
+                return potPrefab;
+            case "heater":
+                return heaterPrefab;
+            case "deadPlant":
+                return deadPlantPrefab;
+            default:
+                return potPrefab;
         }
     }
 
@@ -380,8 +420,6 @@ public class SaveInventoryItems : MonoBehaviour
     public Seed LoadSeedFromList(Dictionary<string, object> geneticInfo)
     {
         Seed seed = new Seed();
-        //seed.height = (string[])geneticInfo["height"];
-        //seed.colour = (string[])geneticInfo["colour"];
         seed.genotypes = (Dictionary<string, string[]>)geneticInfo["genotypes"];
         seed.timeGrowing = (int)geneticInfo["timeGrowing"];
         seed.growthDuration = (int)geneticInfo["growthDuration"];
@@ -391,11 +429,6 @@ public class SaveInventoryItems : MonoBehaviour
     public Plant LoadPlantFromList(Dictionary<string, object> geneticInfo)
     {
         Plant plant = new Plant();
-        //plant.height = (string[])geneticInfo["height"];
-        //plant.colour = (string[])geneticInfo["colour"];
-        //plant.genotypes = geneticInfo;
-        //plant.genotypes.Add("colour", plant.height);
-        //plant.genotypes.Add("height", plant.colour);
         plant.genotypes = (Dictionary<string, string[]>)geneticInfo["genotypes"];
         plant.phenotypes = GeneratePlants.GetPlantPhenotype(plant);
         plant.maxGenotypes = plant.genotypes.Count;
@@ -404,8 +437,6 @@ public class SaveInventoryItems : MonoBehaviour
     public Dictionary<string, object> AddItemInfoToList(Seed seed)
     {
         Dictionary<string, object> geneticInfo = new Dictionary<string, object>();
-        //geneticInfo.Add("height", seed.height);
-        //geneticInfo.Add("colour", seed.colour);
         geneticInfo.Add("genotypes", seed.genotypes);
         geneticInfo.Add("timeGrowing", seed.timeGrowing);
         geneticInfo.Add("growthDuration", seed.growthDuration);
@@ -415,8 +446,6 @@ public class SaveInventoryItems : MonoBehaviour
     {
         Dictionary<string, object> geneticInfo = new Dictionary<string, object>();
         geneticInfo.Add("genotypes", plant.genotypes);
-        //geneticInfo.Add("height", plant.height);
-        //geneticInfo.Add("colour", plant.colour);
         return geneticInfo;
     }
     #endregion

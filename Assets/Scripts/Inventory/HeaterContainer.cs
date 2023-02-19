@@ -6,10 +6,11 @@ public class HeaterContainer : MonoBehaviour, IDropHandler
 {
     public void OnDrop(PointerEventData eventData)
     {
-        GameObject heater = DragHandler.itemBeingDragged;
+        
         //Debug.Log("Has Dropped");
-        if (heater.tag == "heater")
+        if (DragHandler.itemBeingDragged !=null && DragHandler.itemBeingDragged.tag == "heater")
         {
+            GameObject heater = DragHandler.itemBeingDragged;
             heater.transform.SetParent(transform);
             CheckHeater(heater, transform);
         }

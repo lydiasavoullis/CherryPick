@@ -38,7 +38,7 @@ public class DropContainer : MonoBehaviour, IDropHandler
             
            
             if (currentItem.name.ToLower() == newItem.name.ToLower()) {
-                if (newItem.name.ToLower().Contains("plant"))
+                if (newItem.name.ToLower().Equals("plant"))
                 {
                     bool matchingItem = GeneratePlants.CheckIfTwoPlantsAreTheSame(newItem.GetComponent<PlantController>().plant, currentItem.GetComponent<PlantController>().plant);
                     if (matchingItem)

@@ -8,7 +8,7 @@ public class GreenhouseContainer : MonoBehaviour, IDropHandler
     public void OnDrop(PointerEventData eventData)
     {
         //Debug.Log("Has Dropped");
-        if (DragHandler.itemBeingDragged.gameObject.tag == "pot") {
+        if (DragHandler.itemBeingDragged != null && DragHandler.itemBeingDragged.gameObject.tag == "pot") {
             DragHandler.itemBeingDragged.transform.SetParent(transform);
         }
         

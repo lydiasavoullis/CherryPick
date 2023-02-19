@@ -25,6 +25,9 @@ public class Soil : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData eventData)
     {
+        if (DragHandler.itemBeingDragged == null) {
+            return;
+        }
         if (!item && DragHandler.itemBeingDragged.name.ToLower()=="seed")
         {
             DragHandler.itemBeingDragged.transform.SetParent(transform);

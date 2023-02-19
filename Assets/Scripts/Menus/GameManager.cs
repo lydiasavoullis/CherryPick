@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     GameObject frontScreen;
     [SerializeField]
+    TextMeshProUGUI dayNum;
+    [SerializeField]
     GameObject deadPlantPrefab;
     [SerializeField]
     GameObject shopItemPrefab;
@@ -70,6 +72,7 @@ public class GameManager : MonoBehaviour
     {
         Instance = this;
     }
+    //make sure heater heat only counts after shop has closed
     public IEnumerator ChangeDay() {
         GameObject greenhousePlanter = GameObject.FindGameObjectWithTag("greenhouseContainer");
         frontScreen.SetActive(true);
@@ -81,9 +84,11 @@ public class GameManager : MonoBehaviour
 
         }
         frontScreen.GetComponent<ChangeBackground>().ChangeFrontScreen("night");
-        yield return new WaitForSeconds(2f);
+        dayNum.text = day.ToString();
+        yield return new WaitForSeconds(1f);
         frontScreen.GetComponent<ChangeBackground>().ChangeFrontScreen("day");
-        yield return new WaitForSeconds(2f);
+        dayNum.text = (day).ToString();
+        yield return new WaitForSeconds(1f);
         frontScreen.SetActive(false);
 
         yield return new WaitUntil(()=>!frontScreen.activeSelf);
@@ -228,6 +233,7 @@ public class GameManager : MonoBehaviour
         if (nightTemp<0 && !soil.gameObject.GetComponent<Soil>().plantPotState.isHeated) {
             Destroy(soil.GetChild(0).gameObject);
             GameObject deadPlantGO = Instantiate(deadPlantPrefab, new Vector3(0, 0, 0), Quaternion.identity, soil);
+            deadPlantGO.name = "deadPlant";
             return true;
         }
         return false;
@@ -239,7 +245,6 @@ public class GameManager : MonoBehaviour
         //timeOfDay = "night";
         //ChangeBackground();
         StartCoroutine(ChangeDay());//start animation
-        
         day++;
         return day;
     }

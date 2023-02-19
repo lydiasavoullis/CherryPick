@@ -12,7 +12,7 @@ public class TrashCan : MonoBehaviour, IDropHandler
     Sprite openSprite;
     public void OnDrop(PointerEventData eventData)
     {
-        if (DragHandler.itemBeingDragged.tag!="wateringCan") {
+        if (DragHandler.itemBeingDragged != null) {
             DestroyImmediate(DragHandler.itemBeingDragged);
             gameObject.GetComponent<Image>().sprite = closedSprite;
         }
