@@ -125,6 +125,18 @@ public static class GeneratePlants
             return "five";
         }
     }
+    public static int CheckPetalsInt(string[] genotype)
+    {
+        string geno = string.Join("", genotype);
+        if (geno.Contains(petalGene))
+        {
+            return 5;
+        }
+        else
+        {
+            return 6;
+        }
+    }
     public static string CheckColour(string[] genotype) {
         string geno = string.Join("", genotype);
         if (geno.Contains(colourGene.ToLower()))
