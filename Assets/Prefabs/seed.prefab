@@ -261,7 +261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3703283a97b5030469af5aabe0e25085, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  plantPrefab: {fileID: 2351867660027540693, guid: ee5e32d32295dab46a090df892893910, type: 3}
+  plantPrefab: {fileID: 2278512942591397195, guid: f54217fe5b2f5114abacec2748757215, type: 3}
 --- !u!225 &5806889268768151791
 CanvasGroup:
   m_ObjectHideFlags: 0

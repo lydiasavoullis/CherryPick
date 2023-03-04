@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class NonInventoryDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
+public class NonInventoryDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public static GameObject itemBeingDragged;
     Vector3 startPosition;
@@ -25,14 +25,7 @@ public class NonInventoryDragHandler : MonoBehaviour, IBeginDragHandler, IDragHa
         Vector3 pos = this.GetComponent<RectTransform>().position;
     }
 
-    public void OnDrop(PointerEventData eventData)
-    {
-        transform.SetParent(startParent);
-        transform.position = startPosition;
-        GetComponent<CanvasGroup>().blocksRaycasts = true;
-        itemBeingDragged = null;
 
-    }
 
     public void OnBeginDrag(PointerEventData eventData)
     {

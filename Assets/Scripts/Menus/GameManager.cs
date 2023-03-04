@@ -301,7 +301,7 @@ public class GameManager : MonoBehaviour
         phenotypeText.text = $"phenotype: {phenotypeDescription}";
         deadlineText.text = $"deadline: {orderDeadline} days";
        // Debug.Log($"{amountText.text} | {nameText.text} | {phenotypeText.text} | {deadlineText.text}");
-        sellBtn.onClick.AddListener(delegate
+        sellBtn.onClick.AddListener((UnityEngine.Events.UnityAction)delegate
         {
 
 
@@ -311,7 +311,7 @@ public class GameManager : MonoBehaviour
                 List<string> desiredPheno = phenotypes;
                 //List<string> droppedPlantPheno = plantSlot.gameObject.GetComponent<PlantController>().plant.phenotypes;
                 for (int j = 0; j> plantSlot.childCount; j++) {
-                    if (!GeneratePlants.CheckIfDroppedPlantContainsAllDesiredPhenotypes(desiredPheno, plantSlot.gameObject.GetComponent<PlantController>().plant)) {
+                    if (!GeneratePlants.CheckIfDroppedPlantContainsAllDesiredPhenotypes(desiredPheno, (Plant)plantSlot.gameObject.GetComponent<PlantController>().plant)) {
                         return;
                     }
                 }
@@ -322,20 +322,20 @@ public class GameManager : MonoBehaviour
                         moneyCounter += 50;
                         repCounter++;
                     }
-                    GameManager.Instance.funds += moneyCounter;
-                    GameManager.Instance.reputation += repCounter;
+                GameManager.Instance.funds += moneyCounter;
+                GameManager.Instance.reputation += repCounter;
 
-                    fundsGO.GetComponent<TextInteractionMethods>().UpdateText("funds");
-                    reputationGO.GetComponent<TextInteractionMethods>().UpdateText("reputation");
+                fundsGO.GetComponent<TextInteractionMethods>().UpdateText("funds");
+                reputationGO.GetComponent<TextInteractionMethods>().UpdateText("reputation");
 
-                    GameObject popupPrefab = Instantiate(moneyPopup, newTaskPrefab.transform.position, Quaternion.identity, taskList.transform);
+                GameObject popupPrefab = Instantiate(moneyPopup, newTaskPrefab.transform.position, Quaternion.identity, taskList.transform);
                     popupPrefab.transform.SetSiblingIndex(newTaskPrefab.transform.GetSiblingIndex());
                     popupPrefab.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = $"You earned ${moneyCounter}";
                     if (GameVars.story.variablesState["tutorialpt3"].ToString() == "incomplete")
                     {
-                        GameVars.story.ChoosePathString("tutorial_pt4");
+                    GameVars.story.ChoosePathString("tutorial_pt4");
                     }
-                    Destroy(newTaskPrefab);
+                Destroy(newTaskPrefab);
             }
         });
         Task task = newTaskPrefab.GetComponent<TaskController>().task;

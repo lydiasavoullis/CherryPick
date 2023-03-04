@@ -20,9 +20,11 @@ public class PlantController : MonoBehaviour, IDropHandler
     public Plant plant;
     public Image[] petals;
     public Image stem;
-    public Image center;
+    //public Image center;
     public GameObject cluster1;
     public GameObject cluster2;
+    public GameObject petalPrefab;
+    public GameObject center;
     //public GameObject background;
     public Phenotype[] phenotypes;
     public AudioSource audioSourcePop;
@@ -33,19 +35,22 @@ public class PlantController : MonoBehaviour, IDropHandler
         {
             plant = GeneratePlants.GenerateRandomNewPlant();
         }
-        else {
+        else
+        {
             //audioSourcePop = gameObject.GetComponent<AudioSource>();
             //audioSourcePop.pitch = (UnityEngine.Random.Range(0.6f, .9f));
             //audioSourcePop.Play();
         }
-        
+
         SetPlantInfo();
         SetCurrentPhenotype();
     }
-    public void OnDrop(PointerEventData eventData) {
+    public void OnDrop(PointerEventData eventData)
+    {
         //GeneratePlants.CheckIfTwoPlantsLookTheSame(this.plant, DragHandler.itemBeingDragged.GetComponent<PlantController>().plant)
         List<string> phenotypes = new List<string>();
-        if (transform.parent.tag == "sellSlot") {
+        if (transform.parent.tag == "sellSlot")
+        {
             //get object where Task script is attached
             phenotypes = this.transform.parent.parent.parent.GetComponent<TaskController>().task.phenotypes;
         }
@@ -59,24 +64,46 @@ public class PlantController : MonoBehaviour, IDropHandler
     }
 
 
-    public void SetCurrentPhenotype() {
-        try {
+    public void SetCurrentPhenotype()
+    {
+        
+        SetPetals(GeneratePlants.CheckPetalsInt(plant.genotypes["petals"]), GetPhenotypeSprite("petal"), center, SetColour(GeneratePlants.CheckColour(plant.genotypes["colour"])));
+
+        try
+        {
             stem.sprite = GetPhenotypeSprite(GeneratePlants.CheckHeight(plant.genotypes["height"]));
             
-            foreach (Image p in petals) {
-                p.sprite = GetPhenotypeSprite(GeneratePlants.CheckPetals(plant.genotypes["petals"]));
-                p.color = SetColour(GeneratePlants.CheckColour(plant.genotypes["colour"]));
+            foreach (Image p in petals)
+            {
+                //p.sprite = GetPhenotypeSprite(GeneratePlants.CheckPetals(plant.genotypes["petals"]));
+                
+                //p.color = SetColour(GeneratePlants.CheckColour(plant.genotypes["colour"]));
             }
             SetClustersActive(GeneratePlants.CheckClusters(plant.genotypes["clusters"]));
-            SetColourSplit(GeneratePlants.CheckColourSplit(plant.genotypes["split"]));
+            //SetColourSplit(GeneratePlants.CheckColourSplit(plant.genotypes["split"]));
 
         }
-        catch (Exception e) { 
+        catch (Exception e)
+        {
         }
-        
+
     }
-    
-    public Color32 SetColour(string colour) {
+    //for new dynamic petal creation system
+    public void SetPetals(int petalNumber, Sprite petalSprite, GameObject center, Color32 color) {
+        //for (int i = 0; i < center.transform.childCount;i++) {
+        //    Destroy(center.transform.GetChild(i));
+        //}
+        for (int i = 0; i < petalNumber; i++)
+        {
+            GameObject petalGO = Instantiate(petalPrefab, new Vector3(0, 0, 0), Quaternion.identity, center.transform);
+            petalGO.name = "petal";
+            petalGO.GetComponent<Image>().sprite = petalSprite;
+            petalGO.GetComponent<Image>().color = color;
+        }
+    }
+
+    public Color32 SetColour(string colour)
+    {
         Color32 color;
         switch (colour)
         {
@@ -93,24 +120,31 @@ public class PlantController : MonoBehaviour, IDropHandler
         }
         return Color.white;
     }
-    public Sprite GetPhenotypeSprite(string type) {
-        foreach(Phenotype p in phenotypes) {
-            if (p.name == type) {
+    public Sprite GetPhenotypeSprite(string type)
+    {
+        foreach (Phenotype p in phenotypes)
+        {
+            if (p.name == type)
+            {
                 return p.sprite;
             }
 
         }
         return null;
     }
-    public void SetClustersActive(string noClusters) {
+    public void SetClustersActive(string noClusters)
+    {
         if (noClusters == "two")
         {
             cluster1.SetActive(true);
+            SetPetals(GeneratePlants.CheckPetalsInt(plant.genotypes["petals"]), GetPhenotypeSprite("petal"), cluster1, SetColour(GeneratePlants.CheckColour(plant.genotypes["colour"])));
         }
-        if (noClusters == "three") 
+        if (noClusters == "three")
         {
             cluster1.SetActive(true);
+            SetPetals(GeneratePlants.CheckPetalsInt(plant.genotypes["petals"]), GetPhenotypeSprite("petal"), cluster1, SetColour(GeneratePlants.CheckColour(plant.genotypes["colour"])));
             cluster2.SetActive(true);
+            SetPetals(GeneratePlants.CheckPetalsInt(plant.genotypes["petals"]), GetPhenotypeSprite("petal"), cluster2, SetColour(GeneratePlants.CheckColour(plant.genotypes["colour"])));
         }
     }
     public void SetColourSplit(string noSplit)
@@ -118,10 +152,10 @@ public class PlantController : MonoBehaviour, IDropHandler
         string geno = string.Join("", plant.genotypes["colour"]);
         if (geno.Any(char.IsUpper) && geno.Any(char.IsLower))
         {
-            string[] colour1 = { geno.Substring(0,1), geno.Substring(0,1) };
-            
-            string[] colour2 = { geno.Substring(1,1), geno.Substring(1,1) };
-            
+            string[] colour1 = { geno.Substring(0, 1), geno.Substring(0, 1) };
+
+            string[] colour2 = { geno.Substring(1, 1), geno.Substring(1, 1) };
+
             if (noSplit == "two")
             {
                 petals[1].color = SetColour(GeneratePlants.CheckColour(colour1));
@@ -140,7 +174,7 @@ public class PlantController : MonoBehaviour, IDropHandler
         //Debug.Log("HOVER OVER FLWOER");
         if (Mouse.current.leftButton.wasPressedThisFrame)//Input.GetMouseButtonDown(0)
         {
-           // Debug.Log("Left click");
+            // Debug.Log("Left click");
             parent1 = gameObject;
             return;
         }
@@ -154,30 +188,31 @@ public class PlantController : MonoBehaviour, IDropHandler
                     GenerateChildSeed(parent1, gameObject);
                 }
                 //GenerateChildPlant(parent1, gameObject);
-                
+
             }
         }
     }
 
     public void GenerateChildPlant(GameObject parent1, GameObject parent2)
     {
-        
+
         GameObject panel = GameObject.Find("Delivery");
         GameObject childPlantGO = Instantiate(plantPrefab, new Vector3(0, 0, 0), Quaternion.identity, panel.transform);
         childPlantGO.name = "plant";
         childPlantGO.GetComponent<PlantController>().plant = new Plant();
         GeneratePlants.CombineGametes(parent1.GetComponent<PlantController>().plant, parent2.GetComponent<PlantController>().plant, childPlantGO.GetComponent<PlantController>().plant);
-        
+
     }
     public void GenerateChildSeed(GameObject parent1, GameObject parent2)
     {
-        
+
         GameObject inventory = GameObject.Find("seedContainer").gameObject;
         //GameObject inventory = GameObject.Find("Inventory").transform.GetChild(0).GetChild(0).gameObject;
         int noOfChildren = UnityEngine.Random.Range(4, 8);
-        for (int i=0; i<noOfChildren;i++) {
-            
-            GameObject childSeedGO = Instantiate(seedPrefab, new Vector3(0,0,0), Quaternion.identity, inventory.transform);
+        for (int i = 0; i < noOfChildren; i++)
+        {
+
+            GameObject childSeedGO = Instantiate(seedPrefab, new Vector3(0, 0, 0), Quaternion.identity, inventory.transform);
             childSeedGO.name = "seed";
             childSeedGO.GetComponent<SeedController>().seed = new Seed();
             GeneratePlants.CombineGametes(parent1.GetComponent<PlantController>().plant, parent2.GetComponent<PlantController>().plant, childSeedGO.GetComponent<SeedController>().seed);
@@ -191,34 +226,41 @@ public class PlantController : MonoBehaviour, IDropHandler
 
     }
 
-    public void RemoveOnePlantFromStack(GameObject plant) {
+    public void RemoveOnePlantFromStack(GameObject plant)
+    {
         GameObject itemSlot = plant.transform.parent.parent.gameObject;
         DestroyImmediate(plant);
-        try {
+        try
+        {
             itemSlot.GetComponent<SlotQuantity>().UpdateQuantityText();
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             Debug.Log(e.ToString());
         }
-        
-        
+
+
     }
-    public void SetPlantInfo() {
+    public void SetPlantInfo()
+    {
         WriteToTextObject(plant.genotypes);
     }
-    
-    public void DisplayPlantInfo() {
+
+    public void DisplayPlantInfo()
+    {
         GameManager.Instance.DisplayItemInfo(transform.position, "plant", plant.description);
     }
     public void RemovePlantInfo()
     {
         GameManager.Instance.RemoveItemInfo();
     }
-    public void WriteToTextObject(Dictionary<string, string[]> genotype) {
+    public void WriteToTextObject(Dictionary<string, string[]> genotype)
+    {
         //plant.description += $"{name} : {geneticInfo[0]} {geneticInfo[1]}\n";
         plant.description = "";
         plant.description += $"Genotypes : {genotype.Count}\n\n";
-        foreach (var item in genotype) {
+        foreach (var item in genotype)
+        {
             plant.description += $"{item.Key} : {item.Value[0]} {item.Value[1]}\n";
         }
     }

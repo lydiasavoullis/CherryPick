@@ -33,6 +33,8 @@ public class SaveInventoryItems : MonoBehaviour
     [SerializeField]
     GameObject heaterPrefab;
     [SerializeField]
+    GameObject heaterContainer;
+    [SerializeField]
     GameObject deadPlantPrefab;
     [SerializeField]
     GameObject taskPrefab;
@@ -62,6 +64,7 @@ public class SaveInventoryItems : MonoBehaviour
     public List<Tuple<string, Dictionary<string, object>, int>> taskBoardPlants = new List<Tuple<string, Dictionary<string, object>, int>>();//int here denotes task it belongs to
     //public List<float> plantPots = new List<float>();
     public List<Tuple<string, Dictionary<string, object>, float>> potsInGreenhouse = new List<Tuple<string, Dictionary<string, object>, float>>();
+    public int heaters = 0;
     public int temp = 0;
     public int day = 0;
     public int funds = 0;
@@ -78,6 +81,7 @@ public class SaveInventoryItems : MonoBehaviour
         funds = GameManager.Instance.funds;
         reputation = GameManager.Instance.reputation;
         temp = GameManager.Instance.nightTemp;
+        heaters = heaterContainer.transform.childCount;
         SaveInventoryContents();
         SaveGreenhouseContents();
         SaveTasks();
@@ -90,6 +94,7 @@ public class SaveInventoryItems : MonoBehaviour
         taskBoardList.Clear();
         taskBoardPlants.Clear();
         shopItems.Clear();
+
     }
     public void SaveShopItems() {
         GameObject shopObj = GameManager.Instance.shopContent;
@@ -204,6 +209,14 @@ public class SaveInventoryItems : MonoBehaviour
         }
         //Debug.Log("Numer of growing plants added: " + counter);
     }
+    public void LoadHeaters(SaveData data) {
+        for (int i = 0; i<data.heaters; i++) {
+            GameObject heaterGO = Instantiate(heaterPrefab, new Vector3(0, 0, 0), Quaternion.identity, heaterContainer.transform);
+            //get plant placeholder in shop item
+            heaterGO.name = "heater";
+            heaterGO.transform.localPosition = Vector3.zero;
+        }
+    }
     public void LoadItems(string filename)
     {
         Debug.Log("Load items");
@@ -213,7 +226,7 @@ public class SaveInventoryItems : MonoBehaviour
         ClearObjectChildren(taskBoard);
         ClearObjectChildren(customerContainer);
         ClearObjectChildren(speechContainer);
-        
+        ClearObjectChildren(heaterContainer);
         SaveData data = SaveSystem.LoadData(filename);
         
         //progress variables
@@ -261,7 +274,7 @@ public class SaveInventoryItems : MonoBehaviour
         LoadGreenhouse(data);
         //load inventory
         LoadInventory(data);
-        
+        LoadHeaters(data);
         
     }
     public void LoadInventory(SaveData data) {
