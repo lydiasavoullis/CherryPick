@@ -68,12 +68,12 @@ MonoBehaviour:
   infoPrefab: {fileID: 1256575584670734572, guid: 1570481c3bff12f41acdb04c865343c1, type: 3}
   placeholdertext: hover over a plant to learn more...
   plantDescription: 
-  plantPrefab: {fileID: 0}
+  plantPrefab: {fileID: 2278512942591397195}
   seedPrefab: {fileID: 1412886037467318109, guid: 454fc13b89abb8a4d8c305bc2ec1954e, type: 3}
   petals: []
-  stem: {fileID: 0}
-  cluster1: {fileID: 0}
-  cluster2: {fileID: 0}
+  stem: {fileID: 2159677442922459750}
+  cluster1: {fileID: 8159668365383209124}
+  cluster2: {fileID: 8159668366289008265}
   petalPrefab: {fileID: 2946464976740436181, guid: 01504728887b6004ea195a594f30aee5, type: 3}
   center: {fileID: 8159668366900757381}
   phenotypes:

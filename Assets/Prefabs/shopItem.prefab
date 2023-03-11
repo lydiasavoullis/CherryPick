@@ -863,7 +863,7 @@ MonoBehaviour:
   heaterPrefab: {fileID: 775487117242648653, guid: bf29d3f7e6b850c43b7b85387e5b9457, type: 3}
   potPrefab: {fileID: 976079920890061519, guid: d80604bf6a8f025408db1adeb20f1b84, type: 3}
   itemSlotPrefab: {fileID: 8734460921410282878, guid: 29efb38048ed392449fd6aec0e4c0c6f, type: 3}
-  plantPrefab: {fileID: 2351867660027540693, guid: ee5e32d32295dab46a090df892893910, type: 3}
+  plantPrefab: {fileID: 2278512942591397195, guid: f54217fe5b2f5114abacec2748757215, type: 3}
   buySlot: {fileID: 4980312861547527089}
   itemNameText: {fileID: 8209032275336462877}
   itemDescText: {fileID: 4302494522729782841}
