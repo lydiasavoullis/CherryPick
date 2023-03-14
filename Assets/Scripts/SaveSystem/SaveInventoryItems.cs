@@ -112,7 +112,7 @@ public class SaveInventoryItems : MonoBehaviour
             }
             else {
                
-                shopItems.Add(new Tuple<string, Dictionary<string, object>, int>("shopItem", null, 1));
+                shopItems.Add(new Tuple<string, Dictionary<string, object>, int>(shopObj.transform.GetChild(i).GetChild(1).GetChild(0).GetChild(0).gameObject.name, null, 1));
                 
             }
 
@@ -151,7 +151,10 @@ public class SaveInventoryItems : MonoBehaviour
             else
             {
                 GameObject itemGO = Instantiate(shopItemPrefab, new Vector3(0, 0, 0), Quaternion.identity, shopObj.transform);
+
+                //itemGO.transform.GetChild(1).GetChild(0).GetChild(0).gameObject;
                 //seedGO.GetComponent<SeedController>().seed = LoadSeedFromList(data.shopItems[i].Item2);
+                itemGO.transform.GetComponent<Buy>().SetItemDetails(data.shopItems[i].Item1);
                 itemGO.name = "shopItem";
                 itemGO.transform.localPosition = Vector3.zero;
             }

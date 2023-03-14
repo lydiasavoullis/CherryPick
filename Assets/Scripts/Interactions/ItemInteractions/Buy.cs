@@ -45,6 +45,7 @@ public class Buy : MonoBehaviour
                 break;
 
         }
+        newItem.name = itemName;
         newItem.transform.GetComponent<DragHandler>().enabled = false;
         newItem.GetComponent<RectTransform>().sizeDelta = new Vector2(100, 100);
         newItem.transform.localPosition = Vector3.zero;
