@@ -54,9 +54,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: canvas
-    uniqueID: 2922297447
+  - name: shop
+    uniqueID: 1571076075
     locked: 0
-  - name: items
-    uniqueID: 468931067
+  - name: greenhouse
+    uniqueID: 1932648743
+    locked: 0
+  - name: UI
+    uniqueID: 158930313
+    locked: 0
+  - name: Overlay
+    uniqueID: 3409458105
     locked: 0
