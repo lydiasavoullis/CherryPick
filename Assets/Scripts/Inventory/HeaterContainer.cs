@@ -8,7 +8,7 @@ public class HeaterContainer : MonoBehaviour, IDropHandler
     {
         
         //Debug.Log("Has Dropped");
-        if (DragHandler.itemBeingDragged !=null && DragHandler.itemBeingDragged.tag == "heater")
+        if (DragHandler.itemBeingDragged !=null && DragHandler.itemBeingDragged.tag == "heater" && gameObject.transform.childCount<3)
         {
             GameObject heater = DragHandler.itemBeingDragged;
             heater.transform.SetParent(transform);

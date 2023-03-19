@@ -67,7 +67,8 @@ public class DialogueController : MonoBehaviour
     [SerializeField]
     GameObject optionsMenu;//if active we don't want to advance the story
     [SerializeField]
-
+    GameObject greenHouse;//if active we don't want to advance the story
+    [SerializeField]
     #endregion
     #region controllers
     //public bool effectJustPlayed = false;
@@ -124,7 +125,7 @@ public class DialogueController : MonoBehaviour
         //        GameVars.autoMode = false;
         //    }
         //}
-        if (Keyboard.current.spaceKey.wasPressedThisFrame && GameVars.finishedTyping && !GameVars.dontAdvanceStory)// && SceneManager.GetActiveScene().name != "MainMenu" 
+        if (Keyboard.current.spaceKey.wasPressedThisFrame && GameVars.finishedTyping && !GameVars.dontAdvanceStory && !greenHouse.activeInHierarchy)// && SceneManager.GetActiveScene().name != "MainMenu" 
         {
             ClearSpeech();
             //Debug.Log("space pressed");

@@ -51,6 +51,8 @@ public class GameManager : MonoBehaviour
     GameObject background;
     [SerializeField]
     TextMeshProUGUI nextCustomerButton;
+    [SerializeField]
+    GameObject greenHouseCanvas;
     public static GameManager Instance;
     public GameObject canvas;
     public GameObject infoBoxPrefab;
@@ -74,6 +76,11 @@ public class GameManager : MonoBehaviour
     }
     //make sure heater heat only counts after shop has closed
     public IEnumerator ChangeDay() {
+        bool greenHouseActive = greenHouseCanvas.activeInHierarchy;
+        if (!greenHouseActive) {
+            greenHouseCanvas.SetActive(true);
+        }
+        
         GameObject greenhousePlanter = GameObject.FindGameObjectWithTag("greenhouseContainer");
         frontScreen.SetActive(true);
         for (int i = 0; i < greenhousePlanter.transform.childCount; i++)
@@ -112,6 +119,10 @@ public class GameManager : MonoBehaviour
         CountDownDayForAllTasks();
         tasksGivenToday = 0;
         taskController.GiveNewTask();
+
+        if (!greenHouseActive) {
+            greenHouseCanvas.SetActive(false);
+        }
     }
     public void SetNewNightTemp()
     {
