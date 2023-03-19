@@ -63,6 +63,9 @@ TagManager:
   - name: UI
     uniqueID: 158930313
     locked: 0
+  - name: Draggable
+    uniqueID: 1983144879
+    locked: 0
   - name: Overlay
     uniqueID: 3409458105
     locked: 0

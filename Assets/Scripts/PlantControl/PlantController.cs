@@ -205,8 +205,14 @@ public class PlantController : MonoBehaviour, IDropHandler
     }
     public void GenerateChildSeed(GameObject parent1, GameObject parent2)
     {
-
-        GameObject inventory = GameObject.Find("seedContainer").gameObject;
+        GameObject inventory;
+        try {
+            inventory = GameObject.Find("seedContainer").gameObject;
+        }
+        catch (Exception e) {
+            Debug.Log("Seed container is inactive. Make sure you're inside the greenhouse");
+            return;  
+        }
         //GameObject inventory = GameObject.Find("Inventory").transform.GetChild(0).GetChild(0).gameObject;
         int noOfChildren = UnityEngine.Random.Range(4, 8);
         for (int i = 0; i < noOfChildren; i++)
@@ -223,6 +229,7 @@ public class PlantController : MonoBehaviour, IDropHandler
         {
             GameVars.story.ChoosePathString("tutorial_pt2");
         }
+
 
     }
 
