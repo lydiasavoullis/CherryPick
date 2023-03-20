@@ -140,11 +140,12 @@ public class SaveInventoryItems : MonoBehaviour
                 //for (int x = 0; x < data.shopItems[i].Item3; x++)
                 //{
                     //foreach item in slot
-                    GameObject plantItemGO = Instantiate(shopPlantPrefab, new Vector3(0, 0, 0), Quaternion.identity, shopObj.transform);
-                    //get plant placeholder in shop item
-                    plantItemGO.transform.GetChild(1).GetChild(0).GetChild(0).gameObject.GetComponent<PlantController>().plant = LoadPlantFromList(data.shopItems[i].Item2);
-                    plantItemGO.name = "shopPlant";
-                    plantItemGO.transform.localPosition = Vector3.zero;
+                GameObject plantItemGO = Instantiate(shopPlantPrefab, new Vector3(0, 0, 0), Quaternion.identity, shopObj.transform);
+                //get plant placeholder in shop item
+                plantItemGO.transform.GetChild(1).GetChild(0).GetChild(0).gameObject.GetComponent<PlantController>().plant = LoadPlantFromList(data.shopItems[i].Item2);
+                plantItemGO.transform.GetComponent<Buy>().itemName = "plant";
+                plantItemGO.name = "shopPlant";
+                plantItemGO.transform.localPosition = Vector3.zero;
                 //}
 
             }

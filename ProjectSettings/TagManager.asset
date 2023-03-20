@@ -66,6 +66,9 @@ TagManager:
   - name: Draggable
     uniqueID: 1983144879
     locked: 0
+  - name: Journal
+    uniqueID: 2643284293
+    locked: 0
   - name: Overlay
     uniqueID: 3409458105
     locked: 0
