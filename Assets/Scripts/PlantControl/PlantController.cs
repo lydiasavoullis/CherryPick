@@ -25,6 +25,7 @@ public class PlantController : MonoBehaviour, IDropHandler
     public GameObject cluster2;
     public GameObject petalPrefab;
     public GameObject center;
+    public GameObject center2;
     //public GameObject background;
     public Phenotype[] phenotypes;
     public AudioSource audioSourcePop;
@@ -43,6 +44,8 @@ public class PlantController : MonoBehaviour, IDropHandler
         }
 
         SetPlantInfo();
+        
+        
         SetCurrentPhenotype();
     }
     public void OnDrop(PointerEventData eventData)
