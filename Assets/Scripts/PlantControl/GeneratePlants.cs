@@ -11,13 +11,21 @@ public static class GeneratePlants
     static string colourGene = "r";
     static string petalGene = "p";
     static string clustersGene = "c";
-    static string colourSplitGene = "v";
-    public static string[] genotypesRange = { "colour", "height", "petals","clusters", "split" };
-    static string[] geneRange = { colourGene, heightGene, petalGene, clustersGene, colourSplitGene };
+    static string petalShapeGene = "s";
+    static string centerShapeGene = "h";
+    static string centerColourGene = "e";
+    static string petalSizeGene = "x";
+    static string petalVariagatedGene = "u";
+    static string leafNumGene = "q";
+    static string colourB = "b";
+    static string leafSize = "l";
+    public static string[] genotypesRange = { "colour", "height", "petals","clusters", "petalShape", "centerShape", "centerColour", "petalSize", "petalVariagated", "leafNumber", "colourB",  "leafSize" };
+    static string[] geneRange = { colourGene, heightGene, petalGene, clustersGene, petalShapeGene , centerShapeGene , centerColourGene, petalSizeGene , petalVariagatedGene , leafNumGene , colourB , leafSize };
     //static Dictionary<string, string> genotypesAndGenes = new Dictionary<string, string>() { {"colour", colourGene }, { "height", heightGene }, { "petals", petalGene} };
     public static Plant GenerateRandomNewPlant() {
         Plant plant = new Plant();
-        plant.maxGenotypes = MaxGenotypes();
+        plant.category = 3;
+        plant.maxGenotypes = MaxGenotypes(plant);
         for (int i = 0;i< plant.maxGenotypes; i++) {
             plant.genotypes.Add(genotypesRange[i], NewGeno(geneRange[i]));
         }
@@ -30,8 +38,21 @@ public static class GeneratePlants
         return plant;
     }
     //change number of genotypes available
-    public static int MaxGenotypes() {
-        return 4;// UnityEngine.Random.Range(2, 6);
+    public static int MaxGenotypes(Plant plant) {
+        switch (plant.category) {
+            case 1:
+                return 4;
+            case 2:
+                return 8;
+            case 3:
+                return 12;
+            //case 4:
+            //    return 16;
+            //case 5:
+            //    return 20;
+            default:
+                return 4;
+        }
     }
     public static List<string> GetPlantPhenotype(Plant plant) {
         List<string> phenotypes = new List<string>();
@@ -40,7 +61,29 @@ public static class GeneratePlants
             phenotypes.Add(CheckHeight(plant.genotypes["height"]));
             phenotypes.Add(CheckPetals(plant.genotypes["petals"]));
             phenotypes.Add(CheckClusters(plant.genotypes["clusters"]));
-            //phenotypes.Add(CheckColourSplit(plant.genotypes["split"]));
+            if (plant.category==1) {
+                return phenotypes;
+            }
+            //check 4 more phenotypes
+            if (plant.category == 2)
+            {
+                return phenotypes;
+            }
+            //check 4 more phenotypes
+            if (plant.category == 3)
+            {
+                return phenotypes;
+            }
+            //check 4 more phenotypes
+            if (plant.category == 4)
+            {
+                return phenotypes;
+            }
+            //check 4 more phenotypes
+            if (plant.category == 5)
+            {
+                return phenotypes;
+            }
         }
         catch (Exception e) { 
         }
@@ -171,25 +214,6 @@ public static class GeneratePlants
         else
         {
             return "three";
-        }
-    }
-    public static string CheckColourSplit(string[] genotype)
-    {
-        string geno = string.Join("", genotype);
-        if (geno.Contains(colourSplitGene.ToLower()))
-        {
-            if (geno.Contains(colourSplitGene.ToUpper()))
-            {
-                return "two";
-            }
-            else
-            {
-                return "three";
-            }
-        }
-        else
-        {
-            return "one";
         }
     }
     public static bool CheckIfPlantHasPhenotype(Plant plant, string phenotype)

@@ -53,6 +53,8 @@ public class GameManager : MonoBehaviour
     TextMeshProUGUI nextCustomerButton;
     [SerializeField]
     GameObject greenHouseCanvas;
+    [SerializeField]
+    GameObject UICanvas;
     public static GameManager Instance;
     public GameObject canvas;
     public GameObject infoBoxPrefab;
@@ -282,7 +284,7 @@ public class GameManager : MonoBehaviour
             Destroy(infoBoxGO.gameObject);
         }
 
-        infoBoxGO = Instantiate(infoBoxPrefab, pos, Quaternion.identity, canvas.transform);
+        infoBoxGO = Instantiate(infoBoxPrefab, pos, Quaternion.identity, UICanvas.transform);
         infoBoxGO.GetComponent<ItemInfo>().SetUp(name, description);
 
     }

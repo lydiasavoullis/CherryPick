@@ -10,4 +10,5 @@ public class Seed
     public int growthDuration = 1;
     public int timeGrowing = 0;
     public int maxGenotypes;
+    public int category;
 }
