@@ -5,7 +5,6 @@ using UnityEngine;
 public class Plant : Seed
 {
     public List<string> phenotypes = new List<string>();
-    
     public string description = "";
 
 

@@ -61,6 +61,7 @@ public static class GeneratePlants
             phenotypes.Add(CheckHeight(plant.genotypes["height"]));
             phenotypes.Add(CheckPetals(plant.genotypes["petals"]));
             phenotypes.Add(CheckClusters(plant.genotypes["clusters"]));
+            phenotypes.Add(CheckPetalShape(plant.genotypes["petalShape"]));
             if (plant.category==1) {
                 return phenotypes;
             }
@@ -161,11 +162,11 @@ public static class GeneratePlants
         string geno = string.Join("", genotype);
         if (geno.Contains(petalGene))
         {
-            return "four";
+            return "5";
         }
         else
         {
-            return "five";
+            return "6";
         }
     }
     public static int CheckPetalsInt(string[] genotype)
@@ -196,6 +197,25 @@ public static class GeneratePlants
         else {
             return "red";
         } 
+    }
+    public static string CheckPetalShape(string[] genotype)
+    {
+        string geno = string.Join("", genotype);
+        if (geno.Contains(petalShapeGene.ToLower()))
+        {
+            if (geno.Contains(clustersGene.ToUpper()))
+            {
+                return "oval";
+            }
+            else
+            {
+                return "round";
+            }
+        }
+        else
+        {
+            return "pointed";
+        }
     }
     public static string CheckClusters(string[] genotype)
     {
