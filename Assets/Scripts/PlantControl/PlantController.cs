@@ -26,8 +26,6 @@ public class PlantController : MonoBehaviour, IDropHandler
     public GameObject petalPrefab;
     public GameObject center;
     public GameObject center2;
-    public GameObject leaves_right;
-    public GameObject leaves_left;
     //public GameObject background;
     public Phenotype[] phenotypes;
     public AudioSource audioSourcePop;
@@ -69,11 +67,10 @@ public class PlantController : MonoBehaviour, IDropHandler
     }
 
 
-    //set how the plant LOOKS
-    //try getting from phenotype list now
     public void SetCurrentPhenotype()
     {
         
+<<<<<<< HEAD
         //GeneratePlants.genotypesRange;
         //plant.phenotypes
         SetPetals(GeneratePlants.CheckPetalsInt(plant.genotypes["petals"]), GetPhenotypeSprite($"petal_{plant.phenotypes["petalShape"]}"), center, SetColour(plant.phenotypes["colour"]));//GeneratePlants.CheckColour(plant.genotypes["colour"])
@@ -82,11 +79,26 @@ public class PlantController : MonoBehaviour, IDropHandler
         {
             stem.sprite = GetPhenotypeSprite(plant.phenotypes["height"]);//GeneratePlants.CheckHeight(plant.genotypes["height"])
             if (plant.phenotypes["height"] == "tall")
+=======
+        SetPetals(GeneratePlants.CheckPetalsInt(plant.genotypes["petals"]), GetPhenotypeSprite("petal"), center, SetColour(GeneratePlants.CheckColour(plant.genotypes["colour"])));//
+
+        try
+        {
+            stem.sprite = GetPhenotypeSprite(GeneratePlants.CheckHeight(plant.genotypes["height"]));
+            
+            foreach (Image p in petals)
+>>>>>>> parent of 4876e25 (Adding more plant genetics)
             {
-                Vector3 oldSize = leaves_left.GetComponent<RectTransform>().sizeDelta;
-                leaves_left.GetComponent<RectTransform>().sizeDelta = new Vector3(oldSize.x, 48f, oldSize.z);
+                //p.sprite = GetPhenotypeSprite(GeneratePlants.CheckPetals(plant.genotypes["petals"]));
+                
+                //p.color = SetColour(GeneratePlants.CheckColour(plant.genotypes["colour"]));
             }
+<<<<<<< HEAD
             SetClustersActive(GeneratePlants.CheckClusters(plant.genotypes["clusters"]), $"petal_{plant.phenotypes["petalShape"]}");
+=======
+            SetClustersActive(GeneratePlants.CheckClusters(plant.genotypes["clusters"]));
+            //SetColourSplit(GeneratePlants.CheckColourSplit(plant.genotypes["split"]));
+>>>>>>> parent of 4876e25 (Adding more plant genetics)
 
         }
         catch (Exception e)
@@ -159,19 +171,19 @@ public class PlantController : MonoBehaviour, IDropHandler
         }
         return null;
     }
-    public void SetClustersActive(string noClusters, string petalType)
+    public void SetClustersActive(string noClusters)
     {
         if (noClusters == "two")
         {
             cluster1.SetActive(true);
-            SetPetals(GeneratePlants.CheckPetalsInt(plant.genotypes["petals"]), GetPhenotypeSprite(petalType), cluster1, SetColour(GeneratePlants.CheckColour(plant.genotypes["colour"])));
+            SetPetals(GeneratePlants.CheckPetalsInt(plant.genotypes["petals"]), GetPhenotypeSprite("petal"), cluster1, SetColour(GeneratePlants.CheckColour(plant.genotypes["colour"])));
         }
         if (noClusters == "three")
         {
             cluster1.SetActive(true);
-            SetPetals(GeneratePlants.CheckPetalsInt(plant.genotypes["petals"]), GetPhenotypeSprite(petalType), cluster1, SetColour(GeneratePlants.CheckColour(plant.genotypes["colour"])));
+            SetPetals(GeneratePlants.CheckPetalsInt(plant.genotypes["petals"]), GetPhenotypeSprite("petal"), cluster1, SetColour(GeneratePlants.CheckColour(plant.genotypes["colour"])));
             cluster2.SetActive(true);
-            SetPetals(GeneratePlants.CheckPetalsInt(plant.genotypes["petals"]), GetPhenotypeSprite(petalType), cluster2, SetColour(GeneratePlants.CheckColour(plant.genotypes["colour"])));
+            SetPetals(GeneratePlants.CheckPetalsInt(plant.genotypes["petals"]), GetPhenotypeSprite("petal"), cluster2, SetColour(GeneratePlants.CheckColour(plant.genotypes["colour"])));
         }
     }
     public void SetColourSplit(string noSplit)

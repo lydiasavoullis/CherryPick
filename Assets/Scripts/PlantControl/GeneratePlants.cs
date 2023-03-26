@@ -57,11 +57,18 @@ public static class GeneratePlants
     public static Dictionary<string, string> GetPlantPhenotype(Plant plant) {
         Dictionary<string, string> phenotypes = new Dictionary<string, string>();
         try {
+<<<<<<< HEAD
             phenotypes.Add("colour", CheckColour(plant.genotypes["colour"]));
             phenotypes.Add("height", CheckHeight(plant.genotypes["height"]));
             phenotypes.Add("petals", CheckPetals(plant.genotypes["petals"]));
             phenotypes.Add("clusters", CheckClusters(plant.genotypes["clusters"]));
             phenotypes.Add("petalShape", CheckPetalShape(plant.genotypes["petalShape"]));
+=======
+            phenotypes.Add(CheckColour(plant.genotypes["colour"]));
+            phenotypes.Add(CheckHeight(plant.genotypes["height"]));
+            phenotypes.Add(CheckPetals(plant.genotypes["petals"]));
+            phenotypes.Add(CheckClusters(plant.genotypes["clusters"]));
+>>>>>>> parent of 4876e25 (Adding more plant genetics)
             if (plant.category==1) {
                 return phenotypes;
             }
@@ -162,11 +169,11 @@ public static class GeneratePlants
         string geno = string.Join("", genotype);
         if (geno.Contains(petalGene))
         {
-            return "5";
+            return "four";
         }
         else
         {
-            return "6";
+            return "five";
         }
     }
     public static int CheckPetalsInt(string[] genotype)
@@ -197,25 +204,6 @@ public static class GeneratePlants
         else {
             return "red";
         } 
-    }
-    public static string CheckPetalShape(string[] genotype)
-    {
-        string geno = string.Join("", genotype);
-        if (geno.Contains(petalShapeGene.ToLower()))
-        {
-            if (geno.Contains(clustersGene.ToUpper()))
-            {
-                return "oval";
-            }
-            else
-            {
-                return "round";
-            }
-        }
-        else
-        {
-            return "pointed";
-        }
     }
     public static string CheckClusters(string[] genotype)
     {
