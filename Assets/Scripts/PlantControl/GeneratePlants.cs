@@ -24,7 +24,7 @@ public static class GeneratePlants
     //static Dictionary<string, string> genotypesAndGenes = new Dictionary<string, string>() { {"colour", colourGene }, { "height", heightGene }, { "petals", petalGene} };
     public static Plant GenerateRandomNewPlant() {
         Plant plant = new Plant();
-        plant.category = 3;
+        plant.category = 2;
         plant.maxGenotypes = MaxGenotypes(plant);
         for (int i = 0;i< plant.maxGenotypes; i++) {
             plant.genotypes.Add(genotypesRange[i], NewGeno(geneRange[i]));
@@ -43,15 +43,15 @@ public static class GeneratePlants
             case 1:
                 return 4;
             case 2:
-                return 8;
-            case 3:
-                return 12;
+                return 5;
+            //case 3:
+            //    return 12;
             //case 4:
             //    return 16;
             //case 5:
             //    return 20;
             default:
-                return 4;
+                return 6;
         }
     }
     public static List<string> GetPlantPhenotype(Plant plant) {

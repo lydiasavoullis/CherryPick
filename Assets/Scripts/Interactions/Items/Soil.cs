@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using System;
+
 public class Soil : MonoBehaviour, IDropHandler
 {
     [SerializeField]
@@ -56,7 +58,13 @@ public class Soil : MonoBehaviour, IDropHandler
                 }
                 break;
             case "heat":
-                plantPotState.isHeated = true;
+                try {
+                    plantPotState.isHeated = true;
+                }
+                catch (Exception e) {
+                    
+                }
+                
                 break;
             default: 
                 break;

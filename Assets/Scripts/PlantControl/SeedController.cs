@@ -18,8 +18,10 @@ public class SeedController : MonoBehaviour
         //newPlant.colour = seed.colour;
         //newPlant.genotypes.Add("colour", newPlant.colour);
         //newPlant.genotypes.Add("height", newPlant.height);
+        newPlant.category = seed.category;
         newPlant.genotypes = seed.genotypes;
         newPlant.phenotypes = GeneratePlants.GetPlantPhenotype(newPlant);
+        newPlant.maxGenotypes = GeneratePlants.MaxGenotypes(newPlant);
         GameObject plantGO = Instantiate(plantPrefab, new Vector3(0, 0, 0), Quaternion.identity, gameObject.transform.parent);
         plantGO.GetComponent<PlantController>().plant = newPlant;
         plantGO.name = "plant";

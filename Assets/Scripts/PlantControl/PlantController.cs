@@ -226,7 +226,9 @@ public class PlantController : MonoBehaviour, IDropHandler
 
             GameObject childSeedGO = Instantiate(seedPrefab, new Vector3(0, 0, 0), Quaternion.identity, inventory.transform);
             childSeedGO.name = "seed";
+            
             childSeedGO.GetComponent<SeedController>().seed = new Seed();
+            childSeedGO.GetComponent<SeedController>().seed.category = parent1.GetComponent<PlantController>().plant.category;
             GeneratePlants.CombineGametes(parent1.GetComponent<PlantController>().plant, parent2.GetComponent<PlantController>().plant, childSeedGO.GetComponent<SeedController>().seed);
         }
         RemoveOnePlantFromStack(parent1);
