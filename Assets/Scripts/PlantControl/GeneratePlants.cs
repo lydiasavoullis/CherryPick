@@ -68,6 +68,9 @@ public static class GeneratePlants
             phenotypes.Add(CheckHeight(plant.genotypes["height"]));
             phenotypes.Add(CheckPetals(plant.genotypes["petals"]));
             phenotypes.Add(CheckClusters(plant.genotypes["clusters"]));
+<<<<<<< HEAD
+>>>>>>> parent of 4876e25 (Adding more plant genetics)
+=======
 >>>>>>> parent of 4876e25 (Adding more plant genetics)
             if (plant.category==1) {
                 return phenotypes;

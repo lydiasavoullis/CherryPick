@@ -71,6 +71,7 @@ public class PlantController : MonoBehaviour, IDropHandler
     {
         
 <<<<<<< HEAD
+<<<<<<< HEAD
         //GeneratePlants.genotypesRange;
         //plant.phenotypes
         SetPetals(GeneratePlants.CheckPetalsInt(plant.genotypes["petals"]), GetPhenotypeSprite($"petal_{plant.phenotypes["petalShape"]}"), center, SetColour(plant.phenotypes["colour"]));//GeneratePlants.CheckColour(plant.genotypes["colour"])
@@ -88,13 +89,27 @@ public class PlantController : MonoBehaviour, IDropHandler
             
             foreach (Image p in petals)
 >>>>>>> parent of 4876e25 (Adding more plant genetics)
+=======
+        SetPetals(GeneratePlants.CheckPetalsInt(plant.genotypes["petals"]), GetPhenotypeSprite("petal"), center, SetColour(GeneratePlants.CheckColour(plant.genotypes["colour"])));//
+
+        try
+        {
+            stem.sprite = GetPhenotypeSprite(GeneratePlants.CheckHeight(plant.genotypes["height"]));
+            
+            foreach (Image p in petals)
+>>>>>>> parent of 4876e25 (Adding more plant genetics)
             {
                 //p.sprite = GetPhenotypeSprite(GeneratePlants.CheckPetals(plant.genotypes["petals"]));
                 
                 //p.color = SetColour(GeneratePlants.CheckColour(plant.genotypes["colour"]));
             }
 <<<<<<< HEAD
+<<<<<<< HEAD
             SetClustersActive(GeneratePlants.CheckClusters(plant.genotypes["clusters"]), $"petal_{plant.phenotypes["petalShape"]}");
+=======
+            SetClustersActive(GeneratePlants.CheckClusters(plant.genotypes["clusters"]));
+            //SetColourSplit(GeneratePlants.CheckColourSplit(plant.genotypes["split"]));
+>>>>>>> parent of 4876e25 (Adding more plant genetics)
 =======
             SetClustersActive(GeneratePlants.CheckClusters(plant.genotypes["clusters"]));
             //SetColourSplit(GeneratePlants.CheckColourSplit(plant.genotypes["split"]));

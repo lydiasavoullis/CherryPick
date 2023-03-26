@@ -10,6 +10,9 @@ public class Plant : Seed
 =======
     public List<string> phenotypes = new List<string>();
     
+<<<<<<< HEAD
+>>>>>>> parent of 4876e25 (Adding more plant genetics)
+=======
 >>>>>>> parent of 4876e25 (Adding more plant genetics)
     public string description = "";
 
