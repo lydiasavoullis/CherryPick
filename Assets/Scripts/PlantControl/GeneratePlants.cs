@@ -54,14 +54,14 @@ public static class GeneratePlants
                 return 4;
         }
     }
-    public static List<string> GetPlantPhenotype(Plant plant) {
-        List<string> phenotypes = new List<string>();
+    public static Dictionary<string, string> GetPlantPhenotype(Plant plant) {
+        Dictionary<string, string> phenotypes = new Dictionary<string, string>();
         try {
-            phenotypes.Add(CheckColour(plant.genotypes["colour"]));
-            phenotypes.Add(CheckHeight(plant.genotypes["height"]));
-            phenotypes.Add(CheckPetals(plant.genotypes["petals"]));
-            phenotypes.Add(CheckClusters(plant.genotypes["clusters"]));
-            phenotypes.Add(CheckPetalShape(plant.genotypes["petalShape"]));
+            phenotypes.Add("colour", CheckColour(plant.genotypes["colour"]));
+            phenotypes.Add("height", CheckHeight(plant.genotypes["height"]));
+            phenotypes.Add("petals", CheckPetals(plant.genotypes["petals"]));
+            phenotypes.Add("clusters", CheckClusters(plant.genotypes["clusters"]));
+            phenotypes.Add("petalShape", CheckPetalShape(plant.genotypes["petalShape"]));
             if (plant.category==1) {
                 return phenotypes;
             }
@@ -238,7 +238,7 @@ public static class GeneratePlants
     }
     public static bool CheckIfPlantHasPhenotype(Plant plant, string phenotype)
     {
-        if (plant.phenotypes.Contains(phenotype))
+        if (plant.phenotypes.Values.Contains(phenotype))
         {
             return true;
         }
@@ -249,7 +249,7 @@ public static class GeneratePlants
     //dropped plant must contain all characteristics of desired plant, but dropped plant may have some that desired plant does not
     public static bool CheckIfDroppedPlantContainsAllDesiredPhenotypes(List<string> phenotypes, Plant droppedPlant) {
         foreach (string s in phenotypes) {
-            if (!droppedPlant.phenotypes.Contains(s)) {
+            if (!droppedPlant.phenotypes.Values.Contains(s)) {
                 return false;
             }
         }

@@ -76,17 +76,17 @@ public class PlantController : MonoBehaviour, IDropHandler
         
         //GeneratePlants.genotypesRange;
         //plant.phenotypes
-        SetPetals(GeneratePlants.CheckPetalsInt(plant.genotypes["petals"]), GetPhenotypeSprite($"petal_{plant.phenotypes[4]}"), center, SetColour(plant.phenotypes[0]));//GeneratePlants.CheckColour(plant.genotypes["colour"])
+        SetPetals(GeneratePlants.CheckPetalsInt(plant.genotypes["petals"]), GetPhenotypeSprite($"petal_{plant.phenotypes["petalShape"]}"), center, SetColour(plant.phenotypes["colour"]));//GeneratePlants.CheckColour(plant.genotypes["colour"])
 
         try
         {
-            stem.sprite = GetPhenotypeSprite(plant.phenotypes[1]);//GeneratePlants.CheckHeight(plant.genotypes["height"])
-            if (plant.phenotypes[1] == "tall")
+            stem.sprite = GetPhenotypeSprite(plant.phenotypes["height"]);//GeneratePlants.CheckHeight(plant.genotypes["height"])
+            if (plant.phenotypes["height"] == "tall")
             {
                 Vector3 oldSize = leaves_left.GetComponent<RectTransform>().sizeDelta;
                 leaves_left.GetComponent<RectTransform>().sizeDelta = new Vector3(oldSize.x, 48f, oldSize.z);
             }
-            SetClustersActive(GeneratePlants.CheckClusters(plant.genotypes["clusters"]), $"petal_{plant.phenotypes[4]}");
+            SetClustersActive(GeneratePlants.CheckClusters(plant.genotypes["clusters"]), $"petal_{plant.phenotypes["petalShape"]}");
 
         }
         catch (Exception e)
@@ -99,12 +99,33 @@ public class PlantController : MonoBehaviour, IDropHandler
         //for (int i = 0; i < center.transform.childCount;i++) {
         //    Destroy(center.transform.GetChild(i));
         //}
+        GradientColorKey[] colorKey;
+        GradientAlphaKey[] alphaKey;
+        Gradient gradient;
+        gradient = new Gradient();
+        // Populate the color keys at the relative time 0 and 1 (0 and 100%)
+        colorKey = new GradientColorKey[2];
+        colorKey[0].color = Color.red;
+        colorKey[0].time = 0.0f;
+        colorKey[1].color = Color.magenta;
+        colorKey[1].time = 1.0f;
+        // Populate the alpha  keys at relative time 0 and 1  (0 and 100%)
+        alphaKey = new GradientAlphaKey[2];
+        alphaKey[0].alpha = 1.0f;
+        alphaKey[0].time = 0.0f;
+        alphaKey[1].alpha = 0.0f;
+        alphaKey[1].time = 1.0f;
+
+        gradient.SetKeys(colorKey, alphaKey);
         for (int i = 0; i < petalNumber; i++)
         {
             GameObject petalGO = Instantiate(petalPrefab, new Vector3(0, 0, 0), Quaternion.identity, center.transform);
             petalGO.name = "petal";
             petalGO.GetComponent<Image>().sprite = petalSprite;
             petalGO.GetComponent<Image>().color = color;
+            petalGO.GetComponent<Image>().material.color = gradient.Evaluate(1);
+
+            
         }
     }
 

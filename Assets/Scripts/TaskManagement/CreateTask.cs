@@ -28,6 +28,7 @@ public class CreateTask : MonoBehaviour
         int quantity = int.Parse(infoParse[1]);
         int days = int.Parse(infoParse[2]);
         Plant plant = new Plant();
+        List<string> taskPhenotypes = new List<string>();
         //int quantity = Random.Range(1, orderMaxQuantity + 1);
         //int orderDeadline = quantity * 2;
         //int nameIndex = Random.Range(0, names.Length);
@@ -36,18 +37,18 @@ public class CreateTask : MonoBehaviour
         //Dictionary<string, string> phenotypes = new Dictionary<string, string>();
         for (int i= 3; i<infoParse.Length;i++) {
             string[] phenoPairs = infoParse[i].Split(':');
-            plant.phenotypes.Add(phenoPairs[1]);
-            
+            plant.phenotypes.Add(phenoPairs[0], phenoPairs[1]);
+            taskPhenotypes.Add(phenoPairs[1]);
         }
         int count = 0;
         phenotypeDescription += "\n";
-        foreach (string s in plant.phenotypes)
+        foreach (string s in plant.phenotypes.Values)
         {
             string label = GeneratePlants.genotypesRange[count];
             phenotypeDescription += $"{label}: {s}\n";
             count++;
         }
-        GameManager.Instance.SetTaskInfo(quantity, days, name, phenotypeDescription, plant.phenotypes);
+        GameManager.Instance.SetTaskInfo(quantity, days, name, phenotypeDescription, taskPhenotypes);
         //return $"Hi, I'm {name}. I would like {info[1]} {phenotypeDescription} flower(s) please, and I need them in {days} days";
     }
 

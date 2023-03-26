@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Plant : Seed
 {
-    public List<string> phenotypes = new List<string>();
+    //phenoName, phenotype desciption
+    public Dictionary<string, string> phenotypes = new Dictionary<string, string>();
     public string description = "";
 
 
