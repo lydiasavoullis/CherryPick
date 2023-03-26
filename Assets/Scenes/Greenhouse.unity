@@ -15974,6 +15974,7 @@ PrefabInstance:
     m_Modifications:
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     - target: {fileID: 1530451812, guid: f54217fe5b2f5114abacec2748757215, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -15998,6 +15999,8 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+=======
+>>>>>>> parent of 4876e25 (Adding more plant genetics)
 =======
 >>>>>>> parent of 4876e25 (Adding more plant genetics)
 =======
@@ -16094,6 +16097,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     - target: {fileID: 2963116917273389322, guid: f54217fe5b2f5114abacec2748757215, type: 3}
@@ -16216,6 +16220,8 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+=======
+>>>>>>> parent of 4876e25 (Adding more plant genetics)
 =======
 >>>>>>> parent of 4876e25 (Adding more plant genetics)
 =======
