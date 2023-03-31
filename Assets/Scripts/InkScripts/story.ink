@@ -1,19 +1,5 @@
-LIST characters=alex,beatrice,charlie
-VAR currentSpeaker = ""
-VAR shop_state = "closed"
-LIST Alex = (alex_normal)
-LIST Beatrice = (beatrice_normal)
-LIST Charlie = (charlie_normal)
-VAR day = 0
-VAR tutorialpt1 = "complete"
-VAR tutorialpt2 = "complete"
-VAR tutorialpt3 = "complete"
-VAR tutorialCounter = 2
-// ~characters+=alex
-~currentSpeaker = ""
-VAR task = ""
-VAR end_of_day = "false"
-VAR gift = ""
+INCLUDE variables.ink
+INCLUDE category_1.ink
 // ->tutorial_pt1
 ->day_0
 ==tutorial_pt1==
@@ -82,7 +68,7 @@ Ok byee
 // Hey 
 //~gift = "5,colour:Rr,height:tt,petals:five,clusters:CC,split:ss"
 I would like two tall plants with red flowers
-~task = "Beatrice,2,3,colour:red,height:tall"
+~task = "Beatrice,1,3,colour:red,height:tall, petals:6"
 ~currentSpeaker = "you"
 Ok, thanks for putting in that order
 ~characters-=beatrice

@@ -7,6 +7,7 @@ public class TimeManager : MonoBehaviour
 {
     [SerializeField]
     TextMeshProUGUI dayText;
+    InkFindInteractions interactions = new InkFindInteractions();
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +22,8 @@ public class TimeManager : MonoBehaviour
     public void StartNewDay() {
         if (GameVars.story.variablesState["end_of_day"].ToString()=="true") {
             dayText.text = GameManager.Instance.NewDay().ToString();
-            GameVars.story.ChoosePathString($"day_{dayText.text}");
+            //GameVars.story.ChoosePathString($"day_{dayText.text}");
+            interactions.FindInteraction("repeatable");
             GameVars.story.variablesState["end_of_day"] = "false";
             GameManager.Instance.ChangeBackground();
             GameManager.Instance.CloseShop();

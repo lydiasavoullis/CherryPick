@@ -43,7 +43,9 @@ public class CreateTask : MonoBehaviour
         phenotypeDescription += "\n";
         foreach (string s in plant.phenotypes)
         {
+            
             string label = GeneratePlants.genotypesRange[count];
+            Debug.Log(s);
             phenotypeDescription += $"{label}: {s}\n";
             count++;
         }

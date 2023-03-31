@@ -89,7 +89,12 @@ public class GameManager : MonoBehaviour
         {
             //get number of pots inside greenhouse and then get soil inside pot and then see if there is anything in the soil
             Transform soil = greenhousePlanter.transform.GetChild(i).GetChild(0);
-            soil.GetComponent<Soil>().plantPotState.isHeated = false;
+            try {
+                soil.GetComponent<Soil>().plantPotState.isHeated = false;
+            }
+            catch (Exception e) { 
+            }
+            
 
         }
         frontScreen.GetComponent<ChangeBackground>().ChangeFrontScreen("night");
