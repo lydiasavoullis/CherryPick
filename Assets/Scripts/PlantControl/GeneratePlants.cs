@@ -18,9 +18,10 @@ public static class GeneratePlants
     static string petalVariagatedGene = "u";
     static string leafNumGene = "q";
     static string colourB = "b";
+    static string colourG = "g";
     static string leafSize = "l";
-    public static string[] genotypesRange = { "colour", "height", "petals","clusters", "petalShape", "centerShape", "centerColour", "petalSize", "petalVariagated", "leafNumber", "colourB",  "leafSize" };
-    static string[] geneRange = { colourGene, heightGene, petalGene, clustersGene, petalShapeGene , centerShapeGene , centerColourGene, petalSizeGene , petalVariagatedGene , leafNumGene , colourB , leafSize };
+    public static string[] genotypesRange = { "colourR", "height", "petals","clusters", "petalShape", "colourB", "colourG", "centerShape", "centerColour", "petalSize", "petalVariagated", "leafNumber",  "leafSize" };
+    static string[] geneRange = { colourGene, heightGene, petalGene, clustersGene, petalShapeGene, colourB, colourG, centerShapeGene , centerColourGene, petalSizeGene , petalVariagatedGene , leafNumGene  , leafSize };
     //static Dictionary<string, string> genotypesAndGenes = new Dictionary<string, string>() { {"colour", colourGene }, { "height", heightGene }, { "petals", petalGene} };
     public static Plant GenerateRandomNewPlant() {
         Plant plant = new Plant();
@@ -43,7 +44,7 @@ public static class GeneratePlants
             case 1:
                 return 4;
             case 2:
-                return 5;
+                return 7;
             //case 3:
             //    return 12;
             //case 4:
@@ -57,11 +58,13 @@ public static class GeneratePlants
     public static List<string> GetPlantPhenotype(Plant plant) {
         List<string> phenotypes = new List<string>();
         try {
-            phenotypes.Add(CheckColour(plant.genotypes["colour"]));
+            phenotypes.Add(CheckColourR(plant.genotypes["colourR"]));
             phenotypes.Add(CheckHeight(plant.genotypes["height"]));
             phenotypes.Add(CheckPetals(plant.genotypes["petals"]));
             phenotypes.Add(CheckClusters(plant.genotypes["clusters"]));
             phenotypes.Add(CheckPetalShape(plant.genotypes["petalShape"]));
+            phenotypes.Add(CheckColourB(plant.genotypes["colourB"]));
+            phenotypes.Add(CheckColourG(plant.genotypes["colourG"]));
             if (plant.category==1) {
                 return phenotypes;
             }
@@ -181,7 +184,7 @@ public static class GeneratePlants
             return 6;
         }
     }
-    public static string CheckColour(string[] genotype) {
+    public static string CheckColourR(string[] genotype) {
         string geno = string.Join("", genotype);
         if (geno.Contains(colourGene.ToLower()))
         {
@@ -197,6 +200,45 @@ public static class GeneratePlants
         else {
             return "red";
         } 
+    }
+    public static string CheckColourB(string[] genotype)
+    {
+        
+        string geno = string.Join("", genotype);
+        if (geno.Contains(colourB.ToLower()))
+        {
+            if (geno.Contains(colourB.ToUpper()))
+            {
+                return "light_blue";
+            }
+            else
+            {
+                return "white";
+            }
+        }
+        else
+        {
+            return "blue";
+        }
+    }
+    public static string CheckColourG(string[] genotype)
+    {
+        string geno = string.Join("", genotype);
+        if (geno.Contains(colourG.ToLower()))
+        {
+            if (geno.Contains(colourG.ToUpper()))
+            {
+                return "light_green";
+            }
+            else
+            {
+                return "white";
+            }
+        }
+        else
+        {
+            return "green";
+        }
     }
     public static string CheckPetalShape(string[] genotype)
     {

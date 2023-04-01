@@ -25,7 +25,7 @@ public class PlantController : MonoBehaviour, IDropHandler
     public GameObject cluster2;
     public GameObject petalPrefab;
     public GameObject center;
-    public GameObject center2;
+    //public GameObject center2;
     public GameObject leaves_right;
     public GameObject leaves_left;
     //public GameObject background;
@@ -73,10 +73,13 @@ public class PlantController : MonoBehaviour, IDropHandler
     //try getting from phenotype list now
     public void SetCurrentPhenotype()
     {
-        
+
         //GeneratePlants.genotypesRange;
         //plant.phenotypes
-        SetPetals(GeneratePlants.CheckPetalsInt(plant.genotypes["petals"]), GetPhenotypeSprite($"petal_{plant.phenotypes[4]}"), center, SetColour(plant.phenotypes[0]));//GeneratePlants.CheckColour(plant.genotypes["colour"])
+        Color32 redSpectrum = SetColourR(plant.phenotypes[0]);
+        SetPetalsSprite(GeneratePlants.CheckPetalsInt(plant.genotypes["petals"]), GetPhenotypeSprite($"petal_{plant.phenotypes[4]}"), center);//GeneratePlants.CheckColour(plant.genotypes["colour"])
+        SetPetalsColour(redSpectrum, center);
+        
 
         try
         {
@@ -86,7 +89,45 @@ public class PlantController : MonoBehaviour, IDropHandler
                 Vector3 oldSize = leaves_left.GetComponent<RectTransform>().sizeDelta;
                 leaves_left.GetComponent<RectTransform>().sizeDelta = new Vector3(oldSize.x, 48f, oldSize.z);
             }
-            SetClustersActive(GeneratePlants.CheckClusters(plant.genotypes["clusters"]), $"petal_{plant.phenotypes[4]}");
+            SetClustersActive(GeneratePlants.CheckClusters(plant.genotypes["clusters"]), $"petal_{plant.phenotypes[4]}", redSpectrum);
+            //add blue spectrum
+            Color32 blueSpectrum = SetColourB(redSpectrum, plant.phenotypes[5]);
+            switch (plant.phenotypes[3]) {
+                case "one":
+                    ModifyPetalsColour(blueSpectrum, center);
+                    break;
+                case "two":
+                    ModifyPetalsColour(blueSpectrum, center);
+                    ModifyPetalsColour(blueSpectrum, cluster1);
+                    break;
+                case "three":
+                    ModifyPetalsColour(blueSpectrum, center);
+                    ModifyPetalsColour(blueSpectrum, cluster1);
+                    ModifyPetalsColour(blueSpectrum, cluster2);
+                    break;
+                default:
+                    ModifyPetalsColour(blueSpectrum, center);
+                    break;
+            }
+            Color32 greenSpectrum = SetColourG(blueSpectrum, plant.phenotypes[6]);
+            switch (plant.phenotypes[3])
+            {
+                case "one":
+                    ModifyPetalsColour(greenSpectrum, center);
+                    break;
+                case "two":
+                    ModifyPetalsColour(greenSpectrum, center);
+                    ModifyPetalsColour(greenSpectrum, cluster1);
+                    break;
+                case "three":
+                    ModifyPetalsColour(greenSpectrum, center);
+                    ModifyPetalsColour(greenSpectrum, cluster1);
+                    ModifyPetalsColour(greenSpectrum, cluster2);
+                    break;
+                default:
+                    ModifyPetalsColour(blueSpectrum, center);
+                    break;
+            }
 
         }
         catch (Exception e)
@@ -95,7 +136,7 @@ public class PlantController : MonoBehaviour, IDropHandler
 
     }
     //for new dynamic petal creation system
-    public void SetPetals(int petalNumber, Sprite petalSprite, GameObject center, Color32 color) {
+    public void SetPetalsSprite(int petalNumber, Sprite petalSprite, GameObject center) {
         //for (int i = 0; i < center.transform.childCount;i++) {
         //    Destroy(center.transform.GetChild(i));
         //}
@@ -104,23 +145,87 @@ public class PlantController : MonoBehaviour, IDropHandler
             GameObject petalGO = Instantiate(petalPrefab, new Vector3(0, 0, 0), Quaternion.identity, center.transform);
             petalGO.name = "petal";
             petalGO.GetComponent<Image>().sprite = petalSprite;
+        }
+    }
+    public void SetPetalsColour(Color32 color, GameObject center)
+    {
+        //for (int i = 0; i < center.transform.childCount;i++) {
+        //    Destroy(center.transform.GetChild(i));
+        //}
+        for (int i = 0; i < center.transform.childCount; i++)
+        {
+            GameObject petalGO = center.transform.GetChild(i).gameObject;
+            petalGO.GetComponent<Image>().color = color;
+        }
+    }
+    public void ModifyPetalsColour(Color32 color, GameObject center)
+    {
+        //for (int i = 0; i < center.transform.childCount;i++) {
+        //    Destroy(center.transform.GetChild(i));
+        //}
+        for (int i = 0; i < center.transform.childCount; i++)
+        {
+            GameObject petalGO = center.transform.GetChild(i).gameObject;
             petalGO.GetComponent<Image>().color = color;
         }
     }
 
-    public Color32 SetColour(string colour)
+    public Color32 SetColourR(string colour)
     {
         Color32 color;
         switch (colour)
         {
             case "white":
-                color = Color.white;
+                color = new Color32(255, 255, 255, 255);
                 return color;
             case "pink":
-                color = new Color32(255, 200, 230, 255);
-                return color;
+                return color = new Color32(255, 160, 160, 255);
             case "red":
-                return Color.red;
+                return color = new Color32(255, 70, 70, 255);
+            default:
+                break;
+        }
+        return Color.white;
+    }
+    public Color32 SetColourB(Color32 current, string colour)
+    {
+        
+        Color32 color;
+        switch (colour)
+        {
+            case "white":
+                color = new Color32(current.r, current.g, current.b, 255);
+                return color;
+            case "light_blue":
+                color = new Color32(SubtractByte(current.r, 50), SubtractByte(current.g, 50), 255, 255);
+                return color;
+            case "blue":
+                return color = new Color32(SubtractByte(current.r, 120), SubtractByte(current.g, 120), 255, 255);
+            default:
+                break;
+        }
+        return Color.white;
+    }
+    public Byte SubtractByte(Byte colourbyte, int valueChange) {
+        int value = Convert.ToInt32(colourbyte) - valueChange;
+        if (value<0) {
+            value = 0;
+        }
+        return Convert.ToByte(value);
+    }
+    public Color32 SetColourG(Color32 current, string colour)
+    {
+        Color32 color;
+        switch (colour)
+        {
+            case "white":
+                color = new Color32(current.r, current.g, current.b, 255);
+                return color;
+            case "light_green":
+                color = new Color32(current.r, 150, SubtractByte(current.b, 20), 255);
+                return color;
+            case "green":
+                return color = new Color32(255, 255, SubtractByte(current.b, 100), 255);
             default:
                 break;
         }
@@ -138,40 +243,22 @@ public class PlantController : MonoBehaviour, IDropHandler
         }
         return null;
     }
-    public void SetClustersActive(string noClusters, string petalType)
+    public void SetClustersActive(string noClusters, string petalType, Color32 colour)
     {
         if (noClusters == "two")
         {
             cluster1.SetActive(true);
-            SetPetals(GeneratePlants.CheckPetalsInt(plant.genotypes["petals"]), GetPhenotypeSprite(petalType), cluster1, SetColour(GeneratePlants.CheckColour(plant.genotypes["colour"])));
+            SetPetalsSprite(GeneratePlants.CheckPetalsInt(plant.genotypes["petals"]), GetPhenotypeSprite(petalType), cluster1);
+            SetPetalsColour(colour, cluster1);
         }
         if (noClusters == "three")
         {
             cluster1.SetActive(true);
-            SetPetals(GeneratePlants.CheckPetalsInt(plant.genotypes["petals"]), GetPhenotypeSprite(petalType), cluster1, SetColour(GeneratePlants.CheckColour(plant.genotypes["colour"])));
+            SetPetalsSprite(GeneratePlants.CheckPetalsInt(plant.genotypes["petals"]), GetPhenotypeSprite(petalType), cluster1);
+            SetPetalsColour(colour, cluster1);
             cluster2.SetActive(true);
-            SetPetals(GeneratePlants.CheckPetalsInt(plant.genotypes["petals"]), GetPhenotypeSprite(petalType), cluster2, SetColour(GeneratePlants.CheckColour(plant.genotypes["colour"])));
-        }
-    }
-    public void SetColourSplit(string noSplit)
-    {
-        string geno = string.Join("", plant.genotypes["colour"]);
-        if (geno.Any(char.IsUpper) && geno.Any(char.IsLower))
-        {
-            string[] colour1 = { geno.Substring(0, 1), geno.Substring(0, 1) };
-
-            string[] colour2 = { geno.Substring(1, 1), geno.Substring(1, 1) };
-
-            if (noSplit == "two")
-            {
-                petals[1].color = SetColour(GeneratePlants.CheckColour(colour1));
-                petals[2].color = SetColour(GeneratePlants.CheckColour(colour1));
-            }
-            if (noSplit == "three")
-            {
-                petals[1].color = SetColour(GeneratePlants.CheckColour(colour1));
-                petals[2].color = SetColour(GeneratePlants.CheckColour(colour2));
-            }
+            SetPetalsSprite(GeneratePlants.CheckPetalsInt(plant.genotypes["petals"]), GetPhenotypeSprite(petalType), cluster2);
+            SetPetalsColour(colour, cluster2);
         }
     }
 
