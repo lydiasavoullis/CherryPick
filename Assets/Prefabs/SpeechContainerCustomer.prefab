@@ -279,6 +279,7 @@ GameObject:
   - component: {fileID: 6366175342768548173}
   - component: {fileID: 6366175342768548175}
   - component: {fileID: 6366175342768548172}
+  - component: {fileID: 2890345568330403908}
   m_Layer: 5
   m_Name: SpeechContainerCustomer
   m_TagString: Untagged
@@ -319,10 +320,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
+    m_Left: 10
+    m_Right: 10
+    m_Top: 10
+    m_Bottom: 10
   m_ChildAlignment: 1
   m_Spacing: 0
   m_ChildForceExpandWidth: 0
@@ -346,6 +347,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
+--- !u!111 &2890345568330403908
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6366175342768548170}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 2f5a285fed2255b40aae5691c982eb25, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 2f5a285fed2255b40aae5691c982eb25, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &6366175343875355925
 GameObject:
   m_ObjectHideFlags: 0
@@ -358,7 +375,7 @@ GameObject:
   - component: {fileID: 6366175343875355926}
   - component: {fileID: 6366175343875355927}
   - component: {fileID: 6366175343875355913}
-  - component: {fileID: 1584068249463519965}
+  - component: {fileID: 4224658727633874663}
   m_Layer: 5
   m_Name: SpeechBubble
   m_TagString: Untagged
@@ -442,7 +459,7 @@ MonoBehaviour:
     m_Right: 10
     m_Top: 5
     m_Bottom: 15
-  m_ChildAlignment: 2
+  m_ChildAlignment: 4
   m_Spacing: 10
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
@@ -451,7 +468,7 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!223 &1584068249463519965
+--- !u!223 &4224658727633874663
 Canvas:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

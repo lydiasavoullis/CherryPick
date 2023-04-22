@@ -134,7 +134,7 @@ public class GameManager : MonoBehaviour
     public void SetNewNightTemp()
     {
         nightTemp = UnityEngine.Random.Range(-6, 0);
-        tempGO.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = nightTemp.ToString();
+        tempGO.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = nightTemp.ToString();
         tempGO.SetActive(true);
         if (nightTemp < 0)
         {
@@ -143,7 +143,7 @@ public class GameManager : MonoBehaviour
     }
     public void SetNightTemp()
     {
-        tempGO.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = nightTemp.ToString();
+        tempGO.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = nightTemp.ToString();
         tempGO.SetActive(true);
         if (nightTemp < 0)
         {

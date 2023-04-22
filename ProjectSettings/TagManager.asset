@@ -64,6 +64,9 @@ TagManager:
   - name: UI
     uniqueID: 158930313
     locked: 0
+  - name: speech
+    uniqueID: 1028987707
+    locked: 0
   - name: Draggable
     uniqueID: 1983144879
     locked: 0
