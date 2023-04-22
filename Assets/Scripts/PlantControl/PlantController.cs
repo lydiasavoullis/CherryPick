@@ -59,7 +59,7 @@ public class PlantController : MonoBehaviour, IDropHandler
             //get object where Task script is attached
             phenotypes = this.transform.parent.parent.parent.GetComponent<TaskController>().task.phenotypes;
         }
-        if (DragHandler.itemBeingDragged != null && DragHandler.itemBeingDragged.name.ToLower().Contains("plant") && transform.parent.tag == "sellSlot" && GeneratePlants.CheckIfDroppedPlantContainsAllDesiredPhenotypes(phenotypes, DragHandler.itemBeingDragged.GetComponent<PlantController>().plant))
+        if (DragHandler.itemBeingDragged != null && DragHandler.itemBeingDragged.tag.ToLower().Contains("plant") && transform.parent.tag == "sellSlot" && GeneratePlants.CheckIfDroppedPlantContainsAllDesiredPhenotypes(phenotypes, DragHandler.itemBeingDragged.GetComponent<PlantController>().plant))
         {
 
             DragHandler.itemBeingDragged.transform.SetParent(transform.parent);

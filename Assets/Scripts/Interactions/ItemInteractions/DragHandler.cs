@@ -138,7 +138,7 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         GetComponent<CanvasGroup>().blocksRaycasts = true;
         itemBeingDragged = null;
 
-        if (gameObject.transform.name.Contains("pot"))
+        if (gameObject.transform.tag.Contains("pot"))
         {
             Debug.Log("Moved pot");
             gameObject.transform.GetChild(0).GetComponent<Soil>().plantPotState.isHeated = false;

@@ -223,7 +223,7 @@ GameObject:
   - component: {fileID: 3391130808065497626}
   m_Layer: 5
   m_Name: plant
-  m_TagString: Untagged
+  m_TagString: plant
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -237,7 +237,7 @@ RectTransform:
   m_GameObject: {fileID: 2278512942591397195}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0.0013425049}
-  m_LocalScale: {x: 0.9996, y: 0.9996, z: 0.9996}
+  m_LocalScale: {x: 1, y: 1, z: 0.9996}
   m_Children:
   - {fileID: 7550040496882999800}
   - {fileID: 1979353690}
@@ -284,7 +284,6 @@ MonoBehaviour:
   cluster2: {fileID: 8159668366289008265}
   petalPrefab: {fileID: 2946464976740436181, guid: 01504728887b6004ea195a594f30aee5, type: 3}
   center: {fileID: 8159668366900757381}
-  center2: {fileID: 0}
   leaves_right: {fileID: 1530451812}
   leaves_left: {fileID: 1979353689}
   phenotypes:

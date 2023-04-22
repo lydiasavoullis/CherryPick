@@ -7,7 +7,7 @@
 // Hey 
 //~gift = "5,colour:Rr,height:tt,petals:five,clusters:CC,split:ss"
 I would like two tall plants with red flowers
-~task = "Beatrice,1,3,colour:pink,height:tall"
+~task = "Beatrice,1,3,height:tall"
 ~currentSpeaker = "you"
 Ok, thanks for putting in that order
 ~characters-=beatrice
@@ -35,7 +35,7 @@ time for some new work
 Hey
 Over here
 I want a short white flower please
-~task = "Charlie,1,3,colour:white,height:short"
+~task = "Charlie,1,3,height:short"
 ~characters-=charlie
 ~end_of_day = "true"
 ~currentSpeaker = "you"

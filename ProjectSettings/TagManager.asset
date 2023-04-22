@@ -17,6 +17,7 @@ TagManager:
   - inventory
   - heaterContainer
   - heater
+  - plant
   layers:
   - Default
   - TransparentFX
