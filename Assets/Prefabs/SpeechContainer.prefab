@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3808042625420316338}
   - component: {fileID: 3808042625420316337}
   - component: {fileID: 6448561745796144538}
+  - component: {fileID: 5569207144724693375}
   m_Layer: 5
   m_Name: SpeechContainer
   m_TagString: Untagged
@@ -95,6 +96,14 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!222 &5569207144724693375
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3808042625420316343}
+  m_CullTransparentMesh: 1
 --- !u!1 &3808042625956260425
 GameObject:
   m_ObjectHideFlags: 0
@@ -162,8 +171,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: helloohelloohelloohelloohelloohelloohelloohelloohelloohelloohelloohelloohelloohelloohelloohelloohelloohelloohelloohelloohelloohelloohelloohelloohelloohelloohelloohelloohelloohelloohelloohelloohelloohelloohelloohelloohelloohelloohelloohelloo
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: bb183ca1b985e66429bc1b554935f752, type: 2}
-  m_sharedMaterial: {fileID: 7472577283461269438, guid: bb183ca1b985e66429bc1b554935f752, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2bcde30af0f2f224994465f9375cd4e5, type: 2}
+  m_sharedMaterial: {fileID: -922579069965352262, guid: 2bcde30af0f2f224994465f9375cd4e5, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -296,8 +305,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: name
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: bb183ca1b985e66429bc1b554935f752, type: 2}
-  m_sharedMaterial: {fileID: 7472577283461269438, guid: bb183ca1b985e66429bc1b554935f752, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5db6366f6f95e7b40be5df509eefdb63, type: 2}
+  m_sharedMaterial: {fileID: -5064319456750543307, guid: 5db6366f6f95e7b40be5df509eefdb63, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -375,7 +384,6 @@ GameObject:
   - component: {fileID: 3808042626593247979}
   - component: {fileID: 3808042626593247978}
   - component: {fileID: 3808042626593247988}
-  - component: {fileID: 3563981586587611686}
   m_Layer: 5
   m_Name: SpeechBubble
   m_TagString: Untagged
@@ -468,24 +476,3 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!223 &3563981586587611686
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3808042626593247976}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 1
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: 0
-  m_SortingOrder: 2
-  m_TargetDisplay: 0

@@ -55,8 +55,17 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: low
+    uniqueID: 3330308987
+    locked: 0
   - name: shop
     uniqueID: 1571076075
+    locked: 0
+  - name: infoBar
+    uniqueID: 1504335269
+    locked: 0
+  - name: speech
+    uniqueID: 1028987707
     locked: 0
   - name: greenhouse
     uniqueID: 1932648743
@@ -64,8 +73,8 @@ TagManager:
   - name: UI
     uniqueID: 158930313
     locked: 0
-  - name: speech
-    uniqueID: 1028987707
+  - name: menu
+    uniqueID: 3597178459
     locked: 0
   - name: Draggable
     uniqueID: 1983144879

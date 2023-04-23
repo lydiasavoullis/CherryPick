@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: $10
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a86611353f1734b418f24e3df6e44725, type: 2}
-  m_sharedMaterial: {fileID: -7638722396569153517, guid: a86611353f1734b418f24e3df6e44725, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5db6366f6f95e7b40be5df509eefdb63, type: 2}
+  m_sharedMaterial: {fileID: -5064319456750543307, guid: 5db6366f6f95e7b40be5df509eefdb63, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -92,10 +92,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 35
+  m_fontSize: 23.95
   m_fontSizeBase: 35
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 5
   m_fontSizeMax: 30
   m_fontStyle: 1
@@ -201,8 +201,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: A pot for growing plants
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a86611353f1734b418f24e3df6e44725, type: 2}
-  m_sharedMaterial: {fileID: -7638722396569153517, guid: a86611353f1734b418f24e3df6e44725, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5db6366f6f95e7b40be5df509eefdb63, type: 2}
+  m_sharedMaterial: {fileID: -5064319456750543307, guid: 5db6366f6f95e7b40be5df509eefdb63, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -226,10 +226,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 35
+  m_fontSize: 30
   m_fontSizeBase: 35
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 5
   m_fontSizeMax: 30
   m_fontStyle: 0
@@ -956,8 +956,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: POT
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a86611353f1734b418f24e3df6e44725, type: 2}
-  m_sharedMaterial: {fileID: -7638722396569153517, guid: a86611353f1734b418f24e3df6e44725, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5db6366f6f95e7b40be5df509eefdb63, type: 2}
+  m_sharedMaterial: {fileID: -5064319456750543307, guid: 5db6366f6f95e7b40be5df509eefdb63, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -981,12 +981,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 35
+  m_fontSize: 23.95
   m_fontSizeBase: 35
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 5
-  m_fontSizeMax: 30
+  m_fontSizeMax: 40
   m_fontStyle: 5
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
@@ -1155,8 +1155,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: buy
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a86611353f1734b418f24e3df6e44725, type: 2}
-  m_sharedMaterial: {fileID: -7638722396569153517, guid: a86611353f1734b418f24e3df6e44725, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5db6366f6f95e7b40be5df509eefdb63, type: 2}
+  m_sharedMaterial: {fileID: -5064319456750543307, guid: 5db6366f6f95e7b40be5df509eefdb63, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1180,13 +1180,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 35.85
+  m_fontSize: 23.7
   m_fontSizeBase: 35
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 8
-  m_fontSizeMax: 50
-  m_fontStyle: 0
+  m_fontSizeMax: 30
+  m_fontStyle: 16
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
