@@ -55,6 +55,8 @@ public class GameManager : MonoBehaviour
     GameObject greenHouseCanvas;
     [SerializeField]
     GameObject UICanvas;
+    [SerializeField]
+    public GameObject crossbreedVisualBox;
     public static GameManager Instance;
     public GameObject canvas;
     public GameObject infoBoxPrefab;

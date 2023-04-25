@@ -44,10 +44,13 @@ public class PlantController : MonoBehaviour, IDropHandler
             //audioSourcePop.pitch = (UnityEngine.Random.Range(0.6f, .9f));
             //audioSourcePop.Play();
         }
-
+        ResetPlantCharacteristics();
+    }
+    public void ResetPlantCharacteristics() {
+        ClearAllPetals(center, cluster1, cluster2);
+        cluster2.SetActive(false);
+        cluster1.SetActive(false);
         SetPlantInfo();
-        
-        
         SetCurrentPhenotype();
     }
     public void OnDrop(PointerEventData eventData)
@@ -134,6 +137,20 @@ public class PlantController : MonoBehaviour, IDropHandler
         {
         }
 
+    }
+    public void ClearAllPetals(GameObject center1, GameObject center2, GameObject center3) {
+        for (int i = 0; i < center1.transform.childCount; i++)
+        {
+            Destroy(center1.transform.GetChild(i).gameObject);
+        }
+        for (int i = 0; i < center2.transform.childCount; i++)
+        {
+            Destroy(center2.transform.GetChild(i).gameObject);
+        }
+        for (int i = 0; i < center3.transform.childCount; i++)
+        {
+            Destroy(center3.transform.GetChild(i).gameObject);
+        }
     }
     //for new dynamic petal creation system
     public void SetPetalsSprite(int petalNumber, Sprite petalSprite, GameObject center) {
@@ -267,8 +284,19 @@ public class PlantController : MonoBehaviour, IDropHandler
         //Debug.Log("HOVER OVER FLWOER");
         if (Mouse.current.leftButton.wasPressedThisFrame)//Input.GetMouseButtonDown(0)
         {
+            try {
+                ClearBreedingVisual();
+            }
+            catch (Exception e) {
+                Debug.Log("No plants found");
+            }
             // Debug.Log("Left click");
             parent1 = gameObject;
+            // visual representation of breeding plants
+            GameObject crossBreedGO1 = GameManager.Instance.crossbreedVisualBox.transform.GetChild(0).GetChild(0).gameObject;
+            crossBreedGO1.GetComponent<PlantController>().plant = this.plant;
+            crossBreedGO1.GetComponent<PlantController>().ResetPlantCharacteristics();
+            crossBreedGO1.SetActive(true);
             return;
         }
         if (Mouse.current.rightButton.wasPressedThisFrame)//Input.GetMouseButtonDown(1)
@@ -278,12 +306,24 @@ public class PlantController : MonoBehaviour, IDropHandler
             {
                 if (parent1.GetComponent<PlantController>().plant.maxGenotypes == this.plant.maxGenotypes)
                 {
+                    GameObject crossBreedGO2 = GameManager.Instance.crossbreedVisualBox.transform.GetChild(1).GetChild(0).gameObject;
+                    crossBreedGO2.GetComponent<PlantController>().plant = this.plant;
+                    crossBreedGO2.GetComponent<PlantController>().ResetPlantCharacteristics();
+                    crossBreedGO2.SetActive(true);
+                    
                     GenerateChildSeed(parent1, gameObject);
+                    
                 }
                 //GenerateChildPlant(parent1, gameObject);
 
             }
         }
+    }
+    public void ClearBreedingVisual() {
+        GameObject crossBreedGO1 = GameManager.Instance.crossbreedVisualBox.transform.GetChild(0).GetChild(0).gameObject;
+        GameObject crossBreedGO2 = GameManager.Instance.crossbreedVisualBox.transform.GetChild(1).GetChild(0).gameObject;
+        crossBreedGO1.SetActive(false);
+        crossBreedGO2.SetActive(false);
     }
 
     public void GenerateChildPlant(GameObject parent1, GameObject parent2)
