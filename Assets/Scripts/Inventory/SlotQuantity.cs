@@ -6,9 +6,14 @@ public class SlotQuantity : MonoBehaviour
 {
     //public int quantity = 1;
     public TextMeshProUGUI quantityText;
+    [SerializeField]
+    GameObject slot;
     // Start is called before the first frame update
     void Start()
     {
+        //if (slot.transform.childCount == 0) {
+        //    Destroy(gameObject);
+        //}
         //if(gameObject.transform.GetChild(0).childCount==0){
         //    Destroy(gameObject);
         //}

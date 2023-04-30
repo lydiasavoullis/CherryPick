@@ -36,9 +36,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 25.500013, y: -40}
+  m_AnchoredPosition: {x: 25.500013, y: -72}
   m_SizeDelta: {x: 36, y: 32}
-  m_Pivot: {x: 0.5, y: 1}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &1530451815
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -139,9 +139,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -15.499837, y: -40}
+  m_AnchoredPosition: {x: -15.499817, y: -72}
   m_SizeDelta: {x: 36, y: 32}
-  m_Pivot: {x: 0.5, y: 1}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &1979353693
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -284,8 +284,8 @@ MonoBehaviour:
   cluster2: {fileID: 8159668366289008265}
   petalPrefab: {fileID: 2946464976740436181, guid: 01504728887b6004ea195a594f30aee5, type: 3}
   center: {fileID: 8159668366900757381}
-  leaves_right: {fileID: 1530451812}
-  leaves_left: {fileID: 1979353689}
+  leaves_right: {fileID: 7184632769829570391}
+  leaves_left: {fileID: 7342494615062575031}
   phenotypes:
   - category: stem
     name: tall
@@ -326,6 +326,24 @@ MonoBehaviour:
   - category: petals
     name: petal
     sprite: {fileID: 21300000, guid: f6f94f6cd9da156439ea7f8d668a68a4, type: 3}
+    colour:
+      serializedVersion: 2
+      rgba: 0
+  - category: leaves
+    name: leaf_pointed
+    sprite: {fileID: 21300000, guid: b4cf6e3376464ba4b83cad7ed32eaa72, type: 3}
+    colour:
+      serializedVersion: 2
+      rgba: 0
+  - category: leaves
+    name: leaf_round
+    sprite: {fileID: 21300000, guid: b9e4db9a32551464b92b24a7061c0741, type: 3}
+    colour:
+      serializedVersion: 2
+      rgba: 0
+  - category: leaves
+    name: leaf_jagged
+    sprite: {fileID: 21300000, guid: 1430cc0252637bb4091caf15a935aeea, type: 3}
     colour:
       serializedVersion: 2
       rgba: 0

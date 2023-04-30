@@ -93,12 +93,20 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         startParentTag = startParent.tag;//if the start parent no longer exists we still have a reference to name
         if (startParentTag.ToLower().Contains("slot")) {
             dropContainer = startParent.parent.parent.parent.GetComponent<DropContainer>();
+            
         }
         gameObject.transform.SetParent(renderOnTop.transform);
         if (startParent.tag.ToLower().Contains("slot"))
         {
+            if (startParent.transform.childCount == 0)
+            {
+                Destroy(startParent.parent.gameObject);
+
+            }
             startParent.parent.GetComponent<SlotQuantity>().UpdateQuantityText();
+            
         }
+        
         GetComponent<CanvasGroup>().blocksRaycasts = false;
         
     }

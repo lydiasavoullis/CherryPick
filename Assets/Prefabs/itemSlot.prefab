@@ -260,3 +260,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   quantityText: {fileID: 8734460920939213635}
+  slot: {fileID: 8734460920465216187}

@@ -31,8 +31,12 @@ public class PlantController : MonoBehaviour, IDropHandler
     //public GameObject background;
     public Phenotype[] phenotypes;
     public AudioSource audioSourcePop;
+    Vector3 oldSizeL; 
+    Vector3 oldSizeR; 
     private void Start()
     {
+        oldSizeL = leaves_left.GetComponent<RectTransform>().sizeDelta;
+        oldSizeR = leaves_left.GetComponent<RectTransform>().sizeDelta;
         //background.SetActive(false);
         if (plant == null)
         {
@@ -47,6 +51,8 @@ public class PlantController : MonoBehaviour, IDropHandler
         ResetPlantCharacteristics();
     }
     public void ResetPlantCharacteristics() {
+        leaves_left.GetComponent<RectTransform>().sizeDelta = new Vector3(oldSizeL.x, oldSizeL.y, oldSizeL.z);
+        leaves_right.GetComponent<RectTransform>().sizeDelta = new Vector3(oldSizeR.x , oldSizeL.y, oldSizeR.z);
         ClearAllPetals(center, cluster1, cluster2);
         cluster2.SetActive(false);
         cluster1.SetActive(false);
@@ -79,19 +85,26 @@ public class PlantController : MonoBehaviour, IDropHandler
 
         //GeneratePlants.genotypesRange;
         //plant.phenotypes
+        stem.sprite = GetPhenotypeSprite(plant.phenotypes[1]);//GeneratePlants.CheckHeight(plant.genotypes["height"])
+        if (plant.phenotypes[1] == "tall")
+        {
+            float multiplier = 2f;
+            Vector3 oldSizeL = leaves_left.GetComponent<RectTransform>().sizeDelta;
+            Vector3 oldSizeR = leaves_left.GetComponent<RectTransform>().sizeDelta;
+            leaves_left.GetComponent<RectTransform>().sizeDelta = new Vector3(oldSizeL.x * multiplier, oldSizeL.y* multiplier, oldSizeL.z);
+            leaves_right.GetComponent<RectTransform>().sizeDelta = new Vector3(oldSizeR.x * multiplier, oldSizeL.y * multiplier, oldSizeR.z);
+        }
         Color32 redSpectrum = SetColourR(plant.phenotypes[0]);
         SetPetalsSprite(GeneratePlants.CheckPetalsInt(plant.genotypes["petals"]), GetPhenotypeSprite($"petal_{plant.phenotypes[4]}"), center);//GeneratePlants.CheckColour(plant.genotypes["colour"])
         SetPetalsColour(redSpectrum, center);
-        
+        Debug.Log(plant.phenotypes.Count);
+        leaves_left.GetComponent<Image>().sprite = GetPhenotypeSprite($"leaf_{plant.phenotypes[5]}");
+        leaves_right.GetComponent<Image>().sprite = GetPhenotypeSprite($"leaf_{plant.phenotypes[5]}");
+        leaves_right.transform.localRotation = Quaternion.Euler(0, 180, 0);
 
         try
         {
-            stem.sprite = GetPhenotypeSprite(plant.phenotypes[1]);//GeneratePlants.CheckHeight(plant.genotypes["height"])
-            if (plant.phenotypes[1] == "tall")
-            {
-                Vector3 oldSize = leaves_left.GetComponent<RectTransform>().sizeDelta;
-                leaves_left.GetComponent<RectTransform>().sizeDelta = new Vector3(oldSize.x, 48f, oldSize.z);
-            }
+            
             SetClustersActive(GeneratePlants.CheckClusters(plant.genotypes["clusters"]), $"petal_{plant.phenotypes[4]}", redSpectrum);
             //add blue spectrum
             Color32 blueSpectrum = SetColourB(redSpectrum, plant.phenotypes[5]);
@@ -131,6 +144,7 @@ public class PlantController : MonoBehaviour, IDropHandler
                     ModifyPetalsColour(blueSpectrum, center);
                     break;
             }
+            
 
         }
         catch (Exception e)
@@ -163,6 +177,29 @@ public class PlantController : MonoBehaviour, IDropHandler
             petalGO.name = "petal";
             petalGO.GetComponent<Image>().sprite = petalSprite;
         }
+    }
+    public void SetLeavesSprite(string leafType)
+    {
+        //for (int i = 0; i < center.transform.childCount;i++) {
+        //    Destroy(center.transform.GetChild(i));
+        //}
+        switch (leafType) {
+            case "round":
+                leaves_left.GetComponent<Image>().sprite = GetPhenotypeSprite($"leaf_{plant.phenotypes[5]}");
+                leaves_right.GetComponent<Image>().sprite = GetPhenotypeSprite($"leaf_{plant.phenotypes[5]}");
+                break;
+            case "pointed":
+                leaves_left.GetComponent<Image>().sprite = GetPhenotypeSprite($"leaf_{plant.phenotypes[5]}");
+                leaves_right.GetComponent<Image>().sprite = GetPhenotypeSprite($"leaf_{plant.phenotypes[5]}");
+                break;
+            case "jagged":
+                leaves_left.GetComponent<Image>().sprite = GetPhenotypeSprite($"leaf_{plant.phenotypes[5]}");
+                leaves_right.GetComponent<Image>().sprite = GetPhenotypeSprite($"leaf_{plant.phenotypes[5]}");
+                break;
+            default:
+                break;
+        }
+        
     }
     public void SetPetalsColour(Color32 color, GameObject center)
     {

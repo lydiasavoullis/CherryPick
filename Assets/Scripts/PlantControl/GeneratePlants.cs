@@ -20,8 +20,9 @@ public static class GeneratePlants
     static string colourB = "b";
     static string colourG = "g";
     static string leafSize = "l";
-    public static string[] genotypesRange = { "colourR", "height", "petals","clusters", "petalShape", "colourB", "colourG", "centerShape", "centerColour", "petalSize", "petalVariagated", "leafNumber",  "leafSize" };
-    static string[] geneRange = { colourGene, heightGene, petalGene, clustersGene, petalShapeGene, colourB, colourG, centerShapeGene , centerColourGene, petalSizeGene , petalVariagatedGene , leafNumGene  , leafSize };
+    static string leafShapeGene = "m";
+    public static string[] genotypesRange = { "colourR", "height", "petals","clusters", "petalShape", "leafShapeGene", "colourB", "colourG", "centerShape", "centerColour", "petalSize", "petalVariagated", "leafNumber",  "leafSize" };
+    static string[] geneRange = { colourGene, heightGene, petalGene, clustersGene, petalShapeGene, leafShapeGene, colourB, colourG, centerShapeGene , centerColourGene, petalSizeGene , petalVariagatedGene , leafNumGene  , leafSize };
     //static Dictionary<string, string> genotypesAndGenes = new Dictionary<string, string>() { {"colour", colourGene }, { "height", heightGene }, { "petals", petalGene} };
     public static Plant GenerateRandomNewPlant() {
         Plant plant = new Plant();
@@ -63,6 +64,7 @@ public static class GeneratePlants
             phenotypes.Add(CheckPetals(plant.genotypes["petals"]));
             phenotypes.Add(CheckClusters(plant.genotypes["clusters"]));
             phenotypes.Add(CheckPetalShape(plant.genotypes["petalShape"]));
+            phenotypes.Add(CheckLeafShape(plant.genotypes["leafShapeGene"]));
             phenotypes.Add(CheckColourB(plant.genotypes["colourB"]));
             phenotypes.Add(CheckColourG(plant.genotypes["colourG"]));
             if (plant.category==1) {
@@ -238,6 +240,25 @@ public static class GeneratePlants
         else
         {
             return "green";
+        }
+    }
+    public static string CheckLeafShape(string[] genotype)
+    {
+        string geno = string.Join("", genotype);
+        if (geno.Contains(leafShapeGene.ToLower()))
+        {
+            if (geno.Contains(leafShapeGene.ToUpper()))
+            {
+                return "jagged";
+            }
+            else
+            {
+                return "round";
+            }
+        }
+        else
+        {
+            return "pointed";
         }
     }
     public static string CheckPetalShape(string[] genotype)
