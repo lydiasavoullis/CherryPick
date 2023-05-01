@@ -31,12 +31,12 @@ public class PlantController : MonoBehaviour, IDropHandler
     //public GameObject background;
     public Phenotype[] phenotypes;
     public AudioSource audioSourcePop;
-    Vector3 oldSizeL; 
-    Vector3 oldSizeR; 
+    Vector3 oldSizeL = new Vector3(18f, 18f);
+    Vector3 oldSizeR = new Vector3(18f, 18f);
     private void Start()
     {
-        oldSizeL = leaves_left.GetComponent<RectTransform>().sizeDelta;
-        oldSizeR = leaves_left.GetComponent<RectTransform>().sizeDelta;
+        //oldSizeL = leaves_left.GetComponent<RectTransform>().rect.size;
+        //oldSizeR = leaves_left.GetComponent<RectTransform>().rect.size;
         //background.SetActive(false);
         if (plant == null)
         {
