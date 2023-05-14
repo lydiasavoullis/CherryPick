@@ -29,6 +29,10 @@ public class SlotQuantity : MonoBehaviour
     //    UpdateQuantityText();
     //}
     public void UpdateQuantityText() {
+        if (gameObject.transform.GetChild(0).childCount==0 && gameObject.tag == "inventorySlot") {
+            Destroy(gameObject);
+            return;
+        }
         if (gameObject.transform.GetChild(0).childCount == 1)
         {
             quantityText.text = "";

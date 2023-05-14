@@ -24,9 +24,9 @@ public static class GeneratePlants
     public static string[] genotypesRange = { "colourR", "height", "petals","clusters", "petalShape", "leafShapeGene", "colourB", "colourG", "centerShape", "centerColour", "petalSize", "petalVariagated", "leafNumber",  "leafSize" };
     static string[] geneRange = { colourGene, heightGene, petalGene, clustersGene, petalShapeGene, leafShapeGene, colourB, colourG, centerShapeGene , centerColourGene, petalSizeGene , petalVariagatedGene , leafNumGene  , leafSize };
     //static Dictionary<string, string> genotypesAndGenes = new Dictionary<string, string>() { {"colour", colourGene }, { "height", heightGene }, { "petals", petalGene} };
-    public static Plant GenerateRandomNewPlant() {
+    public static Plant GenerateRandomNewPlant(int category = 1) {
         Plant plant = new Plant();
-        plant.category = 2;
+        plant.category = category;
         plant.maxGenotypes = MaxGenotypes(plant);
         for (int i = 0;i< plant.maxGenotypes; i++) {
             plant.genotypes.Add(genotypesRange[i], NewGeno(geneRange[i]));
@@ -45,7 +45,7 @@ public static class GeneratePlants
             case 1:
                 return 4;
             case 2:
-                return 7;
+                return 8;
             //case 3:
             //    return 12;
             //case 4:
@@ -59,20 +59,25 @@ public static class GeneratePlants
     public static List<string> GetPlantPhenotype(Plant plant) {
         List<string> phenotypes = new List<string>();
         try {
-            phenotypes.Add(CheckColourR(plant.genotypes["colourR"]));
-            phenotypes.Add(CheckHeight(plant.genotypes["height"]));
-            phenotypes.Add(CheckPetals(plant.genotypes["petals"]));
-            phenotypes.Add(CheckClusters(plant.genotypes["clusters"]));
-            phenotypes.Add(CheckPetalShape(plant.genotypes["petalShape"]));
-            phenotypes.Add(CheckLeafShape(plant.genotypes["leafShapeGene"]));
-            phenotypes.Add(CheckColourB(plant.genotypes["colourB"]));
-            phenotypes.Add(CheckColourG(plant.genotypes["colourG"]));
+            
             if (plant.category==1) {
+                phenotypes.Add(CheckColourR(plant.genotypes["colourR"]));
+                phenotypes.Add(CheckHeight(plant.genotypes["height"]));
+                phenotypes.Add(CheckPetals(plant.genotypes["petals"]));
+                phenotypes.Add(CheckClusters(plant.genotypes["clusters"]));
                 return phenotypes;
             }
             //check 4 more phenotypes
             if (plant.category == 2)
             {
+                phenotypes.Add(CheckColourR(plant.genotypes["colourR"]));
+                phenotypes.Add(CheckHeight(plant.genotypes["height"]));
+                phenotypes.Add(CheckPetals(plant.genotypes["petals"]));
+                phenotypes.Add(CheckClusters(plant.genotypes["clusters"]));
+                phenotypes.Add(CheckPetalShape(plant.genotypes["petalShape"]));
+                phenotypes.Add(CheckLeafShape(plant.genotypes["leafShapeGene"]));
+                phenotypes.Add(CheckColourB(plant.genotypes["colourB"]));
+                phenotypes.Add(CheckColourG(plant.genotypes["colourG"]));
                 return phenotypes;
             }
             //check 4 more phenotypes

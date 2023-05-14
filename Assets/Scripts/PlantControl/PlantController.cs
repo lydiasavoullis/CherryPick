@@ -40,7 +40,8 @@ public class PlantController : MonoBehaviour, IDropHandler
         //background.SetActive(false);
         if (plant == null)
         {
-            plant = GeneratePlants.GenerateRandomNewPlant();
+            //plant = GeneratePlants.GenerateRandomNewPlant(1);
+            CheckLevelAndChangeRandomPlantCategory();
         }
         else
         {
@@ -49,6 +50,21 @@ public class PlantController : MonoBehaviour, IDropHandler
             //audioSourcePop.Play();
         }
         ResetPlantCharacteristics();
+    }
+    public void CheckLevelAndChangeRandomPlantCategory() {
+        int reputation = GameManager.Instance.reputation;
+        if (reputation == 0) {
+            plant = GeneratePlants.GenerateRandomNewPlant(1);
+            return;
+        } 
+        else if(reputation > 0 && reputation <=2)
+        {
+            plant = GeneratePlants.GenerateRandomNewPlant(2);
+            return;
+        }
+        else {
+            plant = GeneratePlants.GenerateRandomNewPlant(2);
+        }
     }
     public void ResetPlantCharacteristics() {
         leaves_left.GetComponent<RectTransform>().sizeDelta = new Vector3(oldSizeL.x, oldSizeL.y, oldSizeL.z);
@@ -76,15 +92,22 @@ public class PlantController : MonoBehaviour, IDropHandler
             transform.parent.parent.gameObject.GetComponent<SlotQuantity>().UpdateQuantityText();
         }
     }
-
-
+    private void OnMouseEnter()
+    {
+        if(gameObject.transform.parent.tag == "soil"){
+            gameObject.GetComponent<Animation>().Play();
+        }
+        
+    }
+    
     //set how the plant LOOKS
     //try getting from phenotype list now
     public void SetCurrentPhenotype()
     {
-
+        
         //GeneratePlants.genotypesRange;
         //plant.phenotypes
+
         stem.sprite = GetPhenotypeSprite(plant.phenotypes[1]);//GeneratePlants.CheckHeight(plant.genotypes["height"])
         if (plant.phenotypes[1] == "tall")
         {
@@ -95,20 +118,27 @@ public class PlantController : MonoBehaviour, IDropHandler
             leaves_right.GetComponent<RectTransform>().sizeDelta = new Vector3(oldSizeR.x * multiplier, oldSizeL.y * multiplier, oldSizeR.z);
         }
         Color32 redSpectrum = SetColourR(plant.phenotypes[0]);
-        SetPetalsSprite(GeneratePlants.CheckPetalsInt(plant.genotypes["petals"]), GetPhenotypeSprite($"petal_{plant.phenotypes[4]}"), center);//GeneratePlants.CheckColour(plant.genotypes["colour"])
-        SetPetalsColour(redSpectrum, center);
-        Debug.Log(plant.phenotypes.Count);
-        leaves_left.GetComponent<Image>().sprite = GetPhenotypeSprite($"leaf_{plant.phenotypes[5]}");
-        leaves_right.GetComponent<Image>().sprite = GetPhenotypeSprite($"leaf_{plant.phenotypes[5]}");
-        leaves_right.transform.localRotation = Quaternion.Euler(0, 180, 0);
+        if (plant.category == 1) {
+            SetPetalsSprite(GeneratePlants.CheckPetalsInt(plant.genotypes["petals"]), GetPhenotypeSprite($"petal_round"), center);
+            SetPetalsColour(redSpectrum, center);
+            return;
+        }
 
-        try
+        Color32 blueSpectrum = new Color32();
+        Color32 greenSpectrum = new Color32();
+        if (plant.category > 1)
         {
-            
+            SetPetalsSprite(GeneratePlants.CheckPetalsInt(plant.genotypes["petals"]), GetPhenotypeSprite($"petal_{plant.phenotypes[4]}"), center);//GeneratePlants.CheckColour(plant.genotypes["colour"])
+            SetPetalsColour(redSpectrum, center);
+            Debug.Log(plant.phenotypes.Count);
+            leaves_left.GetComponent<Image>().sprite = GetPhenotypeSprite($"leaf_{plant.phenotypes[5]}");
+            leaves_right.GetComponent<Image>().sprite = GetPhenotypeSprite($"leaf_{plant.phenotypes[5]}");
+            leaves_right.transform.localRotation = Quaternion.Euler(0, 180, 0);
             SetClustersActive(GeneratePlants.CheckClusters(plant.genotypes["clusters"]), $"petal_{plant.phenotypes[4]}", redSpectrum);
             //add blue spectrum
-            Color32 blueSpectrum = SetColourB(redSpectrum, plant.phenotypes[5]);
-            switch (plant.phenotypes[3]) {
+            blueSpectrum = SetColourB(redSpectrum, plant.phenotypes[6]);
+            switch (plant.phenotypes[3])
+            {
                 case "one":
                     ModifyPetalsColour(blueSpectrum, center);
                     break;
@@ -125,7 +155,10 @@ public class PlantController : MonoBehaviour, IDropHandler
                     ModifyPetalsColour(blueSpectrum, center);
                     break;
             }
-            Color32 greenSpectrum = SetColourG(blueSpectrum, plant.phenotypes[6]);
+        }
+        if (plant.category > 2)
+        {
+            greenSpectrum = SetColourG(blueSpectrum, plant.phenotypes[7]);
             switch (plant.phenotypes[3])
             {
                 case "one":
@@ -144,12 +177,8 @@ public class PlantController : MonoBehaviour, IDropHandler
                     ModifyPetalsColour(blueSpectrum, center);
                     break;
             }
-            
-
         }
-        catch (Exception e)
-        {
-        }
+       
 
     }
     public void ClearAllPetals(GameObject center1, GameObject center2, GameObject center3) {
@@ -227,15 +256,16 @@ public class PlantController : MonoBehaviour, IDropHandler
     public Color32 SetColourR(string colour)
     {
         Color32 color;
+        Debug.Log(colour);
         switch (colour)
         {
             case "white":
                 color = new Color32(255, 255, 255, 255);
                 return color;
             case "pink":
-                return color = new Color32(255, 160, 160, 255);
+                return color = new Color32(250, 170, 230, 255);
             case "red":
-                return color = new Color32(255, 70, 70, 255);
+                return color = new Color32(240, 9, 0, 255);
             default:
                 break;
         }

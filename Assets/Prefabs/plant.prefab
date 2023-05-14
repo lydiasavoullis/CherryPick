@@ -221,6 +221,7 @@ GameObject:
   - component: {fileID: 1017564007124591567}
   - component: {fileID: 8397093121440558391}
   - component: {fileID: 3391130808065497626}
+  - component: {fileID: 519142843}
   m_Layer: 5
   m_Name: plant
   m_TagString: plant
@@ -443,6 +444,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc29ea6bd4a79da4883c5d784f192bb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!111 &519142843
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2278512942591397195}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 8c4dc4995cbe28d4a9073eb10aa836b7, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 8c4dc4995cbe28d4a9073eb10aa836b7, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &2963116917273389322
 GameObject:
   m_ObjectHideFlags: 0
