@@ -57,6 +57,10 @@ public class GameManager : MonoBehaviour
     GameObject UICanvas;
     [SerializeField]
     public GameObject crossbreedVisualBox;
+    [SerializeField]
+    GameObject customerProfilesContainer;
+    [SerializeField]
+    GameObject customerProfileGO;
     public static GameManager Instance;
     public GameObject canvas;
     public GameObject infoBoxPrefab;
@@ -301,6 +305,21 @@ public class GameManager : MonoBehaviour
         {
             Destroy(infoBoxGO.gameObject);
         }
+    }
+    public void AddCharacterProfile(string name, Sprite sprite) {
+        Transform profileContainer = customerProfilesContainer.transform;
+        for (int i = 0; i< profileContainer.childCount;i++) {
+            if (profileContainer.GetChild(i).GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text == name) {
+                return;
+            }
+        }
+        //create new profile
+        GameObject profilePrefab = Instantiate(customerProfileGO, new Vector3(0, 0, 0), Quaternion.identity, profileContainer);
+        profilePrefab.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = sprite;
+        profilePrefab.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = name;
+        profilePrefab.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().text = "A great customer";
+
+
     }
     /* SetTaskInfo generates a new task prefab and sets the text values and also assigns a task object to the TaskController class with data about the task*/
     public void SetTaskInfo(int quantity, int orderDeadline, string customerName, string phenotypeDescription, List<string> phenotypes)

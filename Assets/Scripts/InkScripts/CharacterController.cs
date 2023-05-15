@@ -150,8 +150,8 @@ public class CharacterController
         charPlaceholder.name = character;
         
 
-        charPlaceholder.GetComponent<Image>().sprite = Resources.Load<Sprite>($"characters/{character}/" + GameVars.story.variablesState[character].ToString());//load image from resources: specifically the type of sprite for that character
-
+        Sprite sprite = charPlaceholder.GetComponent<Image>().sprite = Resources.Load<Sprite>($"characters/{character}/" + GameVars.story.variablesState[character].ToString());//load image from resources: specifically the type of sprite for that character
+        GameManager.Instance.AddCharacterProfile(character, sprite);
     }
     /// <summary>
     /// Add all current characters to the stage

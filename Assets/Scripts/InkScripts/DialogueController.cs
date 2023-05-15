@@ -155,6 +155,7 @@ public class DialogueController : MonoBehaviour
         }
     }
     public Vector3 GetCharacterPos(string name) {
+        
         for (int i =0; i< customerContainer.transform.childCount;i++) {
             if (customerContainer.transform.GetChild(i).name == name) {
                 //Debug.Log(customerContainer.transform.GetChild(i).GetComponent<RectTransform>().position);

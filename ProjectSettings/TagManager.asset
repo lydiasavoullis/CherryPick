@@ -18,6 +18,8 @@ TagManager:
   - heaterContainer
   - heater
   - plant
+  - customerProfile
+  - customerProfileName
   layers:
   - Default
   - TransparentFX
