@@ -45,6 +45,7 @@ public class PlantController : MonoBehaviour, IDropHandler
         }
         else
         {
+            plant.phenotypes = GeneratePlants.GetPlantPhenotype(plant);
             //audioSourcePop = gameObject.GetComponent<AudioSource>();
             //audioSourcePop.pitch = (UnityEngine.Random.Range(0.6f, .9f));
             //audioSourcePop.Play();
@@ -104,11 +105,13 @@ public class PlantController : MonoBehaviour, IDropHandler
     //try getting from phenotype list now
     public void SetCurrentPhenotype()
     {
-        
+
         //GeneratePlants.genotypesRange;
         //plant.phenotypes
 
         stem.sprite = GetPhenotypeSprite(plant.phenotypes[1]);//GeneratePlants.CheckHeight(plant.genotypes["height"])
+
+        
         if (plant.phenotypes[1] == "tall")
         {
             float multiplier = 2f;
@@ -130,7 +133,7 @@ public class PlantController : MonoBehaviour, IDropHandler
         {
             SetPetalsSprite(GeneratePlants.CheckPetalsInt(plant.genotypes["petals"]), GetPhenotypeSprite($"petal_{plant.phenotypes[4]}"), center);//GeneratePlants.CheckColour(plant.genotypes["colour"])
             SetPetalsColour(redSpectrum, center);
-            Debug.Log(plant.phenotypes.Count);
+            //Debug.Log(plant.phenotypes.Count);
             leaves_left.GetComponent<Image>().sprite = GetPhenotypeSprite($"leaf_{plant.phenotypes[5]}");
             leaves_right.GetComponent<Image>().sprite = GetPhenotypeSprite($"leaf_{plant.phenotypes[5]}");
             leaves_right.transform.localRotation = Quaternion.Euler(0, 180, 0);
@@ -256,7 +259,7 @@ public class PlantController : MonoBehaviour, IDropHandler
     public Color32 SetColourR(string colour)
     {
         Color32 color;
-        Debug.Log(colour);
+        //Debug.Log(colour);
         switch (colour)
         {
             case "white":

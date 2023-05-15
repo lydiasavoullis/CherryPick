@@ -223,7 +223,7 @@ public class SaveInventoryItems : MonoBehaviour
     }
     public void LoadItems(string filename)
     {
-        Debug.Log("Load items");
+       // Debug.Log("Load items");
         //clear inventory and greenhouse
         ClearObjectChildren(inventory);
         ClearObjectChildren(greenhouse);
@@ -374,7 +374,7 @@ public class SaveInventoryItems : MonoBehaviour
 
             }
         }
-        Debug.Log("Pots: " + data.potsInGreenhouse.Count + " Planted: " + counter);
+        //Debug.Log("Pots: " + data.potsInGreenhouse.Count + " Planted: " + counter);
     }
     public void SaveTasks() {
         for (int i = 0; i < taskBoard.transform.childCount; i++)
@@ -449,6 +449,7 @@ public class SaveInventoryItems : MonoBehaviour
         plant.genotypes = (Dictionary<string, string[]>)geneticInfo["genotypes"];
         plant.phenotypes = GeneratePlants.GetPlantPhenotype(plant);
         plant.maxGenotypes = plant.genotypes.Count;
+        plant.category = GeneratePlants.GenotypeCategory(plant);
         return plant;
     }
     public Dictionary<string, object> AddItemInfoToList(Seed seed)

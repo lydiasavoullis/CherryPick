@@ -56,6 +56,24 @@ public static class GeneratePlants
                 return 6;
         }
     }
+    public static int GenotypeCategory(Plant plant)
+    {
+        switch (plant.maxGenotypes)
+        {
+            case 4:
+                return 1;
+            case 8:
+                return 2;
+            //case 3:
+            //    return 12;
+            //case 4:
+            //    return 16;
+            //case 5:
+            //    return 20;
+            default:
+                return 6;
+        }
+    }
     public static List<string> GetPlantPhenotype(Plant plant) {
         List<string> phenotypes = new List<string>();
         try {
