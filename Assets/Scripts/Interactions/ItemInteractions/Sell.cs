@@ -31,7 +31,7 @@ public class Sell : MonoBehaviour, IDropHandler
     {
         //&& GeneratePlants.CheckIfDroppedPlantContainsAllDesiredPhenotypes(phenotypes, DragHandler.itemBeingDragged.GetComponent<PlantController>().plant)
         // !item
-        if (DragHandler.itemBeingDragged !=null && DragHandler.itemBeingDragged.name.ToLower().Equals("plant") && !item && GeneratePlants.CheckIfDroppedPlantContainsAllDesiredPhenotypes(phenotypes, DragHandler.itemBeingDragged.GetComponent<PlantController>().plant))
+        if (DragHandler.itemBeingDragged !=null && DragHandler.itemBeingDragged.tag.Equals("plant") && !item && GeneratePlants.CheckIfDroppedPlantContainsAllDesiredPhenotypes(phenotypes, DragHandler.itemBeingDragged.GetComponent<PlantController>().plant))
         {
             DragHandler.itemBeingDragged.transform.SetParent(transform);
             DragHandler.itemBeingDragged.transform.localPosition = Vector3.zero;

@@ -96,7 +96,7 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
             
         }
         gameObject.transform.SetParent(renderOnTop.transform);
-        if (startParent.tag.ToLower().Contains("slot"))
+        if (startParent.tag.Contains("inventorySlot"))
         {
             if (startParent.transform.childCount == 0)
             {
