@@ -318,6 +318,7 @@ public class GameManager : MonoBehaviour
         profilePrefab.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = sprite;
         profilePrefab.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = name;
         profilePrefab.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().text = "A great customer";
+        profilePrefab.transform.localPosition = Vector3.zero;
 
 
     }

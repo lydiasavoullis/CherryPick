@@ -24,6 +24,7 @@ public class PlantController : MonoBehaviour, IDropHandler
     public GameObject cluster1;
     public GameObject cluster2;
     public GameObject petalPrefab;
+    public GameObject leafPrefab;
     public GameObject center;
     //public GameObject center2;
     public GameObject leaves_right;
@@ -55,7 +56,7 @@ public class PlantController : MonoBehaviour, IDropHandler
     public void CheckLevelAndChangeRandomPlantCategory() {
         int reputation = GameManager.Instance.reputation;
         if (reputation == 0) {
-            plant = GeneratePlants.GenerateRandomNewPlant(1);
+            plant = GeneratePlants.GenerateRandomNewPlant(2);
             return;
         } 
         else if(reputation > 0 && reputation <=2)
@@ -68,14 +69,36 @@ public class PlantController : MonoBehaviour, IDropHandler
         }
     }
     public void ResetPlantCharacteristics() {
-        leaves_left.GetComponent<RectTransform>().sizeDelta = new Vector3(oldSizeL.x, oldSizeL.y, oldSizeL.z);
-        leaves_right.GetComponent<RectTransform>().sizeDelta = new Vector3(oldSizeR.x , oldSizeL.y, oldSizeR.z);
+        //leaves_left.GetComponent<RectTransform>().sizeDelta = new Vector3(oldSizeL.x, oldSizeL.y, oldSizeL.z);
+        //leaves_right.GetComponent<RectTransform>().sizeDelta = new Vector3(oldSizeR.x , oldSizeL.y, oldSizeR.z);
+        ResetLeaves();
+        GeneratePlants.ResizeLeaves(leaves_left, oldSizeL);
+        GeneratePlants.ResizeLeaves(leaves_right, oldSizeR);
         ClearAllPetals(center, cluster1, cluster2);
         cluster2.SetActive(false);
         cluster1.SetActive(false);
+        CenterColourChange(new Color32(224, 219, 94, 255));
         SetPlantInfo();
         SetCurrentPhenotype();
     }
+    //get to prefab state
+    public void ResetLeaves()
+    {
+        for (int i = 0; i < leaves_left.transform.childCount; i++)
+        {
+            Destroy(leaves_left.transform.GetChild(i).gameObject);
+        }
+        for (int i = 0; i < leaves_right.transform.childCount; i++)
+        {
+            Destroy(leaves_right.transform.GetChild(i).gameObject);
+        }
+    }
+    void CenterColourChange(Color32 colour) {
+        center.GetComponent<Image>().color = colour;
+        cluster2.GetComponent<Image>().color = colour;
+        cluster1.GetComponent<Image>().color = colour;
+    }
+
     public void OnDrop(PointerEventData eventData)
     {
         //GeneratePlants.CheckIfTwoPlantsLookTheSame(this.plant, DragHandler.itemBeingDragged.GetComponent<PlantController>().plant)
@@ -110,15 +133,36 @@ public class PlantController : MonoBehaviour, IDropHandler
         //plant.phenotypes
 
         stem.sprite = GetPhenotypeSprite(plant.phenotypes[1]);//GeneratePlants.CheckHeight(plant.genotypes["height"])
+        if (plant.phenotypes.Count>9) {
+            CenterColourChange(GetCenterColour(plant.phenotypes[9]));
+        }
+        if (plant.phenotypes.Count>8)
+        {
+            if (plant.phenotypes[8] == "4")
+            {
+                SetLeavesQuantity(leaves_left, 2, leafPrefab,0);
+                SetLeavesQuantity(leaves_right, 2, leafPrefab,180);
 
+            }
+            else
+            {
+
+                SetLeavesQuantity(leaves_left, 1, leafPrefab,0);
+                SetLeavesQuantity(leaves_right, 1, leafPrefab,180);
+            }
+        }
+        else {
+            SetLeavesQuantity(leaves_left, 1, leafPrefab,0);
+            SetLeavesQuantity(leaves_right, 1, leafPrefab,180);
+        }
         
         if (plant.phenotypes[1] == "tall")
         {
-            float multiplier = 2f;
-            Vector3 oldSizeL = leaves_left.GetComponent<RectTransform>().sizeDelta;
-            Vector3 oldSizeR = leaves_left.GetComponent<RectTransform>().sizeDelta;
-            leaves_left.GetComponent<RectTransform>().sizeDelta = new Vector3(oldSizeL.x * multiplier, oldSizeL.y* multiplier, oldSizeL.z);
-            leaves_right.GetComponent<RectTransform>().sizeDelta = new Vector3(oldSizeR.x * multiplier, oldSizeL.y * multiplier, oldSizeR.z);
+            float multiplier = 1.5f;
+            Vector3 oldSizeL = leaves_left.transform.GetChild(0).gameObject.GetComponent<RectTransform>().sizeDelta;
+            Vector3 oldSizeR = leaves_right.transform.GetChild(0).gameObject.GetComponent<RectTransform>().sizeDelta;
+            GeneratePlants.ResizeLeaves(leaves_left, new Vector3(oldSizeL.x * multiplier, oldSizeL.y * multiplier, oldSizeL.z));
+            GeneratePlants.ResizeLeaves(leaves_right, new Vector3(oldSizeR.x * multiplier, oldSizeR.y * multiplier, oldSizeR.z));
         }
         Color32 redSpectrum = SetColourR(plant.phenotypes[0]);
         if (plant.category == 1) {
@@ -133,10 +177,8 @@ public class PlantController : MonoBehaviour, IDropHandler
         {
             SetPetalsSprite(GeneratePlants.CheckPetalsInt(plant.genotypes["petals"]), GetPhenotypeSprite($"petal_{plant.phenotypes[4]}"), center);//GeneratePlants.CheckColour(plant.genotypes["colour"])
             SetPetalsColour(redSpectrum, center);
-            //Debug.Log(plant.phenotypes.Count);
-            leaves_left.GetComponent<Image>().sprite = GetPhenotypeSprite($"leaf_{plant.phenotypes[5]}");
-            leaves_right.GetComponent<Image>().sprite = GetPhenotypeSprite($"leaf_{plant.phenotypes[5]}");
-            leaves_right.transform.localRotation = Quaternion.Euler(0, 180, 0);
+            GeneratePlants.ChangeLeavesSprite(leaves_left, GetPhenotypeSprite($"leaf_{plant.phenotypes[5]}"));
+            GeneratePlants.ChangeLeavesSprite(leaves_right, GetPhenotypeSprite($"leaf_{plant.phenotypes[5]}"));
             SetClustersActive(GeneratePlants.CheckClusters(plant.genotypes["clusters"]), $"petal_{plant.phenotypes[4]}", redSpectrum);
             //add blue spectrum
             blueSpectrum = SetColourB(redSpectrum, plant.phenotypes[6]);
@@ -210,29 +252,38 @@ public class PlantController : MonoBehaviour, IDropHandler
             petalGO.GetComponent<Image>().sprite = petalSprite;
         }
     }
-    public void SetLeavesSprite(string leafType)
+    public static void SetLeavesQuantity(GameObject leaves_container, int quantity, GameObject leafPrefab, float rot)
     {
-        //for (int i = 0; i < center.transform.childCount;i++) {
-        //    Destroy(center.transform.GetChild(i));
-        //}
-        switch (leafType) {
-            case "round":
-                leaves_left.GetComponent<Image>().sprite = GetPhenotypeSprite($"leaf_{plant.phenotypes[5]}");
-                leaves_right.GetComponent<Image>().sprite = GetPhenotypeSprite($"leaf_{plant.phenotypes[5]}");
-                break;
-            case "pointed":
-                leaves_left.GetComponent<Image>().sprite = GetPhenotypeSprite($"leaf_{plant.phenotypes[5]}");
-                leaves_right.GetComponent<Image>().sprite = GetPhenotypeSprite($"leaf_{plant.phenotypes[5]}");
-                break;
-            case "jagged":
-                leaves_left.GetComponent<Image>().sprite = GetPhenotypeSprite($"leaf_{plant.phenotypes[5]}");
-                leaves_right.GetComponent<Image>().sprite = GetPhenotypeSprite($"leaf_{plant.phenotypes[5]}");
-                break;
-            default:
-                break;
+        for (int i = 0; i < quantity; i++)
+        {
+            GameObject leafGO = Instantiate(leafPrefab, new Vector3(0, 0, 0), Quaternion.Euler(new Vector3(0,rot,0)), leaves_container.transform);
+            leafGO.name = "leaf";
+            leafGO.transform.localPosition = Vector3.zero;
         }
-        
     }
+    //public void SetLeavesSprite(string leafType)
+    //{
+    //    //for (int i = 0; i < center.transform.childCount;i++) {
+    //    //    Destroy(center.transform.GetChild(i));
+    //    //}
+    //    switch (leafType) {
+    //        case "round":
+    //            leaves_left.GetComponent<Image>().sprite = GetPhenotypeSprite($"leaf_{plant.phenotypes[5]}");
+    //            leaves_right.GetComponent<Image>().sprite = GetPhenotypeSprite($"leaf_{plant.phenotypes[5]}");
+    //            break;
+    //        case "pointed":
+    //            leaves_left.GetComponent<Image>().sprite = GetPhenotypeSprite($"leaf_{plant.phenotypes[5]}");
+    //            leaves_right.GetComponent<Image>().sprite = GetPhenotypeSprite($"leaf_{plant.phenotypes[5]}");
+    //            break;
+    //        case "jagged":
+    //            leaves_left.GetComponent<Image>().sprite = GetPhenotypeSprite($"leaf_{plant.phenotypes[5]}");
+    //            leaves_right.GetComponent<Image>().sprite = GetPhenotypeSprite($"leaf_{plant.phenotypes[5]}");
+    //            break;
+    //        default:
+    //            break;
+    //    }
+
+    //}
     public void SetPetalsColour(Color32 color, GameObject center)
     {
         //for (int i = 0; i < center.transform.childCount;i++) {
@@ -292,6 +343,23 @@ public class PlantController : MonoBehaviour, IDropHandler
                 break;
         }
         return Color.white;
+    }
+    public Color32 GetCenterColour(string colour) {
+        Color32 color;
+        //Debug.Log(colour);
+        switch (colour)
+        {
+            case "brown":
+                color = new Color32(63, 39, 26, 255);
+                return color;
+            case "green":
+                return color = new Color32(46, 111, 62, 255);
+            case "yellow":
+                return color = new Color32(224, 219, 94, 255);
+            default:
+                break;
+        }
+        return Color.yellow;
     }
     public Byte SubtractByte(Byte colourbyte, int valueChange) {
         int value = Convert.ToInt32(colourbyte) - valueChange;

@@ -22,10 +22,14 @@ public class TabManager : MonoBehaviour
     }
     public void SelectTab(GameObject tab) {
         foreach(GameObject key in filetabOrganiser.Keys) {
-            key.GetComponent<Image>().sprite = closedTab;
+            //key.GetComponent<Image>().sprite = closedTab;
+            key.GetComponent<Canvas>().sortingOrder = -1;
+            key.GetComponent<Button>().interactable = true;
             filetabOrganiser[key].SetActive(false);
         }
-        tab.GetComponent<Image>().sprite = openTab;
+        //tab.GetComponent<Image>().sprite = openTab;
+        tab.GetComponent<Canvas>().sortingOrder = 1;
+        tab.GetComponent<Button>().interactable = false;
         filetabOrganiser[tab].SetActive(true);
     }
 }
