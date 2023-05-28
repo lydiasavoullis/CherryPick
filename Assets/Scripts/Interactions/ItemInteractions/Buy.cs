@@ -22,6 +22,7 @@ public class Buy : MonoBehaviour
     public TextMeshProUGUI itemNameText;
     public TextMeshProUGUI itemDescText;
     public string itemName;
+    int slotSize = 200;
     public void SetItemDetails(string itemName)
     {
         this.itemName = itemName;
@@ -47,7 +48,7 @@ public class Buy : MonoBehaviour
         }
         newItem.name = itemName;
         newItem.transform.GetComponent<DragHandler>().enabled = false;
-        newItem.GetComponent<RectTransform>().sizeDelta = new Vector2(100, 100);
+        newItem.GetComponent<RectTransform>().sizeDelta = new Vector2(GameManager.Instance.slotSize, GameManager.Instance.slotSize);
         newItem.transform.localPosition = Vector3.zero;
     }
     public void BuyItem() {
@@ -62,19 +63,21 @@ public class Buy : MonoBehaviour
             switch (itemName) {
             case "pot":
                     GameObject newItemGO = Instantiate(potPrefab, new Vector3(0, 0, 0), Quaternion.identity, slotGO.transform.GetChild(0));
-                    newItemGO.GetComponent<RectTransform>().sizeDelta = new Vector2(100, 100);
+                    newItemGO.GetComponent<RectTransform>().sizeDelta = new Vector2(GameManager.Instance.slotSize, GameManager.Instance.slotSize);
                     newItemGO.transform.localPosition = Vector3.zero;
                     newItemGO.name = itemName;
                     break;
             case "heater":
                     GameObject newHeaterGO = Instantiate(heaterPrefab, new Vector3(0, 0, 0), Quaternion.identity, slotGO.transform.GetChild(0));
-                    newHeaterGO.GetComponent<RectTransform>().sizeDelta = new Vector2(100, 100);
+                    newHeaterGO.GetComponent<RectTransform>().sizeDelta = new Vector2(GameManager.Instance.slotSize, GameManager.Instance.slotSize);
                     newHeaterGO.transform.localPosition = Vector3.zero;
                     newHeaterGO.name = itemName;
                     break;
             case "plant":
                     GameObject newPlantGO = Instantiate(plantPrefab, new Vector3(0, 0, 0), Quaternion.identity, slotGO.transform.GetChild(0));
                     newPlantGO.name = "plant";
+                    newPlantGO.GetComponent<RectTransform>().sizeDelta = new Vector2(GameManager.Instance.slotSize, GameManager.Instance.slotSize);
+                    newPlantGO.transform.localPosition = Vector3.zero;
                     newPlantGO.GetComponent<PlantController>().plant = item.GetComponent<PlantController>().plant;
                     newPlantGO.name = itemName;
                     break;

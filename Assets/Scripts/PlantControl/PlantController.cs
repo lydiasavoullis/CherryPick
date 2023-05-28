@@ -32,8 +32,8 @@ public class PlantController : MonoBehaviour, IDropHandler
     //public GameObject background;
     public Phenotype[] phenotypes;
     public AudioSource audioSourcePop;
-    Vector3 oldSizeL = new Vector3(18f, 18f);
-    Vector3 oldSizeR = new Vector3(18f, 18f);
+    Vector3 oldSizeL = new Vector3(30f, 30f);
+    Vector3 oldSizeR = new Vector3(30f, 30f);
     private void Start()
     {
         //oldSizeL = leaves_left.GetComponent<RectTransform>().rect.size;
@@ -131,7 +131,11 @@ public class PlantController : MonoBehaviour, IDropHandler
 
         //GeneratePlants.genotypesRange;
         //plant.phenotypes
-
+        //center shape
+        if (plant.phenotypes.Count > 10)
+        {
+            SetCenterSprite(GetPhenotypeSprite($"center_{plant.phenotypes[10]}"));
+        }
         stem.sprite = GetPhenotypeSprite(plant.phenotypes[1]);//GeneratePlants.CheckHeight(plant.genotypes["height"])
         if (plant.phenotypes.Count>9) {
             CenterColourChange(GetCenterColour(plant.phenotypes[9]));
@@ -251,6 +255,12 @@ public class PlantController : MonoBehaviour, IDropHandler
             petalGO.name = "petal";
             petalGO.GetComponent<Image>().sprite = petalSprite;
         }
+    }
+    public void SetCenterSprite(Sprite centerSprite)
+    {
+        center.GetComponent<Image>().sprite = centerSprite;
+        cluster1.GetComponent<Image>().sprite = centerSprite;
+        cluster2.GetComponent<Image>().sprite = centerSprite;
     }
     public static void SetLeavesQuantity(GameObject leaves_container, int quantity, GameObject leafPrefab, float rot)
     {

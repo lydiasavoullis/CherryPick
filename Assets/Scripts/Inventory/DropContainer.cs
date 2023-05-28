@@ -9,6 +9,7 @@ public class DropContainer : MonoBehaviour, IDropHandler
     GameObject panel;
     [SerializeField]
     GameObject itemSlotPrefab;
+    int slotSize = 200;
     public void OnDrop(PointerEventData eventData)
     {
        // Debug.Log("Has Dropped");
@@ -52,7 +53,7 @@ public class DropContainer : MonoBehaviour, IDropHandler
                 else {//if not a plant
                     newItem.transform.SetParent(currentSlot.transform);
                     newItem.transform.localPosition = Vector3.zero;
-                    newItem.GetComponent<RectTransform>().sizeDelta = new Vector2(100, 100);
+                    newItem.GetComponent<RectTransform>().sizeDelta = new Vector2(GameManager.Instance.slotSize, GameManager.Instance.slotSize);
                     currentSlotContainer.GetComponent<SlotQuantity>().UpdateQuantityText();
                     return;
                 }
@@ -66,7 +67,7 @@ public class DropContainer : MonoBehaviour, IDropHandler
         GameObject newSlotPrefab = Instantiate(itemSlotPrefab, new Vector3(0, 0, 0), Quaternion.identity, panel.transform);
         newSlotPrefab.name = "slot";
         newItem.transform.SetParent(newSlotPrefab.transform.GetChild(0));
-        newItem.GetComponent<RectTransform>().sizeDelta = new Vector2(100, 100);
+        newItem.GetComponent<RectTransform>().sizeDelta = new Vector2(GameManager.Instance.slotSize, GameManager.Instance.slotSize);
         newItem.transform.position = Vector3.zero;
     }
 

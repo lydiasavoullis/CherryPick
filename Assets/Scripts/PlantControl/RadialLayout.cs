@@ -21,7 +21,7 @@ THE SOFTWARE.
 */
 public class RadialLayout : LayoutGroup
 {
-    public float fDistance;
+    public float fDistance = 30;
     [Range(0f, 360f)]
     public float MinAngle, MaxAngle, StartAngle;
     protected override void OnEnable() { base.OnEnable(); CalculateRadial(); }
@@ -69,7 +69,7 @@ public class RadialLayout : LayoutGroup
                 Vector3 vPos = new Vector3(Mathf.Cos(fAngle * Mathf.Deg2Rad), Mathf.Sin(fAngle * Mathf.Deg2Rad), 0);
                 child.localPosition = vPos * fDistance;
                 //Force objects to be center aligned, this can be changed however I'd suggest you keep all of the objects with the same anchor points.
-                child.anchorMin = child.anchorMax = child.pivot = new Vector2(0.5f, 0.5f);
+                child.anchorMin = child.anchorMax = child.pivot = new Vector2(0.5f, 0.5f);//0.5 0.5
 
                 
                 fAngle += fOffsetAngle;
@@ -87,6 +87,7 @@ public class RadialLayout : LayoutGroup
             transform.GetChild(i).GetComponent<RectTransform>().rotation = Quaternion.Euler(0f, 0f, angleSize);
             angleSize += angleIncrements;
         }
+        fDistance = 30;
 
     }
 }

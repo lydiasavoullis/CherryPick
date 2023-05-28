@@ -23,8 +23,8 @@ public static class GeneratePlants
     static string colourG = "g";
     static string leafSize = "l";
     static string leafShapeGene = "m";
-    public static string[] genotypesRange = { "colourR", "height", "petals","clusters", "petalShape", "leafShapeGene", "colourB", "colourG", "leafQuantityGene", "centerColourGene"};
-    static string[] geneRange =             { colourGene, heightGene, petalGene, clustersGene, petalShapeGene, leafShapeGene, colourB, colourG, leafQuantityGene, centerColourGene};
+    public static string[] genotypesRange = { "colourR", "height", "petals","clusters", "petalShape", "leafShapeGene", "colourB", "colourG", "leafQuantityGene", "centerColourGene", "centerShapeGene"};
+    static string[] geneRange =             { colourGene, heightGene, petalGene, clustersGene, petalShapeGene, leafShapeGene, colourB, colourG, leafQuantityGene, centerColourGene, centerShapeGene};
     //static Dictionary<string, string> genotypesAndGenes = new Dictionary<string, string>() { {"colour", colourGene }, { "height", heightGene }, { "petals", petalGene} };
     public static Plant GenerateRandomNewPlant(int category = 2) {
         Plant plant = new Plant();
@@ -65,7 +65,7 @@ public static class GeneratePlants
             case 1:
                 return 4;
             case 2:
-                return 10;
+                return 11;
             //case 3:
             //    return 12;
             //case 4:
@@ -82,7 +82,7 @@ public static class GeneratePlants
         {
             case 4:
                 return 1;
-            case 9:
+            case 11:
                 return 2;
             //case 3:
             //    return 12;
@@ -91,7 +91,7 @@ public static class GeneratePlants
             //case 5:
             //    return 20;
             default:
-                return 6;
+                return 2;
         }
     }
     public static List<string> GetPlantPhenotype(Plant plant) {
@@ -118,6 +118,7 @@ public static class GeneratePlants
                 phenotypes.Add(CheckColourG(plant.genotypes["colourG"]));
                 phenotypes.Add(CheckLeafQuantity(plant.genotypes["leafQuantityGene"]));
                 phenotypes.Add(CheckCenterColour(plant.genotypes["centerColourGene"]));
+                phenotypes.Add(CheckCenterShape(plant.genotypes["centerShapeGene"]));
                 return phenotypes;
             }
             //check 4 more phenotypes
@@ -265,6 +266,25 @@ public static class GeneratePlants
         else
         {
             return "yellow";
+        }
+    }
+    public static string CheckCenterShape(string[] genotype)
+    {
+        string geno = string.Join("", genotype);
+        if (geno.Contains(centerShapeGene.ToLower()))
+        {
+            if (geno.Contains(centerShapeGene.ToUpper()))
+            {
+                return "jagged";
+            }
+            else
+            {
+                return "textured";
+            }
+        }
+        else
+        {
+            return "smooth";
         }
     }
     public static string CheckLeafQuantity(string[] genotype)

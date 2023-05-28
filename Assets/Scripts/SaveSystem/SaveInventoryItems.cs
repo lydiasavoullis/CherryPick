@@ -319,7 +319,7 @@ public class SaveInventoryItems : MonoBehaviour
                     //foreach item in slot
                     GameObject itemGO = Instantiate(FindItem(itemName), new Vector3(0, 0, 0), Quaternion.identity, slotGO.transform.GetChild(0));
                     itemGO.name = itemName;
-                    itemGO.GetComponent<RectTransform>().sizeDelta = new Vector2(100, 100);
+                    itemGO.GetComponent<RectTransform>().sizeDelta = new Vector2(GameManager.Instance.slotSize, GameManager.Instance.slotSize);
                     itemGO.transform.localPosition = Vector3.zero;
                 }
 
@@ -447,9 +447,10 @@ public class SaveInventoryItems : MonoBehaviour
     {
         Plant plant = new Plant();
         plant.genotypes = (Dictionary<string, string[]>)geneticInfo["genotypes"];
-        plant.phenotypes = GeneratePlants.GetPlantPhenotype(plant);
         plant.maxGenotypes = plant.genotypes.Count;
         plant.category = GeneratePlants.GenotypeCategory(plant);
+        plant.phenotypes = GeneratePlants.GetPlantPhenotype(plant);
+       
         return plant;
     }
     public Dictionary<string, object> AddItemInfoToList(Seed seed)

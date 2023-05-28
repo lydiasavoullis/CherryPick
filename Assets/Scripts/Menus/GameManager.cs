@@ -78,6 +78,7 @@ public class GameManager : MonoBehaviour
     public int nightTemp = 0;
     public CustomerController taskController;
     public string timeOfDay = "day";
+    public int slotSize = 200;
     private void Awake()
     {
         Instance = this;
@@ -162,20 +163,28 @@ public class GameManager : MonoBehaviour
         {
             Destroy(shopContent.transform.GetChild(i).gameObject);
         }
-        //Instantiate(shopPlantPrefab, new Vector3(0, 0, 0), Quaternion.identity, shopContent.transform);
-        //Instantiate(shopPlantPrefab, new Vector3(0, 0, 0), Quaternion.identity, shopContent.transform);
-        //Instantiate(shopPlantPrefab, new Vector3(0, 0, 0), Quaternion.identity, shopContent.transform);
+        //GameObject item = Instantiate(shopItemPrefab, new Vector3(0, 0, 0), Quaternion.identity, shopContent.transform);
+        //item.transform.GetComponent<Buy>().SetItemDetails("pot");
+        //item = Instantiate(shopItemPrefab, new Vector3(0, 0, 0), Quaternion.identity, shopContent.transform);
+        //item.transform.GetComponent<Buy>().SetItemDetails("plant");
+        //item = Instantiate(shopItemPrefab, new Vector3(0, 0, 0), Quaternion.identity, shopContent.transform);
+        //item.transform.GetComponent<Buy>().SetItemDetails("plant");
+        //item = Instantiate(shopItemPrefab, new Vector3(0, 0, 0), Quaternion.identity, shopContent.transform);
+        //item.transform.GetComponent<Buy>().SetItemDetails("plant");
+        //item = Instantiate(shopItemPrefab, new Vector3(0, 0, 0), Quaternion.identity, shopContent.transform);
+        //item.transform.GetComponent<Buy>().SetItemDetails("heater");
+        AddShopItem("plant");
+        AddShopItem("plant");
+        AddShopItem("plant");
+        AddShopItem("heater");
+        AddShopItem("pot");
+
+    }
+    void AddShopItem(string itemName) {
         GameObject item = Instantiate(shopItemPrefab, new Vector3(0, 0, 0), Quaternion.identity, shopContent.transform);
-        item.transform.GetComponent<Buy>().SetItemDetails("pot");
-        item = Instantiate(shopItemPrefab, new Vector3(0, 0, 0), Quaternion.identity, shopContent.transform);
-        item.transform.GetComponent<Buy>().SetItemDetails("plant");
-        item = Instantiate(shopItemPrefab, new Vector3(0, 0, 0), Quaternion.identity, shopContent.transform);
-        item.transform.GetComponent<Buy>().SetItemDetails("plant");
-        item = Instantiate(shopItemPrefab, new Vector3(0, 0, 0), Quaternion.identity, shopContent.transform);
-        item.transform.GetComponent<Buy>().SetItemDetails("plant");
-        item = Instantiate(shopItemPrefab, new Vector3(0, 0, 0), Quaternion.identity, shopContent.transform);
-        item.transform.GetComponent<Buy>().SetItemDetails("heater");
-        //Instantiate(heaterPrefab, new Vector3(0, 0, 0), Quaternion.identity, shopContent.transform);
+        item.transform.GetComponent<Buy>().SetItemDetails(itemName);
+        item.transform.localPosition = Vector3.zero;
+
 
     }
 
@@ -289,7 +298,7 @@ public class GameManager : MonoBehaviour
     {
         Vector2 pos = itemPos;
         pos.x += 0.5f;
-        pos.y += 1.25f;
+        pos.y += 1.60f;
         if (infoBoxGO != null)
         {
             Destroy(infoBoxGO.gameObject);
@@ -298,6 +307,21 @@ public class GameManager : MonoBehaviour
         infoBoxGO = Instantiate(infoBoxPrefab, pos, Quaternion.identity, UICanvas.transform);
         infoBoxGO.GetComponent<ItemInfo>().SetUp(name, description);
 
+    }
+    //reposition info box if it is very large
+    public Vector2 CalculateInfoPosition(string description, Vector2 pos) {
+        string[] genes = description.Split(':');
+        int descriptionSize = genes.Length;
+        switch (descriptionSize) {
+            case 0:
+                pos.x += 0.5f;
+                pos.y += 1.25f;
+                return pos;
+            default:
+                pos.x += 0.5f;
+                pos.y += 1.25f;
+                return pos;
+        }
     }
     public void RemoveItemInfo()
     {
