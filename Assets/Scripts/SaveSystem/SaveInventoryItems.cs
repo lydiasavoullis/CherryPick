@@ -64,6 +64,7 @@ public class SaveInventoryItems : MonoBehaviour
     public List<Tuple<string, Dictionary<string, object>, int>> taskBoardPlants = new List<Tuple<string, Dictionary<string, object>, int>>();//int here denotes task it belongs to
     //public List<float> plantPots = new List<float>();
     public List<Tuple<string, Dictionary<string, object>, float>> potsInGreenhouse = new List<Tuple<string, Dictionary<string, object>, float>>();
+    public List<Tuple<string, string, string, float>> characterProfiles = new List<Tuple<string, string, string, float>>();
     public int heaters = 0;
     public int temp = 0;
     public int day = 0;
@@ -86,6 +87,7 @@ public class SaveInventoryItems : MonoBehaviour
         SaveGreenhouseContents();
         SaveTasks();
         SaveShopItems();
+        SaveJournalCharacters();
         SaveSystem.SaveData(GenerateFileName(), this);
         CreateSaveSlot(lastFilename);
         //reset all this stored data
@@ -94,7 +96,37 @@ public class SaveInventoryItems : MonoBehaviour
         taskBoardList.Clear();
         taskBoardPlants.Clear();
         shopItems.Clear();
+        characterProfiles.Clear();
 
+    }
+    public void SaveJournalCharacters() {
+        GameObject profileContainer = GameManager.Instance.customerProfilesContainer;
+        Transform profileTransform = profileContainer.transform;
+        string picture = "";
+        string name = "";
+        string description = "";
+        float points = 0f;
+        for (int i = 0; i< profileTransform.childCount; i++) {
+            Transform profile = profileTransform.GetChild(i);
+            picture = profile.GetChild(0).GetComponent<Image>().sprite.name;
+            name = profile.GetChild(1).GetComponent<TextMeshProUGUI>().text;
+            description = profile.GetChild(2).GetComponent<TextMeshProUGUI>().text;
+            points = profile.GetChild(3).GetComponent<Slider>().value;
+            characterProfiles.Add(new Tuple<string, string, string, float>(picture, name, description, points));
+        }
+    }
+    public void LoadJournalCharacters(SaveData data)
+    {
+        GameObject profileContainer = GameManager.Instance.customerProfilesContainer;
+        var profiles = data.characterProfiles;
+        for (int i =0; i<profiles.Count;i++) {
+            GameObject profileGO = Instantiate(GameManager.Instance.customerProfileGO, new Vector3(0, 0, 0), Quaternion.identity, profileContainer.transform);
+            profileGO.transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>($"characters/{profiles[i].Item2}/" + profiles[i].Item1);
+            profileGO.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = profiles[i].Item2;
+            profileGO.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = profiles[i].Item3;
+            profileGO.transform.GetChild(3).GetComponent<Slider>().value = profiles[i].Item4;
+        }
+        
     }
     public void SaveShopItems() {
         GameObject shopObj = GameManager.Instance.shopContent;
@@ -231,6 +263,7 @@ public class SaveInventoryItems : MonoBehaviour
         ClearObjectChildren(customerContainer);
         ClearObjectChildren(speechContainer);
         ClearObjectChildren(heaterContainer);
+        ClearObjectChildren(GameManager.Instance.customerProfilesContainer);
         SaveData data = SaveSystem.LoadData(filename);
         
         //progress variables
@@ -279,6 +312,7 @@ public class SaveInventoryItems : MonoBehaviour
         //load inventory
         LoadInventory(data);
         LoadHeaters(data);
+        LoadJournalCharacters(data);
         
     }
     public void LoadInventory(SaveData data) {

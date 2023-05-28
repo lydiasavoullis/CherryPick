@@ -58,9 +58,13 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     public GameObject crossbreedVisualBox;
     [SerializeField]
-    GameObject customerProfilesContainer;
+    public GameObject customerProfilesContainer;
     [SerializeField]
-    GameObject customerProfileGO;
+    public GameObject customerProfileGO;
+    [SerializeField]
+    GameObject genesContainer;
+    [SerializeField]
+    GameObject infoContainer;
     public static GameManager Instance;
     public GameObject canvas;
     public GameObject infoBoxPrefab;

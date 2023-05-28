@@ -20,6 +20,8 @@ public class SaveData
     public List<Tuple<int, int, string, string, List<string>>> taskBoardList = new List<Tuple<int, int, string, string, List<string>>>();
     //shop items
     public List<Tuple<string, Dictionary<string, object>, int>> shopItems = new List<Tuple<string, Dictionary<string, object>, int>>();
+    //character profiles
+    public List<Tuple<string, string, string, float>> characterProfiles = new List<Tuple<string, string, string, float>>();
     public int heaters = 0;
     public int temp = 0;
     public int currentDay = 0;
@@ -42,6 +44,7 @@ public class SaveData
         this.potsInGreenhouse = saveItems.potsInGreenhouse;
         this.taskBoardList = saveItems.taskBoardList;
         this.taskBoardPlants = saveItems.taskBoardPlants;
+        this.characterProfiles = saveItems.characterProfiles;
         this.saveState = GameVars.story.state.ToJson();
         this.storyLog = GameVars.loadedTextLog;
         this.loadedChars = GameVars.loadedChars;
