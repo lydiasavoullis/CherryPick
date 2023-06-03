@@ -93,11 +93,9 @@ public class DialogueController : MonoBehaviour
         GameVars.finishedTyping = true;
         try
         {
-            //GameVars.story.BindExternalFunction("ChangeCharacter", (string charName) => characterControl.LoadCharacterSpriteType(charName, stage, characterBox));
-            //GameVars.story.BindExternalFunction("AddCharacter", (string charName, string charType) => characterControl.LoadCharacterSprite(charName, charType, this.stage, characterBox));
-            //GameVars.story.BindExternalFunction("ChangeSprite", (string charName, string charType) => characterControl.ChangeCharacterSprite(charName, charType, this.stage));
-            //GameVars.story.BindExternalFunction("RemoveCharacter", (string charName) => characterControl.RemoveCharacter(charName, this.stage));
-            //GameVars.story.BindExternalFunction("GoToGameScene", (string gameScene, string currentScene) => GoToGameScene(gameScene, currentScene));
+            GameVars.story.BindExternalFunction("AddCharacter", (string charName, string charType) => characterControl.LoadCharacterSprite(charName, charType, this.customerContainer, characterBox));
+            GameVars.story.BindExternalFunction("ChangeSprite", (string charName, string charType) => characterControl.ChangeCharacterSprite(charName, charType, this.customerContainer));
+            GameVars.story.BindExternalFunction("RemoveCharacter", (string charName) => characterControl.RemoveCharacter(charName, this.customerContainer));
         }
         catch (Exception e)
         {
@@ -139,9 +137,17 @@ public class DialogueController : MonoBehaviour
     }
     private void OnLevelWasLoaded(int level)
     {
-        //GameVars.story.UnbindExternalFunction("AddCharacter");
-        //GameVars.story.UnbindExternalFunction("ChangeSprite");
-        //GameVars.story.UnbindExternalFunction("RemoveCharacter");
+        try
+        {
+            GameVars.story.UnbindExternalFunction("AddCharacter");
+            GameVars.story.UnbindExternalFunction("ChangeSprite");
+            GameVars.story.UnbindExternalFunction("RemoveCharacter");
+        }
+        catch (Exception e) { }
+        GameVars.story.BindExternalFunction("AddCharacter", (string charName, string charType) => characterControl.LoadCharacterSprite(charName, charType, this.customerContainer, characterBox));
+        GameVars.story.BindExternalFunction("ChangeSprite", (string charName, string charType) => characterControl.ChangeCharacterSprite(charName, charType, this.customerContainer));
+        GameVars.story.BindExternalFunction("RemoveCharacter", (string charName) => characterControl.RemoveCharacter(charName, this.customerContainer));
+
         //characterControl.RefreshCharacters((InkList)GameVars.story.variablesState["characters"], stage, characterBox);
         //uIControl.SetDialogueBoxActive((string)GameVars.story.variablesState["textBoxIsActive"], backgroundDialogueBox);
         //uIControl.SetNameTag((string)GameVars.story.variablesState["currentSpeaker"], nameTag);

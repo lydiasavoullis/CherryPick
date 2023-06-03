@@ -5,7 +5,7 @@ using Ink;
 public class InkFindInteractions
 {
     List<string> interactionsForToday = new List<string>();
-    string[] names = { "beatrice", "charlie" };
+    string[] names = { "yulia", "charlie" };
     //repeatable main
     //e.g. 1-name-repeatable-5
 

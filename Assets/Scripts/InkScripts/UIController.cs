@@ -141,11 +141,14 @@ public class UIController
             case "alex":
                 colour = new Color32(150, 100, 255, 255);
                 break;
-            case "beatrice":
+            case "yulia":
                 colour = Color.magenta;
                 break;
             case "charlie":
                 colour = new Color32(204, 255, 229, 255);
+                break;
+            case "vera":
+                colour = new Color32(100, 100, 229, 255);
                 break;
             default:
                 break;
