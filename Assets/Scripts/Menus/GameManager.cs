@@ -99,7 +99,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < greenhousePlanter.transform.childCount; i++)
         {
             //get number of pots inside greenhouse and then get soil inside pot and then see if there is anything in the soil
-            Transform soil = greenhousePlanter.transform.GetChild(i).GetChild(0);
+            Transform soil = greenhousePlanter.transform.GetChild(i).GetChild(1);
             try {
                 soil.GetComponent<Soil>().plantPotState.isHeated = false;
             }
@@ -120,7 +120,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < greenhousePlanter.transform.childCount; i++)
         {
             //get number of pots inside greenhouse and then get soil inside pot and then see if there is anything in the soil
-            Transform soil = greenhousePlanter.transform.GetChild(i).GetChild(0);
+            Transform soil = greenhousePlanter.transform.GetChild(i).GetChild(1);
             if (soil.childCount > 0)
             {
                 if (!KillPlantIfTooCold(soil) && soil.GetChild(0).gameObject.TryGetComponent(out SeedController seedController) && soil.gameObject.GetComponent<Soil>().plantPotState.hydrationValue > 0.2)

@@ -442,6 +442,7 @@ public class PlantController : MonoBehaviour, IDropHandler
             parent1 = gameObject;
             // visual representation of breeding plants
             GameObject crossBreedGO1 = GameManager.Instance.crossbreedVisualBox.transform.GetChild(0).GetChild(0).gameObject;
+            crossBreedGO1.transform.localPosition = Vector3.zero;
             crossBreedGO1.GetComponent<PlantController>().plant = this.plant;
             crossBreedGO1.GetComponent<PlantController>().ResetPlantCharacteristics();
             crossBreedGO1.SetActive(true);
@@ -455,6 +456,7 @@ public class PlantController : MonoBehaviour, IDropHandler
                 if (parent1.GetComponent<PlantController>().plant.maxGenotypes == this.plant.maxGenotypes)
                 {
                     GameObject crossBreedGO2 = GameManager.Instance.crossbreedVisualBox.transform.GetChild(1).GetChild(0).gameObject;
+                    crossBreedGO2.transform.localPosition = Vector3.zero;
                     crossBreedGO2.GetComponent<PlantController>().plant = this.plant;
                     crossBreedGO2.GetComponent<PlantController>().ResetPlantCharacteristics();
                     crossBreedGO2.SetActive(true);
@@ -482,6 +484,7 @@ public class PlantController : MonoBehaviour, IDropHandler
         childPlantGO.name = "plant";
         childPlantGO.GetComponent<PlantController>().plant = new Plant();
         GeneratePlants.CombineGametes(parent1.GetComponent<PlantController>().plant, parent2.GetComponent<PlantController>().plant, childPlantGO.GetComponent<PlantController>().plant);
+        childPlantGO.transform.localPosition = Vector3.zero;
 
     }
     public void GenerateChildSeed(GameObject parent1, GameObject parent2)

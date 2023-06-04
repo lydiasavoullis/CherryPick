@@ -22,9 +22,11 @@ public class SeedController : MonoBehaviour
         newPlant.genotypes = seed.genotypes;
         newPlant.phenotypes = GeneratePlants.GetPlantPhenotype(newPlant);
         newPlant.maxGenotypes = GeneratePlants.MaxGenotypes(newPlant);
-        GameObject plantGO = Instantiate(plantPrefab, new Vector3(0, 0, 0), Quaternion.identity, gameObject.transform.parent);
+        GameObject plantGO = Instantiate(plantPrefab, new Vector3(0, 0, 0), Quaternion.identity, gameObject.transform.parent.parent.GetChild(0));
         plantGO.GetComponent<PlantController>().plant = newPlant;
         plantGO.name = "plant";
+        plantGO.transform.localPosition = Vector3.zero;
+        plantGO.GetComponent<RectTransform>().sizeDelta = new Vector2(GameManager.Instance.slotSize, GameManager.Instance.slotSize);
         Destroy(gameObject);
         //set all genotype seed info to new plant object info
         //spawn a plant prefab in this object's coordinates

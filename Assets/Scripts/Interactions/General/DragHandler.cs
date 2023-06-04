@@ -149,7 +149,7 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         if (gameObject.transform.tag.Contains("pot"))
         {
             //Debug.Log("Moved pot");
-            gameObject.transform.GetChild(0).GetComponent<Soil>().plantPotState.isHeated = false;
+            gameObject.transform.GetChild(1).GetComponent<Soil>().plantPotState.isHeated = false;
         }
     }
 

@@ -63,7 +63,7 @@ Ok byee
 
 
 ==day_0==
-->tutorial_vera
+//->tutorial_vera
  ~characters+=yulia
  ~currentSpeaker = "you"
  ¬
