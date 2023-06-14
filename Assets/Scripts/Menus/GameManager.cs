@@ -65,6 +65,8 @@ public class GameManager : MonoBehaviour
     GameObject genesContainer;
     [SerializeField]
     GameObject infoContainer;
+    [SerializeField]
+    GameObject[] notifications;
     public static GameManager Instance;
     public GameObject canvas;
     public GameObject infoBoxPrefab;
@@ -347,6 +349,7 @@ public class GameManager : MonoBehaviour
         profilePrefab.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = name;
         profilePrefab.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().text = "A great customer";
         profilePrefab.transform.localPosition = Vector3.zero;
+        ActivateNotification("journal");
 
 
     }
@@ -413,6 +416,7 @@ public class GameManager : MonoBehaviour
         task.phenotypes = phenotypes;
         task.quantity = quantity;
         task.description = phenotypeDescription;
+        taskBoard.SetActive(false);
     }
     public Tuple<int, int, string, string, List<string>> GetTaskInfo(GameObject taskPrefab) {
         Task task = taskPrefab.GetComponent<TaskController>().task;
@@ -427,7 +431,18 @@ public class GameManager : MonoBehaviour
         return taskInfo;
 
     }
-
+    public void ActivateNotification(string type) {
+        for (int i =0; i<notifications.Length;i++) {
+            if (notifications[i].tag == $"{type}Notification") {
+                notifications[i].SetActive(true);
+            }
+            if (notifications[i].tag == $"menuNotification")
+            {
+                notifications[i].SetActive(true);
+            }
+        }
+        
+    }
 
 
 

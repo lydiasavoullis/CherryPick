@@ -293,7 +293,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1328683879}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -475,8 +475,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.09, y: 27.93}
-  m_SizeDelta: {x: 134.04, y: 85.61}
+  m_AnchoredPosition: {x: 0.09, y: 30.063}
+  m_SizeDelta: {x: 134.04, y: 89.875}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &976079919989070817
 CanvasRenderer:

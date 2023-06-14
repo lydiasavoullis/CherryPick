@@ -137,6 +137,10 @@ public class DialogueController : MonoBehaviour
     }
     private void OnLevelWasLoaded(int level)
     {
+        if (GameVars.story == null)
+        {
+            GameVars.story = new Story(inkJSON.text);
+        }
         try
         {
             GameVars.story.UnbindExternalFunction("AddCharacter");
@@ -144,6 +148,8 @@ public class DialogueController : MonoBehaviour
             GameVars.story.UnbindExternalFunction("RemoveCharacter");
         }
         catch (Exception e) { }
+
+
         GameVars.story.BindExternalFunction("AddCharacter", (string charName, string charType) => characterControl.LoadCharacterSprite(charName, charType, this.customerContainer, characterBox));
         GameVars.story.BindExternalFunction("ChangeSprite", (string charName, string charType) => characterControl.ChangeCharacterSprite(charName, charType, this.customerContainer));
         GameVars.story.BindExternalFunction("RemoveCharacter", (string charName) => characterControl.RemoveCharacter(charName, this.customerContainer));

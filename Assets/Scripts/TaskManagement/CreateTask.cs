@@ -50,6 +50,7 @@ public class CreateTask : MonoBehaviour
             count++;
         }
         GameManager.Instance.SetTaskInfo(quantity, days, name, phenotypeDescription, plant.phenotypes);
+        GameManager.Instance.ActivateNotification("task");
         //return $"Hi, I'm {name}. I would like {info[1]} {phenotypeDescription} flower(s) please, and I need them in {days} days";
     }
 
