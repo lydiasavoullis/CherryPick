@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class SaveInventoryItems : MonoBehaviour
 {
@@ -224,7 +225,8 @@ public class SaveInventoryItems : MonoBehaviour
         for (int i = 0; i < greenhouse.transform.childCount; i++)
         {
             //Transform soilTransform = greenhouse.transform.GetChild(i).GetChild(0);
-            Transform hydrationSliderTransform = greenhouse.transform.GetChild(i).GetChild(1);
+            //Transform hydrationSliderTransform = greenhouse.transform.GetChild(i).GetChild(2);
+            GameObject hydrationSliderTransform = GameManager.Instance.GetChildWithTag("slider", greenhouse.transform.GetChild(i));
             float hydrationValue = hydrationSliderTransform.gameObject.GetComponent<Slider>().value;
             Tuple<string, Dictionary<string, object>, float> itemInPot = new Tuple<string, Dictionary<string, object>, float>("empty", null, hydrationValue);
             if (greenhouse.transform.GetChild(i).GetChild(0).childCount!=0)
@@ -255,7 +257,14 @@ public class SaveInventoryItems : MonoBehaviour
     }
     public void LoadItems(string filename)
     {
-       // Debug.Log("Load items");
+        if (SceneManager.GetActiveScene().name !="Greenhouse") {
+            SceneManager.LoadScene("Greenhouse");
+            GameManager.loadedFileName = filename;
+            return;
+        }
+        
+        
+        // Debug.Log("Load items");
         //clear inventory and greenhouse
         ClearObjectChildren(inventory);
         ClearObjectChildren(greenhouse);
@@ -383,8 +392,8 @@ public class SaveInventoryItems : MonoBehaviour
         {
             GameObject plantPot = Instantiate(potPrefab, new Vector3(0, 0, 0), Quaternion.identity, greenhouse.transform);
             plantPot.name = "pot";
-            plantPot.transform.GetChild(1).gameObject.GetComponent<Slider>().value = data.potsInGreenhouse[i].Item3;
-
+            //plantPot.transform.GetChild(1).gameObject.GetComponent<Slider>().value = data.potsInGreenhouse[i].Item3;
+            GameManager.Instance.GetChildWithTag("slider", plantPot.transform).GetComponent<Slider>().value = data.potsInGreenhouse[i].Item3;
 
             if (data.potsInGreenhouse[i].Item1 == "seed")
             {

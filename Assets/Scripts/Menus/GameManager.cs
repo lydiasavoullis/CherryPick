@@ -5,10 +5,13 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField]
+    GameObject saveGameItems;
     [SerializeField]
     GameObject frontScreen;
     [SerializeField]
@@ -67,6 +70,8 @@ public class GameManager : MonoBehaviour
     GameObject infoContainer;
     [SerializeField]
     GameObject[] notifications;
+    [SerializeField]
+    TextAsset storyJson;
     public static GameManager Instance;
     public GameObject canvas;
     public GameObject infoBoxPrefab;
@@ -85,9 +90,28 @@ public class GameManager : MonoBehaviour
     public CustomerController taskController;
     public string timeOfDay = "day";
     public int slotSize = 200;
+    public static string loadedFileName = "";
+
     private void Awake()
     {
         Instance = this;
+    }
+    private void Start()
+    {
+        if (loadedFileName != "") {
+            GameVars.ResetStaticVariables(storyJson);
+            saveGameItems.GetComponent<SaveInventoryItems>().LoadItems(loadedFileName);
+            loadedFileName = "";
+        }
+    }
+    public GameObject GetChildWithTag(string tag, Transform parent) {
+        for (int i=0; i<parent.childCount;i++) {
+            if (parent.GetChild(i).tag == tag) {
+                return parent.GetChild(i).gameObject;
+            }
+        }
+        Debug.Log($"GAME OBJECT WITH TAG {tag} for parent object {parent.name} was not found");
+        return null;
     }
     //make sure heater heat only counts after shop has closed
     public IEnumerator ChangeDay() {

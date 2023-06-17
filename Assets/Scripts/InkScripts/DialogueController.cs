@@ -92,14 +92,19 @@ public class DialogueController : MonoBehaviour
         }
         GameVars.finishedTyping = true;
         try
+         {
+            GameVars.story.UnbindExternalFunction("AddCharacter");
+            GameVars.story.UnbindExternalFunction("ChangeSprite");
+            GameVars.story.UnbindExternalFunction("RemoveCharacter");
+            
+        }
+        catch (Exception e)
         {
             GameVars.story.BindExternalFunction("AddCharacter", (string charName, string charType) => characterControl.LoadCharacterSprite(charName, charType, this.customerContainer, characterBox));
             GameVars.story.BindExternalFunction("ChangeSprite", (string charName, string charType) => characterControl.ChangeCharacterSprite(charName, charType, this.customerContainer));
             GameVars.story.BindExternalFunction("RemoveCharacter", (string charName) => characterControl.RemoveCharacter(charName, this.customerContainer));
-        }
-        catch (Exception e)
-        {
-            Debug.Log("tried to bind function twice " + e);
+            //Debug.Log("tried to bind function twice " + e);
+            
         }
         //if (storyVariables != null) {
         //    GameVars.SetAllStoryVariables(storyVariables.filePath);
@@ -135,32 +140,33 @@ public class DialogueController : MonoBehaviour
         }
 
     }
+    
     private void OnLevelWasLoaded(int level)
     {
         if (GameVars.story == null)
         {
             GameVars.story = new Story(inkJSON.text);
         }
-        try
-        {
-            GameVars.story.UnbindExternalFunction("AddCharacter");
-            GameVars.story.UnbindExternalFunction("ChangeSprite");
-            GameVars.story.UnbindExternalFunction("RemoveCharacter");
-        }
-        catch (Exception e) { }
-
-
-        GameVars.story.BindExternalFunction("AddCharacter", (string charName, string charType) => characterControl.LoadCharacterSprite(charName, charType, this.customerContainer, characterBox));
-        GameVars.story.BindExternalFunction("ChangeSprite", (string charName, string charType) => characterControl.ChangeCharacterSprite(charName, charType, this.customerContainer));
-        GameVars.story.BindExternalFunction("RemoveCharacter", (string charName) => characterControl.RemoveCharacter(charName, this.customerContainer));
+        //try
+        //{
+        //    GameVars.story.UnbindExternalFunction("AddCharacter");
+        //    GameVars.story.UnbindExternalFunction("ChangeSprite");
+        //    GameVars.story.UnbindExternalFunction("RemoveCharacter");
+        //}
+        //catch (Exception e) {
+        //    Debug.Log(e);
+        //    GameVars.story.BindExternalFunction("AddCharacter", (string charName, string charType) => characterControl.LoadCharacterSprite(charName, charType, this.customerContainer, characterBox));
+        //    GameVars.story.BindExternalFunction("ChangeSprite", (string charName, string charType) => characterControl.ChangeCharacterSprite(charName, charType, this.customerContainer));
+        //    GameVars.story.BindExternalFunction("RemoveCharacter", (string charName) => characterControl.RemoveCharacter(charName, this.customerContainer));
+        //}
 
         //characterControl.RefreshCharacters((InkList)GameVars.story.variablesState["characters"], stage, characterBox);
         //uIControl.SetDialogueBoxActive((string)GameVars.story.variablesState["textBoxIsActive"], backgroundDialogueBox);
         //uIControl.SetNameTag((string)GameVars.story.variablesState["currentSpeaker"], nameTag);
         //textLogControl.LoadTextLogContent(textLogList, textLogBox);//load text log
 
-
     }
+    
     public void ClearSpeech() {
         for (int i = 0; i < speechContainer.transform.childCount; i++) {
             Destroy(speechContainer.transform.GetChild(i).gameObject);

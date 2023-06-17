@@ -146,6 +146,7 @@ GameObject:
   - component: {fileID: 3237029491436329450}
   - component: {fileID: 3237029491436329451}
   - component: {fileID: 3237029491436329428}
+  - component: {fileID: 4891740339146126343}
   m_Layer: 5
   m_Name: punnett square
   m_TagString: Untagged
@@ -238,6 +239,28 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &4891740339146126343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3237029491436329430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7d7a4d960eadc14c949aa101010efc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  title: {fileID: 3237029493001952691}
+  geneSquare:
+  - phenotype: {fileID: 3237029493268723963}
+    geneCombo: {fileID: 3237029491373053212}
+  - phenotype: {fileID: 3237029492232926192}
+    geneCombo: {fileID: 3237029492080752199}
+  - phenotype: {fileID: 3237029492517379905}
+    geneCombo: {fileID: 3237029492080752199}
+  - phenotype: {fileID: 3237029493417023338}
+    geneCombo: {fileID: 3237029492194533618}
 --- !u!1 &3237029491891593174
 GameObject:
   m_ObjectHideFlags: 0

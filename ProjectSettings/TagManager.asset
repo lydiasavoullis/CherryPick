@@ -23,6 +23,7 @@ TagManager:
   - taskNotification
   - journalNotification
   - menuNotification
+  - slider
   layers:
   - Default
   - TransparentFX
