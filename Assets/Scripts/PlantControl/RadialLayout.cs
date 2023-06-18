@@ -21,7 +21,7 @@ THE SOFTWARE.
 */
 public class RadialLayout : LayoutGroup
 {
-    public float fDistance = 30;
+    public float fDistance = 35;
     [Range(0f, 360f)]
     public float MinAngle, MaxAngle, StartAngle;
     protected override void OnEnable() { base.OnEnable(); CalculateRadial(); }
@@ -87,7 +87,7 @@ public class RadialLayout : LayoutGroup
             transform.GetChild(i).GetComponent<RectTransform>().rotation = Quaternion.Euler(0f, 0f, angleSize);
             angleSize += angleIncrements;
         }
-        fDistance = 30;
+        fDistance = 31;
 
     }
 }

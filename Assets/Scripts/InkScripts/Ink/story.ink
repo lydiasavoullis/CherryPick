@@ -4,23 +4,25 @@ INCLUDE tutorial.ink
 EXTERNAL ChangeSprite(name,sprite)
 EXTERNAL RemoveCharacter(name)
 EXTERNAL AddCharacter(name,sprite)
-// ->tutorial_pt1
+//->tutorial_pt1
 ->day_0
 ==tutorial_pt1==
 ~tutorialpt1 = "incomplete"
 ~tutorialpt2 = "incomplete"
 ~tutorialpt3 = "incomplete"
 ~tutorialCounter = 0
-~currentSpeaker = "Alex"
+ ~characters+=vera
+~currentSpeaker = "Vera"
 ¬
 Hi
 You must be the new recruit
 I'll give you a run down of how things work around here
 I'm sure it will be super easy for you
 You can see you are equiped with this virtual interface
-The lower box is your inventory
+The side box is your inventory
 Here you can see what resources you have
-Above that are your tasks that clients will give you
+From the menu you can select the clipboard 
+These are the tasks that clients will give you
 Now at here at Cherrypick we have BioAcceleration technology
 Here's the fun part
 To BREED two flowers, LEFT click on one and RIGHT click on another
@@ -43,9 +45,9 @@ Tomorrow that will grow into a flower
 You can thank our BioAcceleration technology
 Don't worry, we're almost there 
 Finally I'll show you how to complete an order
-~task = "Alex,1,1,colour:pink,height:tall"
+~task = "Vera,1,1,colour:pink,height:tall"
 I've just given you a task, can you see it?
-~gift = "1,colour:Rr,height:TT"
+~gift = "1,colourR:Rr,height:TT"
 I've also put a corresponding flower in your inventory
 drag that flower to the task and click 'sell' to complete the order
 ->END
@@ -58,7 +60,8 @@ Also tasks will have a deadline, they must be completed in a certain number of d
 We can lose reputation from failed tasks so please be punctual
 Great, you're ready to start the day
 Ok byee
-~characters-=alex
+¬
+~characters-=vera
 ->day_0
 
 

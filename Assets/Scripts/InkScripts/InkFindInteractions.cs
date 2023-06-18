@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Ink;
+using Ink.Runtime;
+
 public class InkFindInteractions
 {
     List<string> interactionsForToday = new List<string>();
@@ -23,4 +25,5 @@ public class InkFindInteractions
         //interactionsForToday.Add(GameVars.story.path.ToString());
         
     }
+    
 }

@@ -91,7 +91,7 @@ public static class GeneratePlants
             //case 5:
             //    return 20;
             default:
-                return 2;
+                return 1;
         }
     }
     public static List<string> GetPlantPhenotype(Plant plant) {

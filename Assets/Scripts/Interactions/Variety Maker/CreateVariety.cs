@@ -30,7 +30,8 @@ public class CreateVariety : MonoBehaviour, IDropHandler
         Clear();
         for (int i = 0; i<plant.phenotypes.Count; i++) {
             GameObject newPhenotypeGO= Instantiate(phenotypePrefrab, new Vector3(0, 0, 0), Quaternion.identity, this.transform);
-            newPhenotypeGO.gameObject.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = plant.phenotypes[i];
+            newPhenotypeGO.gameObject.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = GeneratePlants.genotypesRange[i] + ":" + plant.phenotypes[i];
+
 
         }
 
@@ -46,7 +47,7 @@ public class CreateVariety : MonoBehaviour, IDropHandler
         for (int i = 0; i < plant.phenotypes.Count; i++)
         {
             if (gameObject.transform.GetChild(i).gameObject.GetComponent<Toggle>().isOn) {
-                newPlantProfileGO.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().text += $"{plant.phenotypes[i]} |";
+                newPlantProfileGO.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().text += $"{GeneratePlants.genotypesRange[i]}:{plant.phenotypes[i]} \n";
             }
             //plant.phenotypes[i];
 

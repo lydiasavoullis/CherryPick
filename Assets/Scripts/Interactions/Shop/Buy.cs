@@ -41,11 +41,14 @@ public class Buy : MonoBehaviour
             case "plant":
                 newItem = Instantiate(plantPrefab, new Vector3(0, 0, 0), Quaternion.identity, buySlot.transform);
                 itemDescText.text = "A random plant";
+                newItem.GetComponent<BoxCollider2D>().enabled = false;
                 break;
             default:
                 break;
 
         }
+        newItem.GetComponent<DragHandler>().enabled = false;
+        
         newItem.name = itemName;
         newItem.transform.GetComponent<DragHandler>().enabled = false;
         newItem.GetComponent<RectTransform>().sizeDelta = new Vector2(GameManager.Instance.slotSize, GameManager.Instance.slotSize);

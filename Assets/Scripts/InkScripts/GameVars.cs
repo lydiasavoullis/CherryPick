@@ -36,14 +36,24 @@ public static class GameVars
             variables.Add(name);
         }
     }
-    public static void ResetStaticVariables(TextAsset inkJSON)
+    public static void ResetStaticVariables(TextAsset textAsset = null)
     {
+        //TextAsset inkJSON
+        if (textAsset != null)
+        {
+            story = new Story(textAsset.text);
+        }
+        else {
+            story = null;
+        }
+        
         dontAdvanceStory = false;
         autoMode = false;
         finishedTyping = true;
         hasLoadedButtons = false;
-        story = new Story(inkJSON.text);
+        //
         characters = null;
+        loadedChars = new List<string>();
         //loadedChars = new List<string>();
         //loadedTextLog = new List<string>();
         //sfxPlaying="";

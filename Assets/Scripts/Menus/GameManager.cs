@@ -280,6 +280,7 @@ public class GameManager : MonoBehaviour
         }
         for (int i = 0; i < quantity;i++) {
             Plant newPlant = new Plant();
+            newPlant.category = GeneratePlants.GenotypeCategory(newPlant);
             newPlant.genotypes = plantGenotypes;
             newPlant.phenotypes = GeneratePlants.GetPlantPhenotype(newPlant);
             GameObject slot = Instantiate(newSlotPrefab, new Vector3(0, 0, 0), Quaternion.identity, inventory.transform);

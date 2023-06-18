@@ -2254,6 +2254,7 @@ GameObject:
   - component: {fileID: 2132326016555509431}
   - component: {fileID: 2132326016555509430}
   - component: {fileID: 2132326016555509432}
+  - component: {fileID: 2132326016555509433}
   m_Layer: 5
   m_Name: go
   m_TagString: Untagged
@@ -2337,6 +2338,18 @@ MonoBehaviour:
           m_StringArgument: Greenhouse
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2132326016555509433}
+        m_TargetAssemblyTypeName: GoToKnot, Assembly-CSharp
+        m_MethodName: GoToKnotName
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: tutorial_pt1
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2132326016555509431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2379,6 +2392,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aedfa01ca50c30e458c13cf0c26af388, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2132326016555509433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2132326016555509428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a7ce1ba2f61aa94eb290a00553bd33e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  story: {fileID: 4900000, guid: 7172de6bea9166844b9e27893074b56a, type: 3}
 --- !u!1 &4180861267912624178 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4272239841561668064, guid: 2737309ffa736d142ae2883111bcbc24, type: 3}

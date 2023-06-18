@@ -132,6 +132,24 @@ public class PlantController : MonoBehaviour, IDropHandler
         //GeneratePlants.genotypesRange;
         //plant.phenotypes
         //center shape
+        //for a low level plant
+        if (plant.phenotypes.Count < 3) {
+            stem.sprite = GetPhenotypeSprite(plant.phenotypes[1]);
+            Color32 r = SetColourR(plant.phenotypes[0]);
+            SetPetalsSprite(5, GetPhenotypeSprite($"petal_round"), center);
+            SetPetalsColour(r, center);
+            SetLeavesQuantity(leaves_left, 1, leafPrefab, 0);
+            SetLeavesQuantity(leaves_right, 1, leafPrefab, 180);
+            if (plant.phenotypes[1] == "tall")
+            {
+                float multiplier = 1.5f;
+                Vector3 oldSizeL = leaves_left.transform.GetChild(0).gameObject.GetComponent<RectTransform>().sizeDelta;
+                Vector3 oldSizeR = leaves_right.transform.GetChild(0).gameObject.GetComponent<RectTransform>().sizeDelta;
+                GeneratePlants.ResizeLeaves(leaves_left, new Vector3(oldSizeL.x * multiplier, oldSizeL.y * multiplier, oldSizeL.z));
+                GeneratePlants.ResizeLeaves(leaves_right, new Vector3(oldSizeR.x * multiplier, oldSizeR.y * multiplier, oldSizeR.z));
+            }
+            return;
+        }
         if (plant.phenotypes.Count > 10)
         {
             SetCenterSprite(GetPhenotypeSprite($"center_{plant.phenotypes[10]}"));
