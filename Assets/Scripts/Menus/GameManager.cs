@@ -47,6 +47,10 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     GameObject reputationGO;
     [SerializeField]
+    Slider reputationSlider;
+    [SerializeField]
+    TextMeshProUGUI levelGO;
+    [SerializeField]
     GameObject moneyPopup;
     [SerializeField]
     GameObject audioManager;
@@ -91,7 +95,7 @@ public class GameManager : MonoBehaviour
     public string timeOfDay = "day";
     public int slotSize = 200;
     public static string loadedFileName = "";
-
+    public int level = 1;
     private void Awake()
     {
         Instance = this;
@@ -112,6 +116,28 @@ public class GameManager : MonoBehaviour
         }
         Debug.Log($"GAME OBJECT WITH TAG {tag} for parent object {parent.name} was not found");
         return null;
+    }
+    public void ChooseEventsForCurrentDay() {
+        //check if upcoming events has 4. If less than 4, choose from other random knots
+        //if customer has already been in, don't bring them in again
+        for(int i = 0; i<=4; i++) {
+            if (GameVars.upcomingEvents.Count < i)
+            {
+                GameVars.upcomingEventsToday.Add(GameVars.upcomingEvents[i]);
+                GameVars.upcomingEvents.RemoveAt(i);
+            }
+            else {
+                break;
+            }
+        }
+        InkFindInteractions findInteraction = new InkFindInteractions();
+        if (GameVars.upcomingEventsToday.Count<4) {
+            for (int i= GameVars.upcomingEventsToday.Count; i<4;i++) {
+                GameVars.upcomingEventsToday.Add(findInteraction.FindRandomInteractionString("repeatable"));
+            }
+            
+            //add some more events
+        }
     }
     //make sure heater heat only counts after shop has closed
     public IEnumerator ChangeDay() {
@@ -323,8 +349,25 @@ public class GameManager : MonoBehaviour
             taskNo = taskContent.transform.childCount;
         }
         reputationText.text = reputation.ToString();
+        CheckLevel();
     }
-   
+
+    public void CheckLevel() {
+        if ($"LVL: {level}" != levelGO.text) {
+            levelGO.text = $"LVL: {level}";
+        }
+
+        if (reputation >= 5)
+        {
+            level++;
+            reputation = 0;
+            reputationSlider.value = 0;
+            levelGO.text = $"LVL: {level}";
+        }
+        else {
+            reputationSlider.value = reputation;
+        }
+    }
     public void DisplayItemInfo(Vector2 itemPos, string name, string description)
     {
         Vector2 pos = itemPos;
@@ -416,11 +459,11 @@ public class GameManager : MonoBehaviour
                     for (int i = 0; i < slot.transform.childCount; i++)
                     {
                         moneyCounter += 50;
-                        repCounter++;
+                        repCounter+=5;
                     }
                 GameManager.Instance.funds += moneyCounter;
                 GameManager.Instance.reputation += repCounter;
-
+                CheckLevel();
                 fundsGO.GetComponent<TextInteractionMethods>().UpdateText("funds");
                 reputationGO.GetComponent<TextInteractionMethods>().UpdateText("reputation");
 

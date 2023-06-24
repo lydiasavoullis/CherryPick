@@ -8,11 +8,12 @@ public class InkFindInteractions
 {
     List<string> interactionsForToday = new List<string>();
     string[] names = { "yulia", "charlie" };
+    static int lvl = 1;
     //repeatable main
     //e.g. 1-name-repeatable-5
 
-    public void FindInteraction(string interactionType) {
-        int lvl = 1;
+    public void FindRandomInteraction(string interactionType) {
+        
         string name = "";
         name = names[Random.Range(0,names.Length)];
         string interactionLevel = Random.Range(1, lvl+1).ToString();//get a task in a random interaction level
@@ -25,5 +26,21 @@ public class InkFindInteractions
         //interactionsForToday.Add(GameVars.story.path.ToString());
         
     }
-    
+    public string FindRandomInteractionString(string interactionType) {
+        string name = "";
+        name = names[Random.Range(0, names.Length)];
+        string interactionLevel = Random.Range(1, lvl + 1).ToString();//get a task in a random interaction level
+        string knotName = $"{name}_{interactionType}_{lvl}";
+        return knotName;
+    }
+    public void RemoveFromUpcomingEvents(string eventKnotName) {
+        GameVars.upcomingEvents.Remove(eventKnotName);
+        
+    }
+    public void AddToUpcomingEvents(string eventKnotName)
+    {
+        GameVars.upcomingEvents.Add(eventKnotName);
+
+    }
+
 }

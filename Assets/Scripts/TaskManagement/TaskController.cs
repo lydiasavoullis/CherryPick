@@ -24,6 +24,9 @@ public class TaskController : MonoBehaviour
         task.daysLeft--;
         if (task.daysLeft<0) {
             GameManager.Instance.reputation--;
+            if (GameManager.Instance.reputation<0) {
+                GameManager.Instance.reputation = 0;
+            }
             Destroy(gameObject);
         }
         GameObject requirementText = gameObject.transform.GetChild(0).gameObject;

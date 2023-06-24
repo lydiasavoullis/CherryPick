@@ -27,11 +27,13 @@ public class SaveData
     public int currentDay = 0;
     public int funds = 0;
     public int reputation = 0;
+    public int level = 1;
     public Tuple<float, float, float> speechPos = new Tuple<float, float, float>(0f,0f,0f);
     //public List<string> inventoryObjects; //list of objects by name
     //public List<string> storyLog;
     public SaveData(SaveInventoryItems saveItems)//InkController script
     {
+        this.level = saveItems.level;
         this.heaters = saveItems.heaters;
         this.temp = saveItems.temp;
         this.inventoryPlants = saveItems.inventoryPlants;

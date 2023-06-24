@@ -42,7 +42,8 @@ public class PlantController : MonoBehaviour, IDropHandler
         if (plant == null)
         {
             //plant = GeneratePlants.GenerateRandomNewPlant(1);
-            CheckLevelAndChangeRandomPlantCategory();
+            //CheckLevelAndChangeRandomPlantCategory();
+            plant = GeneratePlants.GenerateRandomNewPlant(GameManager.Instance.level);
         }
         else
         {
@@ -53,21 +54,7 @@ public class PlantController : MonoBehaviour, IDropHandler
         }
         ResetPlantCharacteristics();
     }
-    public void CheckLevelAndChangeRandomPlantCategory() {
-        int reputation = GameManager.Instance.reputation;
-        if (reputation == 0) {
-            plant = GeneratePlants.GenerateRandomNewPlant(2);
-            return;
-        } 
-        else if(reputation > 0 && reputation <=2)
-        {
-            plant = GeneratePlants.GenerateRandomNewPlant(2);
-            return;
-        }
-        else {
-            plant = GeneratePlants.GenerateRandomNewPlant(2);
-        }
-    }
+  
     public void ResetPlantCharacteristics() {
         //leaves_left.GetComponent<RectTransform>().sizeDelta = new Vector3(oldSizeL.x, oldSizeL.y, oldSizeL.z);
         //leaves_right.GetComponent<RectTransform>().sizeDelta = new Vector3(oldSizeR.x , oldSizeL.y, oldSizeR.z);
@@ -128,16 +115,16 @@ public class PlantController : MonoBehaviour, IDropHandler
     //try getting from phenotype list now
     public void SetCurrentPhenotype()
     {
+        //{ "colourR", "height", "petals","clusters", "petalShape", "leafShapeGene", "colourB", "colourG", "leafQuantityGene", "centerColourGene", "centerShapeGene"};
 
         //GeneratePlants.genotypesRange;
         //plant.phenotypes
         //center shape
         //for a low level plant
-        if (plant.phenotypes.Count < 3) {
-            stem.sprite = GetPhenotypeSprite(plant.phenotypes[1]);
-            Color32 r = SetColourR(plant.phenotypes[0]);
-            SetPetalsSprite(5, GetPhenotypeSprite($"petal_round"), center);
-            SetPetalsColour(r, center);
+        stem.sprite = GetPhenotypeSprite(plant.phenotypes[1]);//all types will be tall or short sprite
+        Color32 redSpectrum = SetColourR(plant.phenotypes[0]);//all types have red spectrum
+        if (plant.phenotypes.Count <9)
+        {
             SetLeavesQuantity(leaves_left, 1, leafPrefab, 0);
             SetLeavesQuantity(leaves_right, 1, leafPrefab, 180);
             if (plant.phenotypes[1] == "tall")
@@ -148,105 +135,156 @@ public class PlantController : MonoBehaviour, IDropHandler
                 GeneratePlants.ResizeLeaves(leaves_left, new Vector3(oldSizeL.x * multiplier, oldSizeL.y * multiplier, oldSizeL.z));
                 GeneratePlants.ResizeLeaves(leaves_right, new Vector3(oldSizeR.x * multiplier, oldSizeR.y * multiplier, oldSizeR.z));
             }
+            if (plant.phenotypes.Count == 2) {
+                SetPetalsSprite(5, GetPhenotypeSprite($"petal_round"), center);
+                SetPetalsColour(redSpectrum, center);
+                return;
+            }
+            if (plant.phenotypes.Count == 4)
+            {
+                SetClustersActive(GeneratePlants.CheckClusters(plant.genotypes["clusters"]), $"petal_round", redSpectrum);
+                //SetPetalColourForAllClusters(plant.phenotypes[3], redSpectrum);
+                return;
+            }
+            if (plant.phenotypes.Count > 4)
+            {
+                GeneratePlants.ChangeLeavesSprite(leaves_left, GetPhenotypeSprite($"leaf_{plant.phenotypes[5]}"));
+                GeneratePlants.ChangeLeavesSprite(leaves_right, GetPhenotypeSprite($"leaf_{plant.phenotypes[5]}"));
+                if (plant.phenotypes.Count == 6) {
+                    SetClustersActive(GeneratePlants.CheckClusters(plant.genotypes["clusters"]), $"petal_{plant.phenotypes[4]}", redSpectrum);
+                    return;
+                }
+                if (plant.phenotypes.Count == 8)
+                {
+                    Color32 blueSpectrum = SetColourB(redSpectrum, plant.phenotypes[6]);
+                    Color32 greenSpectrum = SetColourG(blueSpectrum, plant.phenotypes[7]);
+                    SetPetalColourForAllClusters(plant.phenotypes[3], greenSpectrum);
+                }
+
+            }
+            
             return;
+        }
+        if (plant.phenotypes.Count > 8)
+        {
+            if (plant.phenotypes[8] == "4")
+            {
+                SetLeavesQuantity(leaves_left, 2, leafPrefab, 0);
+                SetLeavesQuantity(leaves_right, 2, leafPrefab, 180);
+
+            }
+            else
+            {
+
+                SetLeavesQuantity(leaves_left, 1, leafPrefab, 0);
+                SetLeavesQuantity(leaves_right, 1, leafPrefab, 180);
+            }
+        }
+        else
+        {
+            SetLeavesQuantity(leaves_left, 1, leafPrefab, 0);
+            SetLeavesQuantity(leaves_right, 1, leafPrefab, 180);
+        }
+        if (plant.phenotypes.Count > 9)
+        {
+            CenterColourChange(GetCenterColour(plant.phenotypes[9]));
         }
         if (plant.phenotypes.Count > 10)
         {
             SetCenterSprite(GetPhenotypeSprite($"center_{plant.phenotypes[10]}"));
         }
         stem.sprite = GetPhenotypeSprite(plant.phenotypes[1]);//GeneratePlants.CheckHeight(plant.genotypes["height"])
-        if (plant.phenotypes.Count>9) {
-            CenterColourChange(GetCenterColour(plant.phenotypes[9]));
-        }
-        if (plant.phenotypes.Count>8)
-        {
-            if (plant.phenotypes[8] == "4")
-            {
-                SetLeavesQuantity(leaves_left, 2, leafPrefab,0);
-                SetLeavesQuantity(leaves_right, 2, leafPrefab,180);
 
-            }
-            else
-            {
-
-                SetLeavesQuantity(leaves_left, 1, leafPrefab,0);
-                SetLeavesQuantity(leaves_right, 1, leafPrefab,180);
-            }
-        }
-        else {
-            SetLeavesQuantity(leaves_left, 1, leafPrefab,0);
-            SetLeavesQuantity(leaves_right, 1, leafPrefab,180);
-        }
+        return;
         
-        if (plant.phenotypes[1] == "tall")
-        {
-            float multiplier = 1.5f;
-            Vector3 oldSizeL = leaves_left.transform.GetChild(0).gameObject.GetComponent<RectTransform>().sizeDelta;
-            Vector3 oldSizeR = leaves_right.transform.GetChild(0).gameObject.GetComponent<RectTransform>().sizeDelta;
-            GeneratePlants.ResizeLeaves(leaves_left, new Vector3(oldSizeL.x * multiplier, oldSizeL.y * multiplier, oldSizeL.z));
-            GeneratePlants.ResizeLeaves(leaves_right, new Vector3(oldSizeR.x * multiplier, oldSizeR.y * multiplier, oldSizeR.z));
-        }
-        Color32 redSpectrum = SetColourR(plant.phenotypes[0]);
-        if (plant.category == 1) {
-            SetPetalsSprite(GeneratePlants.CheckPetalsInt(plant.genotypes["petals"]), GetPhenotypeSprite($"petal_round"), center);
-            SetPetalsColour(redSpectrum, center);
-            return;
-        }
+        //if (plant.phenotypes[1] == "tall")
+        //{
+        //    float multiplier = 1.5f;
+        //    Vector3 oldSizeL = leaves_left.transform.GetChild(0).gameObject.GetComponent<RectTransform>().sizeDelta;
+        //    Vector3 oldSizeR = leaves_right.transform.GetChild(0).gameObject.GetComponent<RectTransform>().sizeDelta;
+        //    GeneratePlants.ResizeLeaves(leaves_left, new Vector3(oldSizeL.x * multiplier, oldSizeL.y * multiplier, oldSizeL.z));
+        //    GeneratePlants.ResizeLeaves(leaves_right, new Vector3(oldSizeR.x * multiplier, oldSizeR.y * multiplier, oldSizeR.z));
+        //}
+        //if (plant.category == 1) {
+        //    SetPetalsSprite(GeneratePlants.CheckPetalsInt(plant.genotypes["petals"]), GetPhenotypeSprite($"petal_round"), center);
+        //    SetPetalsColour(redSpectrum, center);
+        //    return;
+        //}
 
-        Color32 blueSpectrum = new Color32();
-        Color32 greenSpectrum = new Color32();
-        if (plant.category > 1)
-        {
-            SetPetalsSprite(GeneratePlants.CheckPetalsInt(plant.genotypes["petals"]), GetPhenotypeSprite($"petal_{plant.phenotypes[4]}"), center);//GeneratePlants.CheckColour(plant.genotypes["colour"])
-            SetPetalsColour(redSpectrum, center);
-            GeneratePlants.ChangeLeavesSprite(leaves_left, GetPhenotypeSprite($"leaf_{plant.phenotypes[5]}"));
-            GeneratePlants.ChangeLeavesSprite(leaves_right, GetPhenotypeSprite($"leaf_{plant.phenotypes[5]}"));
-            SetClustersActive(GeneratePlants.CheckClusters(plant.genotypes["clusters"]), $"petal_{plant.phenotypes[4]}", redSpectrum);
-            //add blue spectrum
-            blueSpectrum = SetColourB(redSpectrum, plant.phenotypes[6]);
-            switch (plant.phenotypes[3])
-            {
-                case "one":
-                    ModifyPetalsColour(blueSpectrum, center);
-                    break;
-                case "two":
-                    ModifyPetalsColour(blueSpectrum, center);
-                    ModifyPetalsColour(blueSpectrum, cluster1);
-                    break;
-                case "three":
-                    ModifyPetalsColour(blueSpectrum, center);
-                    ModifyPetalsColour(blueSpectrum, cluster1);
-                    ModifyPetalsColour(blueSpectrum, cluster2);
-                    break;
-                default:
-                    ModifyPetalsColour(blueSpectrum, center);
-                    break;
-            }
-        }
-        if (plant.category > 2)
-        {
-            greenSpectrum = SetColourG(blueSpectrum, plant.phenotypes[7]);
-            switch (plant.phenotypes[3])
-            {
-                case "one":
-                    ModifyPetalsColour(greenSpectrum, center);
-                    break;
-                case "two":
-                    ModifyPetalsColour(greenSpectrum, center);
-                    ModifyPetalsColour(greenSpectrum, cluster1);
-                    break;
-                case "three":
-                    ModifyPetalsColour(greenSpectrum, center);
-                    ModifyPetalsColour(greenSpectrum, cluster1);
-                    ModifyPetalsColour(greenSpectrum, cluster2);
-                    break;
-                default:
-                    ModifyPetalsColour(blueSpectrum, center);
-                    break;
-            }
-        }
+        //Color32 blueSpectrum = new Color32();
+        //Color32 greenSpectrum = new Color32();
+        //if (plant.category > 1)
+        //{
+        //    SetPetalsSprite(GeneratePlants.CheckPetalsInt(plant.genotypes["petals"]), GetPhenotypeSprite($"petal_{plant.phenotypes[4]}"), center);//GeneratePlants.CheckColour(plant.genotypes["colour"])
+        //    SetPetalsColour(redSpectrum, center);
+        //    GeneratePlants.ChangeLeavesSprite(leaves_left, GetPhenotypeSprite($"leaf_{plant.phenotypes[5]}"));
+        //    GeneratePlants.ChangeLeavesSprite(leaves_right, GetPhenotypeSprite($"leaf_{plant.phenotypes[5]}"));
+        //    SetClustersActive(GeneratePlants.CheckClusters(plant.genotypes["clusters"]), $"petal_{plant.phenotypes[4]}", redSpectrum);
+        //    //add blue spectrum
+        //    blueSpectrum = SetColourB(redSpectrum, plant.phenotypes[6]);
+        //    switch (plant.phenotypes[3])
+        //    {
+        //        case "one":
+        //            ModifyPetalsColour(blueSpectrum, center);
+        //            break;
+        //        case "two":
+        //            ModifyPetalsColour(blueSpectrum, center);
+        //            ModifyPetalsColour(blueSpectrum, cluster1);
+        //            break;
+        //        case "three":
+        //            ModifyPetalsColour(blueSpectrum, center);
+        //            ModifyPetalsColour(blueSpectrum, cluster1);
+        //            ModifyPetalsColour(blueSpectrum, cluster2);
+        //            break;
+        //        default:
+        //            ModifyPetalsColour(blueSpectrum, center);
+        //            break;
+        //    }
+        //}
+        //if (plant.category > 2)
+        //{
+        //    greenSpectrum = SetColourG(blueSpectrum, plant.phenotypes[7]);
+        //    switch (plant.phenotypes[3])
+        //    {
+        //        case "one":
+        //            ModifyPetalsColour(greenSpectrum, center);
+        //            break;
+        //        case "two":
+        //            ModifyPetalsColour(greenSpectrum, center);
+        //            ModifyPetalsColour(greenSpectrum, cluster1);
+        //            break;
+        //        case "three":
+        //            ModifyPetalsColour(greenSpectrum, center);
+        //            ModifyPetalsColour(greenSpectrum, cluster1);
+        //            ModifyPetalsColour(greenSpectrum, cluster2);
+        //            break;
+        //        default:
+        //            ModifyPetalsColour(blueSpectrum, center);
+        //            break;
+        //    }
+        //}
        
 
+    }
+    public void SetPetalColourForAllClusters(string clustersNumber, Color32 colour) {
+        switch (clustersNumber)
+        {
+            case "one":
+                ModifyPetalsColour(colour, center);
+                break;
+            case "two":
+                ModifyPetalsColour(colour, center);
+                ModifyPetalsColour(colour, cluster1);
+                break;
+            case "three":
+                ModifyPetalsColour(colour, center);
+                ModifyPetalsColour(colour, cluster1);
+                ModifyPetalsColour(colour, cluster2);
+                break;
+            default:
+                ModifyPetalsColour(colour, center);
+                break;
+        }
     }
     public void ClearAllPetals(GameObject center1, GameObject center2, GameObject center3) {
         for (int i = 0; i < center1.transform.childCount; i++)

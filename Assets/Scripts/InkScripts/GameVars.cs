@@ -27,6 +27,8 @@ public static class GameVars
     public static List<string> variables;// = new List<string>() { "textBoxIsActive", "characters", "currentSpeaker", "music", "sfx" };
     public static int funds;
     public static string currentScene;
+    public static List<string> upcomingEvents;
+    public static List<string> upcomingEventsToday;
     public static void SetAllStoryVariables(string variablesFilePath) {
         string inkFileContents = File.ReadAllText(variablesFilePath);
         Ink.Compiler compiler = new Ink.Compiler(inkFileContents);

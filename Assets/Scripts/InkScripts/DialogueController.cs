@@ -77,6 +77,7 @@ public class DialogueController : MonoBehaviour
     //AudioController audioControl = new AudioController();//audioManager
     SaveController saveControl = new SaveController();
     UIController uIControl = new UIController();
+    InkFindInteractions inkFindInteractions = new InkFindInteractions();
     #endregion
     #region Ink libraries
     public TextAsset inkJSON;
@@ -96,15 +97,18 @@ public class DialogueController : MonoBehaviour
             GameVars.story.UnbindExternalFunction("AddCharacter");
             GameVars.story.UnbindExternalFunction("ChangeSprite");
             GameVars.story.UnbindExternalFunction("RemoveCharacter");
-            
+            GameVars.story.UnbindExternalFunction("AddToUpcomingEvents");
+            GameVars.story.UnbindExternalFunction("RemoveFromUpcomingEvents");
         }
         catch (Exception e)
         {
             GameVars.story.BindExternalFunction("AddCharacter", (string charName, string charType) => characterControl.LoadCharacterSprite(charName, charType, this.customerContainer, characterBox));
             GameVars.story.BindExternalFunction("ChangeSprite", (string charName, string charType) => characterControl.ChangeCharacterSprite(charName, charType, this.customerContainer));
             GameVars.story.BindExternalFunction("RemoveCharacter", (string charName) => characterControl.RemoveCharacter(charName, this.customerContainer));
+            GameVars.story.BindExternalFunction("AddToUpcomingEvents", (string knotName) => inkFindInteractions.AddToUpcomingEvents(knotName));
+            GameVars.story.BindExternalFunction("RemoveFromUpcomingEvents", (string knotName) => inkFindInteractions.RemoveFromUpcomingEvents(knotName));
             //Debug.Log("tried to bind function twice " + e);
-            
+
         }
         //if (storyVariables != null) {
         //    GameVars.SetAllStoryVariables(storyVariables.filePath);
@@ -201,12 +205,16 @@ public class DialogueController : MonoBehaviour
             {
                 StartCoroutine(textLogControl.AddToTextLogBox($"\n<color=#14A7A8>You:</color> {text.TrimStart('\n')}", logTextBox, scrollBar));
             }
-            else {
+            else
+            {
                 string hexCol = ColorUtility.ToHtmlStringRGB(uIControl.SetNameColour(speaker));
                 StartCoroutine(textLogControl.AddToTextLogBox($"\n<color=#{hexCol}>{speaker}:</color> {text.TrimStart('\n')}", logTextBox, scrollBar));
-                
+
             }
-            
+
+        }
+        else { 
+            //if the story is not able to continue we will try and get the next event in GameVars.upcomingEventsToday
         }
 
         GameVars.story.variablesState.variableChangedEvent -= ObserveAnyVar;

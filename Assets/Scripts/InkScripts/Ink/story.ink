@@ -1,9 +1,13 @@
+INCLUDE mei_main_story.ink
+INCLUDE yulia_main_story.ink
 INCLUDE variables.ink
 INCLUDE category_1.ink
 INCLUDE tutorial.ink
 EXTERNAL ChangeSprite(name,sprite)
 EXTERNAL RemoveCharacter(name)
 EXTERNAL AddCharacter(name,sprite)
+EXTERNAL AddToUpcomingEvents(knotName)
+EXTERNAL RemoveFromUpcomingEvents(knotName)
 //->tutorial_pt1
 ->day_0
 ==tutorial_pt1==

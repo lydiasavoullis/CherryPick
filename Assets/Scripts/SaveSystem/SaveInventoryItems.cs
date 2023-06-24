@@ -71,7 +71,7 @@ public class SaveInventoryItems : MonoBehaviour
     public int day = 0;
     public int funds = 0;
     public int reputation = 0;
-    
+    public int level = 1;
 
     private void Start()
     {
@@ -82,6 +82,7 @@ public class SaveInventoryItems : MonoBehaviour
         day = GameManager.Instance.day;
         funds = GameManager.Instance.funds;
         reputation = GameManager.Instance.reputation;
+        level = GameManager.Instance.level;
         temp = GameManager.Instance.nightTemp;
         heaters = heaterContainer.transform.childCount;
         SaveInventoryContents();
@@ -280,9 +281,11 @@ public class SaveInventoryItems : MonoBehaviour
         GameManager.Instance.day = data.currentDay;
         GameManager.Instance.funds = data.funds;
         GameManager.Instance.reputation = data.reputation;
+        GameManager.Instance.level = data.level;
         dayTextObject.text = data.currentDay.ToString();
         fundsTextObject.text = data.funds.ToString();
         reputationTextObject.text = data.reputation.ToString();
+        GameManager.Instance.CheckLevel();
         //INK
         GameVars.story.state.LoadJson(data.saveState);
         GameManager.Instance.ChangeBackground();

@@ -23,6 +23,7 @@ public class TextInteractionMethods : MonoBehaviour
 
             case "reputation":
                 attatchedText.text = GameManager.Instance.reputation.ToString();
+                
                 break;
 
             default:
