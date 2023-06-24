@@ -43,7 +43,7 @@ public class PlantController : MonoBehaviour, IDropHandler
         {
             //plant = GeneratePlants.GenerateRandomNewPlant(1);
             //CheckLevelAndChangeRandomPlantCategory();
-            plant = GeneratePlants.GenerateRandomNewPlant(GameManager.Instance.level);
+            plant = GeneratePlants.GenerateRandomNewPlant(GameManager.Instance.level);//GameManager.Instance.level
         }
         else
         {
@@ -110,7 +110,13 @@ public class PlantController : MonoBehaviour, IDropHandler
         }
         
     }
-    
+    public void ResizeLeaves() {
+        float multiplier = 1.5f;
+        Vector3 oldSizeL = leaves_left.transform.GetChild(0).gameObject.GetComponent<RectTransform>().sizeDelta;
+        Vector3 oldSizeR = leaves_right.transform.GetChild(0).gameObject.GetComponent<RectTransform>().sizeDelta;
+        GeneratePlants.ResizeLeaves(leaves_left, new Vector3(oldSizeL.x * multiplier, oldSizeL.y * multiplier, oldSizeL.z));
+        GeneratePlants.ResizeLeaves(leaves_right, new Vector3(oldSizeR.x * multiplier, oldSizeR.y * multiplier, oldSizeR.z));
+    }
     //set how the plant LOOKS
     //try getting from phenotype list now
     public void SetCurrentPhenotype()
@@ -123,25 +129,24 @@ public class PlantController : MonoBehaviour, IDropHandler
         //for a low level plant
         stem.sprite = GetPhenotypeSprite(plant.phenotypes[1]);//all types will be tall or short sprite
         Color32 redSpectrum = SetColourR(plant.phenotypes[0]);//all types have red spectrum
+        Color32 blueSpectrum;
+        Color32 greenSpectrum;
         if (plant.phenotypes.Count <9)
         {
             SetLeavesQuantity(leaves_left, 1, leafPrefab, 0);
             SetLeavesQuantity(leaves_right, 1, leafPrefab, 180);
             if (plant.phenotypes[1] == "tall")
             {
-                float multiplier = 1.5f;
-                Vector3 oldSizeL = leaves_left.transform.GetChild(0).gameObject.GetComponent<RectTransform>().sizeDelta;
-                Vector3 oldSizeR = leaves_right.transform.GetChild(0).gameObject.GetComponent<RectTransform>().sizeDelta;
-                GeneratePlants.ResizeLeaves(leaves_left, new Vector3(oldSizeL.x * multiplier, oldSizeL.y * multiplier, oldSizeL.z));
-                GeneratePlants.ResizeLeaves(leaves_right, new Vector3(oldSizeR.x * multiplier, oldSizeR.y * multiplier, oldSizeR.z));
+                ResizeLeaves();
             }
             if (plant.phenotypes.Count == 2) {
-                SetPetalsSprite(5, GetPhenotypeSprite($"petal_round"), center);
+                SetPetalsSprite(5, GetPhenotypeSprite($"petal_round"), center, redSpectrum);
                 SetPetalsColour(redSpectrum, center);
                 return;
             }
             if (plant.phenotypes.Count == 4)
             {
+                SetPetalsSprite(Int32.Parse(plant.phenotypes[2]), GetPhenotypeSprite($"petal_round"), center, redSpectrum);
                 SetClustersActive(GeneratePlants.CheckClusters(plant.genotypes["clusters"]), $"petal_round", redSpectrum);
                 //SetPetalColourForAllClusters(plant.phenotypes[3], redSpectrum);
                 return;
@@ -151,13 +156,16 @@ public class PlantController : MonoBehaviour, IDropHandler
                 GeneratePlants.ChangeLeavesSprite(leaves_left, GetPhenotypeSprite($"leaf_{plant.phenotypes[5]}"));
                 GeneratePlants.ChangeLeavesSprite(leaves_right, GetPhenotypeSprite($"leaf_{plant.phenotypes[5]}"));
                 if (plant.phenotypes.Count == 6) {
+                    SetPetalsSprite(Int32.Parse(plant.phenotypes[2]), GetPhenotypeSprite($"petal_{plant.phenotypes[4]}"), center, redSpectrum);
                     SetClustersActive(GeneratePlants.CheckClusters(plant.genotypes["clusters"]), $"petal_{plant.phenotypes[4]}", redSpectrum);
                     return;
                 }
                 if (plant.phenotypes.Count == 8)
                 {
-                    Color32 blueSpectrum = SetColourB(redSpectrum, plant.phenotypes[6]);
-                    Color32 greenSpectrum = SetColourG(blueSpectrum, plant.phenotypes[7]);
+                    blueSpectrum = SetColourB(redSpectrum, plant.phenotypes[6]);
+                    greenSpectrum = SetColourG(blueSpectrum, plant.phenotypes[7]);
+                    SetPetalsSprite(Int32.Parse(plant.phenotypes[2]), GetPhenotypeSprite($"petal_{plant.phenotypes[4]}"), center, greenSpectrum);
+                    SetClustersActive(GeneratePlants.CheckClusters(plant.genotypes["clusters"]), $"petal_{plant.phenotypes[4]}", greenSpectrum);
                     SetPetalColourForAllClusters(plant.phenotypes[3], greenSpectrum);
                 }
 
@@ -167,6 +175,11 @@ public class PlantController : MonoBehaviour, IDropHandler
         }
         if (plant.phenotypes.Count > 8)
         {
+            blueSpectrum = SetColourB(redSpectrum, plant.phenotypes[6]);
+            greenSpectrum = SetColourG(blueSpectrum, plant.phenotypes[7]);
+            SetPetalsSprite(Int32.Parse(plant.phenotypes[2]), GetPhenotypeSprite($"petal_{plant.phenotypes[4]}"), center, greenSpectrum);
+            SetClustersActive(GeneratePlants.CheckClusters(plant.genotypes["clusters"]), $"petal_{plant.phenotypes[4]}", greenSpectrum);
+            SetPetalColourForAllClusters(plant.phenotypes[3], greenSpectrum);
             if (plant.phenotypes[8] == "4")
             {
                 SetLeavesQuantity(leaves_left, 2, leafPrefab, 0);
@@ -185,15 +198,16 @@ public class PlantController : MonoBehaviour, IDropHandler
             SetLeavesQuantity(leaves_left, 1, leafPrefab, 0);
             SetLeavesQuantity(leaves_right, 1, leafPrefab, 180);
         }
-        if (plant.phenotypes.Count > 9)
+        if (plant.phenotypes[1] == "tall")
+        {
+            ResizeLeaves();
+        }
+        if (plant.phenotypes.Count == 10)
         {
             CenterColourChange(GetCenterColour(plant.phenotypes[9]));
+            //SetCenterSprite(GetPhenotypeSprite($"center_{plant.phenotypes[10]}"));
         }
-        if (plant.phenotypes.Count > 10)
-        {
-            SetCenterSprite(GetPhenotypeSprite($"center_{plant.phenotypes[10]}"));
-        }
-        stem.sprite = GetPhenotypeSprite(plant.phenotypes[1]);//GeneratePlants.CheckHeight(plant.genotypes["height"])
+        //stem.sprite = GetPhenotypeSprite(plant.phenotypes[1]);//GeneratePlants.CheckHeight(plant.genotypes["height"])
 
         return;
         
@@ -301,7 +315,7 @@ public class PlantController : MonoBehaviour, IDropHandler
         }
     }
     //for new dynamic petal creation system
-    public void SetPetalsSprite(int petalNumber, Sprite petalSprite, GameObject center) {
+    public void SetPetalsSprite(int petalNumber, Sprite petalSprite, GameObject center, Color32 colour) {
         //for (int i = 0; i < center.transform.childCount;i++) {
         //    Destroy(center.transform.GetChild(i));
         //}
@@ -311,6 +325,7 @@ public class PlantController : MonoBehaviour, IDropHandler
             petalGO.name = "petal";
             petalGO.GetComponent<Image>().sprite = petalSprite;
         }
+        SetPetalsColour(colour, center);
     }
     public void SetCenterSprite(Sprite centerSprite)
     {
@@ -469,17 +484,17 @@ public class PlantController : MonoBehaviour, IDropHandler
         if (noClusters == "two")
         {
             cluster1.SetActive(true);
-            SetPetalsSprite(GeneratePlants.CheckPetalsInt(plant.genotypes["petals"]), GetPhenotypeSprite(petalType), cluster1);
-            SetPetalsColour(colour, cluster1);
+            SetPetalsSprite(GeneratePlants.CheckPetalsInt(plant.genotypes["petals"]), GetPhenotypeSprite(petalType), cluster1, colour);
+            //SetPetalsColour(colour, center);
         }
         if (noClusters == "three")
         {
             cluster1.SetActive(true);
-            SetPetalsSprite(GeneratePlants.CheckPetalsInt(plant.genotypes["petals"]), GetPhenotypeSprite(petalType), cluster1);
-            SetPetalsColour(colour, cluster1);
+            SetPetalsSprite(GeneratePlants.CheckPetalsInt(plant.genotypes["petals"]), GetPhenotypeSprite(petalType), cluster1, colour);
+            //SetPetalsColour(colour, cluster1);
             cluster2.SetActive(true);
-            SetPetalsSprite(GeneratePlants.CheckPetalsInt(plant.genotypes["petals"]), GetPhenotypeSprite(petalType), cluster2);
-            SetPetalsColour(colour, cluster2);
+            SetPetalsSprite(GeneratePlants.CheckPetalsInt(plant.genotypes["petals"]), GetPhenotypeSprite(petalType), cluster2, colour);
+            //SetPetalsColour(colour, cluster2);
         }
     }
 

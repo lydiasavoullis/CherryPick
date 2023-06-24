@@ -104,7 +104,6 @@ public static class GeneratePlants
                 
                 return phenotypes;
             }
-            //check 4 more phenotypes
             if (plant.category == 2)
             {
                 phenotypes.Add(CheckColourR(plant.genotypes["colourR"]));
@@ -113,7 +112,6 @@ public static class GeneratePlants
                 phenotypes.Add(CheckClusters(plant.genotypes["clusters"]));
                 return phenotypes;
             }
-            //check 4 more phenotypes
             if (plant.category == 3)
             {
                 phenotypes.Add(CheckColourR(plant.genotypes["colourR"]));
@@ -124,7 +122,6 @@ public static class GeneratePlants
                 phenotypes.Add(CheckLeafShape(plant.genotypes["leafShapeGene"]));
                 return phenotypes;
             }
-            //check 4 more phenotypes
             if (plant.category == 4)
             {
                 phenotypes.Add(CheckColourR(plant.genotypes["colourR"]));
@@ -137,9 +134,7 @@ public static class GeneratePlants
                 phenotypes.Add(CheckColourG(plant.genotypes["colourG"]));
                 return phenotypes;
             }
-            //check 4 more phenotypes
-            if (plant.category == 5)
-            {
+            
                 //{ "colourR", "height", "petals","clusters", "petalShape", "leafShapeGene", "colourB", "colourG", "leafQuantityGene", "centerColourGene", "centerShapeGene"};
                 phenotypes.Add(CheckColourR(plant.genotypes["colourR"]));
                 phenotypes.Add(CheckHeight(plant.genotypes["height"]));
@@ -153,7 +148,7 @@ public static class GeneratePlants
                 phenotypes.Add(CheckCenterColour(plant.genotypes["centerColourGene"]));
                 //phenotypes.Add(CheckCenterShape(plant.genotypes["centerShapeGene"]));
                 return phenotypes;
-            }
+            
         }
         catch (Exception e) { 
         }
