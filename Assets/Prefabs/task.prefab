@@ -944,7 +944,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   quantityText: {fileID: 8855759319678464877}
-  slot: {fileID: 0}
+  slot: {fileID: 8855759319179367061}
 --- !u!61 &8812267582135781552
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -984,6 +984,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   taskController: {fileID: 8265652541786715127}
+  slotQuantity: {fileID: 0}
 --- !u!1 &8855759319179367061
 GameObject:
   m_ObjectHideFlags: 0
@@ -1073,6 +1074,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   taskController: {fileID: 8265652541786715127}
+  slotQuantity: {fileID: 8340275690079032249}
 --- !u!1 &8855759319678464875
 GameObject:
   m_ObjectHideFlags: 0
@@ -1107,8 +1109,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 185.7, y: -187.3}
-  m_SizeDelta: {x: 20, y: 20}
+  m_AnchoredPosition: {x: 182.4, y: -182.7}
+  m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8855759319678464878
 CanvasRenderer:
@@ -1140,8 +1142,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a86611353f1734b418f24e3df6e44725, type: 2}
-  m_sharedMaterial: {fileID: -7638722396569153517, guid: a86611353f1734b418f24e3df6e44725, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5db6366f6f95e7b40be5df509eefdb63, type: 2}
+  m_sharedMaterial: {fileID: -5064319456750543307, guid: 5db6366f6f95e7b40be5df509eefdb63, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1172,8 +1174,8 @@ MonoBehaviour:
   m_fontSizeMin: 1
   m_fontSizeMax: 30
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0

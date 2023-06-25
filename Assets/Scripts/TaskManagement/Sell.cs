@@ -4,12 +4,15 @@ using System.Threading;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+[ExecuteAlways]
 public class Sell : MonoBehaviour, IDropHandler
 {
     // Start is called before the first frame update
     List<string> phenotypes = new List<string>();
     [SerializeField]
     GameObject taskController;
+    [SerializeField]
+    SlotQuantity slotQuantity;
     public GameObject item
     {
         get
@@ -35,7 +38,13 @@ public class Sell : MonoBehaviour, IDropHandler
         {
             DragHandler.itemBeingDragged.transform.SetParent(transform);
             DragHandler.itemBeingDragged.transform.localPosition = Vector3.zero;
+        }
     }
-}
+    private void OnTransformChildrenChanged()
+    {
+        slotQuantity.UpdateQuantityText();
+    }
+
+
 }
 

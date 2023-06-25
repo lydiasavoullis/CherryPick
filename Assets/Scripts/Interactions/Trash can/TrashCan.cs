@@ -20,7 +20,10 @@ public class TrashCan : MonoBehaviour, IDropHandler
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        gameObject.GetComponent<Image>().sprite = openSprite;
+        if (DragHandler.itemBeingDragged == collision.gameObject) {
+            gameObject.GetComponent<Image>().sprite = openSprite;
+        }
+        
     }
     private void OnTriggerExit2D(Collider2D collision)
     {

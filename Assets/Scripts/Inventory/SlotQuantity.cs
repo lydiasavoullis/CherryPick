@@ -5,7 +5,8 @@ using TMPro;
 public class SlotQuantity : MonoBehaviour
 {
     //public int quantity = 1;
-    public TextMeshProUGUI quantityText;
+    [SerializeField]
+    TextMeshProUGUI quantityText;
     [SerializeField]
     GameObject slot;
     // Start is called before the first frame update
@@ -29,18 +30,18 @@ public class SlotQuantity : MonoBehaviour
     //    UpdateQuantityText();
     //}
     public void UpdateQuantityText() {
-        if (gameObject.transform.GetChild(0).childCount==0 && gameObject.tag == "inventorySlot") {
+        if (slot.transform.childCount==0 && gameObject.tag == "inventorySlot") {
             Destroy(gameObject);
             return;
         }
-        if (gameObject.transform.GetChild(0).childCount == 1)
+        if (slot.transform.childCount == 1)
         {
             quantityText.text = "";
             return;
         }
-        if (gameObject.transform.GetChild(0).childCount > 1)
+        if (slot.transform.childCount > 1)
         {
-            quantityText.text = gameObject.transform.GetChild(0).childCount.ToString();
+            quantityText.text = slot.transform.childCount.ToString();
             return;
         }
         else {

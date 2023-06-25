@@ -36,13 +36,8 @@ public class PlantController : MonoBehaviour, IDropHandler
     Vector3 oldSizeR = new Vector3(30f, 30f);
     private void Start()
     {
-        //oldSizeL = leaves_left.GetComponent<RectTransform>().rect.size;
-        //oldSizeR = leaves_left.GetComponent<RectTransform>().rect.size;
-        //background.SetActive(false);
         if (plant == null)
         {
-            //plant = GeneratePlants.GenerateRandomNewPlant(1);
-            //CheckLevelAndChangeRandomPlantCategory();
             plant = GeneratePlants.GenerateRandomNewPlant(GameManager.Instance.level);//GameManager.Instance.level
         }
         else
@@ -211,74 +206,6 @@ public class PlantController : MonoBehaviour, IDropHandler
 
         return;
         
-        //if (plant.phenotypes[1] == "tall")
-        //{
-        //    float multiplier = 1.5f;
-        //    Vector3 oldSizeL = leaves_left.transform.GetChild(0).gameObject.GetComponent<RectTransform>().sizeDelta;
-        //    Vector3 oldSizeR = leaves_right.transform.GetChild(0).gameObject.GetComponent<RectTransform>().sizeDelta;
-        //    GeneratePlants.ResizeLeaves(leaves_left, new Vector3(oldSizeL.x * multiplier, oldSizeL.y * multiplier, oldSizeL.z));
-        //    GeneratePlants.ResizeLeaves(leaves_right, new Vector3(oldSizeR.x * multiplier, oldSizeR.y * multiplier, oldSizeR.z));
-        //}
-        //if (plant.category == 1) {
-        //    SetPetalsSprite(GeneratePlants.CheckPetalsInt(plant.genotypes["petals"]), GetPhenotypeSprite($"petal_round"), center);
-        //    SetPetalsColour(redSpectrum, center);
-        //    return;
-        //}
-
-        //Color32 blueSpectrum = new Color32();
-        //Color32 greenSpectrum = new Color32();
-        //if (plant.category > 1)
-        //{
-        //    SetPetalsSprite(GeneratePlants.CheckPetalsInt(plant.genotypes["petals"]), GetPhenotypeSprite($"petal_{plant.phenotypes[4]}"), center);//GeneratePlants.CheckColour(plant.genotypes["colour"])
-        //    SetPetalsColour(redSpectrum, center);
-        //    GeneratePlants.ChangeLeavesSprite(leaves_left, GetPhenotypeSprite($"leaf_{plant.phenotypes[5]}"));
-        //    GeneratePlants.ChangeLeavesSprite(leaves_right, GetPhenotypeSprite($"leaf_{plant.phenotypes[5]}"));
-        //    SetClustersActive(GeneratePlants.CheckClusters(plant.genotypes["clusters"]), $"petal_{plant.phenotypes[4]}", redSpectrum);
-        //    //add blue spectrum
-        //    blueSpectrum = SetColourB(redSpectrum, plant.phenotypes[6]);
-        //    switch (plant.phenotypes[3])
-        //    {
-        //        case "one":
-        //            ModifyPetalsColour(blueSpectrum, center);
-        //            break;
-        //        case "two":
-        //            ModifyPetalsColour(blueSpectrum, center);
-        //            ModifyPetalsColour(blueSpectrum, cluster1);
-        //            break;
-        //        case "three":
-        //            ModifyPetalsColour(blueSpectrum, center);
-        //            ModifyPetalsColour(blueSpectrum, cluster1);
-        //            ModifyPetalsColour(blueSpectrum, cluster2);
-        //            break;
-        //        default:
-        //            ModifyPetalsColour(blueSpectrum, center);
-        //            break;
-        //    }
-        //}
-        //if (plant.category > 2)
-        //{
-        //    greenSpectrum = SetColourG(blueSpectrum, plant.phenotypes[7]);
-        //    switch (plant.phenotypes[3])
-        //    {
-        //        case "one":
-        //            ModifyPetalsColour(greenSpectrum, center);
-        //            break;
-        //        case "two":
-        //            ModifyPetalsColour(greenSpectrum, center);
-        //            ModifyPetalsColour(greenSpectrum, cluster1);
-        //            break;
-        //        case "three":
-        //            ModifyPetalsColour(greenSpectrum, center);
-        //            ModifyPetalsColour(greenSpectrum, cluster1);
-        //            ModifyPetalsColour(greenSpectrum, cluster2);
-        //            break;
-        //        default:
-        //            ModifyPetalsColour(blueSpectrum, center);
-        //            break;
-        //    }
-        //}
-       
-
     }
     public void SetPetalColourForAllClusters(string clustersNumber, Color32 colour) {
         switch (clustersNumber)
