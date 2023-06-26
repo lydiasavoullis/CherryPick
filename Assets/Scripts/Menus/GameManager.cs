@@ -368,6 +368,11 @@ public class GameManager : MonoBehaviour
             reputationSlider.value = reputation;
         }
     }
+    //take in character e.g. 'g'
+    //all combinations Gg Gg GG gg
+    //convert genotype => phenotype
+    //instantiate punnet square using GeneManagement 
+
     public void DisplayItemInfo(Vector2 itemPos, string name, string description)
     {
         Vector2 pos = itemPos;

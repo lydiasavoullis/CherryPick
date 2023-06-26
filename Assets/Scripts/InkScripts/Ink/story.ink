@@ -31,19 +31,23 @@ Now at here at Cherrypick we have BioAcceleration technology
 Here's the fun part
 To BREED two flowers, LEFT click on one and RIGHT click on another
 The resulting SEEDS will appear on the counter
+~show_notification = "greenhouse"
 Have a go yourself then call me when you're done
 ->END
 ==tutorial_pt2==
 ~tutorialpt1="complete"
+~remove_notification = "greenhouse"
 Great you just bred two flowers together
 The resulting seeds will have a mixture of the genetics of the pair of flowers you just bred
 Unfortunately the parents are destroyed in the process
 Now I will show you how to plant a seed
 Click on a seed and drag it to a pot
+~show_notification = "greenhouse"
 Then pick up a watering can and water a pot
 ->END
 ==tutorial_pt3==
 ~tutorialpt2="complete"
+~remove_notification = "greenhouse"
 OK perfect
 Tomorrow that will grow into a flower
 You can thank our BioAcceleration technology
@@ -80,9 +84,12 @@ Ok byee
 //~gift = "5,colour:Rr,height:tt,petals:five,clusters:CC,split:ss"
 I would like two tall plants with red flowers
 ~task = "Yulia,1,3,colour:red,height:tall, petals:6"
+
 ~currentSpeaker = "you"
 Ok, thanks for putting in that order
+
 ~characters-=yulia
+
 // ~currentSpeaker = "you"
 // Ok
 // they're gone

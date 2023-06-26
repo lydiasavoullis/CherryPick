@@ -14,3 +14,5 @@ VAR tutorialpt1 = "complete"
 VAR tutorialpt2 = "complete"
 VAR tutorialpt3 = "complete"
 VAR tutorialCounter = 2
+VAR show_notification = ""
+VAR remove_notification = ""

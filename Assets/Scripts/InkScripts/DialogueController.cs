@@ -23,6 +23,8 @@ public class DialogueController : MonoBehaviour
     //objects(objects this script interacts with)
     #region Interactable Objects
     [SerializeField]
+    GameObject notificationPrefab;
+    [SerializeField]
     GameObject endOfDayBtn;
     [SerializeField]
     GameObject taskBoard;
@@ -69,6 +71,7 @@ public class DialogueController : MonoBehaviour
     [SerializeField]
     GameObject greenHouse;//if active we don't want to advance the story
     [SerializeField]
+    GameObject greenhouseArrow;
     #endregion
     #region controllers
     //public bool effectJustPlayed = false;
@@ -325,6 +328,26 @@ public class DialogueController : MonoBehaviour
                     string taskInfo = GameVars.story.variablesState["task"].ToString();
                     GameVars.story.variablesState["task"] = "";
                     taskBoard.GetComponent<CreateTask>().GenerateTask(taskInfo);
+                }
+                break;
+            case "show_notification":
+                if (GameVars.story.variablesState["show_notification"].ToString() == "greenhouse") {
+                    if (greenhouseArrow.transform.childCount<2) {
+                        GameObject arrow = Instantiate(notificationPrefab, new Vector3(0, 0, 0), Quaternion.identity, greenhouseArrow.transform);
+                        arrow.transform.localPosition = Vector3.zero;
+                        arrow.transform.SetSiblingIndex(0);
+                    }
+                    
+                }
+                break;
+            case "remove_notification":
+                if (GameVars.story.variablesState["remove_notification"].ToString() == "greenhouse")
+                {
+                    if (greenhouseArrow.transform.childCount == 2 && greenhouseArrow.transform.GetChild(0).tag == "uiNotification")
+                    {
+                        Destroy(greenhouseArrow.transform.GetChild(0).gameObject);
+                    }
+
                 }
                 break;
             //case "music":
