@@ -19,19 +19,19 @@ public class DragHandlerPot : MonoBehaviour
     public void EnableDisableDrag() {
         if (soil.transform.childCount != 0)
         {
-            Debug.Log("disable drag");
+            //Debug.Log("disable drag");
             this.gameObject.GetComponent<DragHandler>().enabled = false;
         }
         else
         {
-            Debug.Log("enable drag");
+            //Debug.Log("enable drag");
             this.gameObject.GetComponent<DragHandler>().enabled = true;
         }
     }
     public void IfChildOfInventorySlotHideWaterBar() {
         if (this.gameObject.transform.parent.tag == "dragging" || this.gameObject.transform.parent.tag == "inventorySlot")
         {
-            Debug.Log("hide bar");
+            //Debug.Log("hide bar");
             waterBar.SetActive(false);
 
         }

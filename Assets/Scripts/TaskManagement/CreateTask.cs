@@ -45,7 +45,7 @@ public class CreateTask : MonoBehaviour
         {
             
             string label = GeneratePlants.genotypesRange[count];
-            Debug.Log(s);
+            //Debug.Log(s);
             phenotypeDescription += $"{label}: {s}\n";
             count++;
         }

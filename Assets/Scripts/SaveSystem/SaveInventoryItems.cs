@@ -286,6 +286,7 @@ public class SaveInventoryItems : MonoBehaviour
         fundsTextObject.text = data.funds.ToString();
         reputationTextObject.text = data.reputation.ToString();
         GameManager.Instance.CheckLevel();
+        GameManager.Instance.ClearGenesAndAddAllAvailable(data.level);
         //INK
         GameVars.story.state.LoadJson(data.saveState);
         GameManager.Instance.ChangeBackground();
@@ -326,6 +327,7 @@ public class SaveInventoryItems : MonoBehaviour
         LoadInventory(data);
         LoadHeaters(data);
         LoadJournalCharacters(data);
+       
         
     }
     public void LoadInventory(SaveData data) {

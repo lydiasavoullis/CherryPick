@@ -24,7 +24,7 @@ public static class GeneratePlants
     static string leafSize = "l";
     static string leafShapeGene = "m";
     public static string[] genotypesRange = { "colourR", "height", "petals","clusters", "petalShape", "leafShapeGene", "colourB", "colourG", "leafQuantityGene", "centerColourGene", "centerShapeGene"};
-    static string[] geneRange =             { colourGene, heightGene, petalGene, clustersGene, petalShapeGene, leafShapeGene, colourB, colourG, leafQuantityGene, centerColourGene, centerShapeGene};
+    public static string[] geneRange =      { colourGene, heightGene, petalGene, clustersGene, petalShapeGene, leafShapeGene, colourB, colourG, leafQuantityGene, centerColourGene, centerShapeGene};
     //static Dictionary<string, string> genotypesAndGenes = new Dictionary<string, string>() { {"colour", colourGene }, { "height", heightGene }, { "petals", petalGene} };
     public static Plant GenerateRandomNewPlant(int category = 2) {
         Plant plant = new Plant();

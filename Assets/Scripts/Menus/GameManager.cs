@@ -71,6 +71,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     GameObject genesContainer;
     [SerializeField]
+    GameObject punnetPrefab;
+    [SerializeField]
     GameObject infoContainer;
     [SerializeField]
     GameObject[] notifications;
@@ -363,6 +365,7 @@ public class GameManager : MonoBehaviour
             reputation = 0;
             reputationSlider.value = 0;
             levelGO.text = $"LVL: {level}";
+            AddAvailablePunnetSquares();
         }
         else {
             reputationSlider.value = reputation;
@@ -372,7 +375,143 @@ public class GameManager : MonoBehaviour
     //all combinations Gg Gg GG gg
     //convert genotype => phenotype
     //instantiate punnet square using GeneManagement 
+    public void AddAvailablePunnetSquares() {
+        int phenotypes;
+        if (level > 5)
+        {
+            return;
+        }
+        else
+        {
+            phenotypes = level * 2;
+        }
+        AddPunnetSquare(phenotypes - 1);
+        AddPunnetSquare(phenotypes - 2);
+    }
+    public void ClearGenesAndAddAllAvailable(int level) {
+        int phenotypes;
+        if (level > 5)
+        {
+            return;
+        }
+        else
+        {
+            phenotypes = level * 2;
+        }
 
+        for (int i =0; i< genesContainer.transform.childCount; i++) {
+            Destroy(genesContainer.transform.GetChild(i).gameObject);
+        }
+        for (int i = 0; i < phenotypes; i++)
+        {
+            AddPunnetSquare(i);
+        }
+    }
+    public void AddPunnetSquare(int geneNo) {
+        //get level and check genes available
+        
+        //level x 2 phenotype number get last two phenotypes in list
+        string geneLetter1 = GeneratePlants.geneRange[geneNo];
+        string genotype1 = GeneratePlants.genotypesRange[geneNo];
+        //create punnet combinations from gene letter
+        List<string[]> genePunnet1 = GetAllPunnetCombos(geneLetter1);
+        //put gene letter in switch case and get phenotype for each gene combo
+        //{ "colourR", "height", "petals","clusters", "petalShape", "leafShapeGene", "colourB", "colourG", "leafQuantityGene", "centerColourGene", "centerShapeGene"}
+        string[] correspondingPhenotypes1 = GetAllGenotypePhenotypeCombos(genotype1, genePunnet1);
+
+        GameObject punnetPrefab1 = Instantiate(punnetPrefab, new Vector3(0,0,0), Quaternion.identity, genesContainer.transform);
+        punnetPrefab1.transform.localPosition = Vector3.zero;
+        punnetPrefab1.GetComponent<GeneManagement>().title.text = char.ToUpper(genotype1[0]) + genotype1.Substring(1);// genotype1;
+        punnetPrefab1.GetComponent<GeneManagement>().geneSquare[3].geneCombo.text = string.Join("",genePunnet1[0]);
+        punnetPrefab1.GetComponent<GeneManagement>().geneSquare[3].phenotype.text = correspondingPhenotypes1[0];
+        punnetPrefab1.GetComponent<GeneManagement>().geneSquare[2].geneCombo.text = string.Join("", genePunnet1[1]);
+        punnetPrefab1.GetComponent<GeneManagement>().geneSquare[2].phenotype.text = correspondingPhenotypes1[1];
+        punnetPrefab1.GetComponent<GeneManagement>().geneSquare[1].geneCombo.text = string.Join("", genePunnet1[2]);
+        punnetPrefab1.GetComponent<GeneManagement>().geneSquare[1].phenotype.text = correspondingPhenotypes1[2];
+        punnetPrefab1.GetComponent<GeneManagement>().geneSquare[0].geneCombo.text = string.Join("", genePunnet1[3]);
+        punnetPrefab1.GetComponent<GeneManagement>().geneSquare[0].phenotype.text = correspondingPhenotypes1[3];
+    }
+    public string[] GetAllGenotypePhenotypeCombos(string genotype, List<string[]> genePunnet) {
+        string combo1 = "";
+        string combo2 = "";
+        string combo3 = "";
+        string combo4 = "";
+        switch (genotype)
+        {
+            case "colourR":
+                combo1 = GeneratePlants.CheckColourR(genePunnet[0]);
+                combo2 = GeneratePlants.CheckColourR(genePunnet[1]);
+                combo3 = GeneratePlants.CheckColourR(genePunnet[2]);
+                combo4 = GeneratePlants.CheckColourR(genePunnet[3]);
+                break;
+            case "height":
+                combo1 = GeneratePlants.CheckHeight(genePunnet[0]);
+                combo2 = GeneratePlants.CheckHeight(genePunnet[1]);
+                combo3 = GeneratePlants.CheckHeight(genePunnet[2]);
+                combo4 = GeneratePlants.CheckHeight(genePunnet[3]);
+                break;
+            case "petals":
+                combo1 = GeneratePlants.CheckPetals(genePunnet[0]);
+                combo2 = GeneratePlants.CheckPetals(genePunnet[1]);
+                combo3 = GeneratePlants.CheckPetals(genePunnet[2]);
+                combo4 = GeneratePlants.CheckPetals(genePunnet[3]);
+                break;
+            case "clusters":
+                combo1 = GeneratePlants.CheckClusters(genePunnet[0]);
+                combo2 = GeneratePlants.CheckClusters(genePunnet[1]);
+                combo3 = GeneratePlants.CheckClusters(genePunnet[2]);
+                combo4 = GeneratePlants.CheckClusters(genePunnet[3]);
+                break;
+            case "petalShape":
+                combo1 = GeneratePlants.CheckPetalShape(genePunnet[0]);
+                combo2 = GeneratePlants.CheckPetalShape(genePunnet[1]);
+                combo3 = GeneratePlants.CheckPetalShape(genePunnet[2]);
+                combo4 = GeneratePlants.CheckPetalShape(genePunnet[3]);
+                break;
+            case "leafShapeGene":
+                combo1 = GeneratePlants.CheckLeafShape(genePunnet[0]);
+                combo2 = GeneratePlants.CheckLeafShape(genePunnet[1]);
+                combo3 = GeneratePlants.CheckLeafShape(genePunnet[2]);
+                combo4 = GeneratePlants.CheckLeafShape(genePunnet[3]);
+                break;
+            case "colourB":
+                combo1 = GeneratePlants.CheckColourB(genePunnet[0]);
+                combo2 = GeneratePlants.CheckColourB(genePunnet[1]);
+                combo3 = GeneratePlants.CheckColourB(genePunnet[2]);
+                combo4 = GeneratePlants.CheckColourB(genePunnet[3]);
+                break;
+            case "colourG":
+                combo1 = GeneratePlants.CheckColourG(genePunnet[0]);
+                combo2 = GeneratePlants.CheckColourG(genePunnet[1]);
+                combo3 = GeneratePlants.CheckColourG(genePunnet[2]);
+                combo4 = GeneratePlants.CheckColourG(genePunnet[3]);
+                break;
+            case "leafQuantityGene":
+                combo1 = GeneratePlants.CheckLeafQuantity(genePunnet[0]);
+                combo2 = GeneratePlants.CheckLeafQuantity(genePunnet[1]);
+                combo3 = GeneratePlants.CheckLeafQuantity(genePunnet[2]);
+                combo4 = GeneratePlants.CheckLeafQuantity(genePunnet[3]);
+                break;
+            case "centerColourGene":
+                combo1 = GeneratePlants.CheckCenterColour(genePunnet[0]);
+                combo2 = GeneratePlants.CheckCenterColour(genePunnet[1]);
+                combo3 = GeneratePlants.CheckCenterColour(genePunnet[2]);
+                combo4 = GeneratePlants.CheckCenterColour(genePunnet[3]);
+                break;
+            default:
+                break;
+        }
+        string[] phenotypes = {combo1, combo2, combo3, combo4};
+        return phenotypes;
+    }
+    public List<string[]> GetAllPunnetCombos(string geneLetter1) {
+        List<string[]> genePunnet1 = new List<string[]>();
+        genePunnet1.Add(new string[] { geneLetter1, geneLetter1 });
+        genePunnet1.Add(new string[] { geneLetter1.ToUpper(), geneLetter1 });
+        genePunnet1.Add(new string[] { geneLetter1.ToUpper(), geneLetter1 });
+        genePunnet1.Add(new string[] { geneLetter1.ToUpper(), geneLetter1.ToUpper() });
+        return genePunnet1;
+    }
     public void DisplayItemInfo(Vector2 itemPos, string name, string description)
     {
         Vector2 pos = itemPos;

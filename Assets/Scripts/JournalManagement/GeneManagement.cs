@@ -5,20 +5,18 @@ using System.Linq;
 using TMPro;
 public class GeneManagement : MonoBehaviour
 {
-    [SerializeField]
-    TextMeshProUGUI title;
-    [SerializeField]
+    public TextMeshProUGUI title;
     public GeneText[] geneSquare;
     
     private void Start()
     {
-        //change to tuple
-        List<KeyValuePair<string, string>> geneDictionary = new List<KeyValuePair<string, string>>();//phenotype, gene combo
-        geneDictionary.Add(new KeyValuePair<string, string>("Tall", "TT"));
-        geneDictionary.Add(new KeyValuePair<string, string>("Tall", "Tt"));
-        geneDictionary.Add(new KeyValuePair<string, string>("Tall", "Tt"));
-        geneDictionary.Add(new KeyValuePair<string, string>("Short", "tt"));
-        PunnetSquare("Height", geneDictionary);
+        ////change to tuple
+        //List<KeyValuePair<string, string>> geneDictionary = new List<KeyValuePair<string, string>>();//phenotype, gene combo
+        //geneDictionary.Add(new KeyValuePair<string, string>("Tall", "TT"));
+        //geneDictionary.Add(new KeyValuePair<string, string>("Tall", "Tt"));
+        //geneDictionary.Add(new KeyValuePair<string, string>("Tall", "Tt"));
+        //geneDictionary.Add(new KeyValuePair<string, string>("Short", "tt"));
+        //PunnetSquare("Height", geneDictionary);
     }
     public void PunnetSquare(string name, List<KeyValuePair<string, string>> geneDictionary) {
         title.text = name;
