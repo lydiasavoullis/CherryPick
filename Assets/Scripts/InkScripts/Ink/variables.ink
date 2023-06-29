@@ -16,3 +16,4 @@ VAR tutorialpt3 = "complete"
 VAR tutorialCounter = 2
 VAR show_notification = ""
 VAR remove_notification = ""
+VAR save_button = "active"

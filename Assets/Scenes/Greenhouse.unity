@@ -8779,8 +8779,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -390.36}
-  m_SizeDelta: {x: 1920, y: 299.94}
+  m_AnchoredPosition: {x: 0.0090637, y: -390.36}
+  m_SizeDelta: {x: 2017.5, y: 299.94}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &585778651
 MonoBehaviour:
@@ -15972,6 +15972,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonPrefab: {fileID: 0}
   saveSlot: {fileID: 0}
+  savesButton: {fileID: 418340583}
   notificationPrefab: {fileID: 761756092379156972, guid: a891816616bb7214d81fbed5184b1dbd, type: 3}
   endOfDayBtn: {fileID: 693167791}
   taskBoard: {fileID: 1328938254}
@@ -20279,7 +20280,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1297990297}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TaskController, Assembly-CSharp
         m_MethodName: GiveNewTaskButton
         m_Mode: 1

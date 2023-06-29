@@ -22,7 +22,7 @@ public class EmailController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Keyboard.current.spaceKey.wasPressedThisFrame) {
+        if (Keyboard.current.spaceKey.wasPressedThisFrame && !veraEmail.activeSelf) {
             veraEmail.SetActive(true);
             spaceMessage.SetActive(false);
             ShowButtons(optionsButtons);

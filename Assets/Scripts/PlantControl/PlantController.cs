@@ -505,6 +505,7 @@ public class PlantController : MonoBehaviour, IDropHandler
             
             childSeedGO.GetComponent<SeedController>().seed = new Seed();
             childSeedGO.GetComponent<SeedController>().seed.category = parent1.GetComponent<PlantController>().plant.category;
+            childSeedGO.GetComponent<SeedController>().seed.growthDuration = childSeedGO.GetComponent<SeedController>().seed.category;
             GeneratePlants.CombineGametes(parent1.GetComponent<PlantController>().plant, parent2.GetComponent<PlantController>().plant, childSeedGO.GetComponent<SeedController>().seed);
         }
         RemoveOnePlantFromStack(parent1);

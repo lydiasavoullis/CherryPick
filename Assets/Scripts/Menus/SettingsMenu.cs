@@ -40,20 +40,17 @@ public class SettingsMenu : MonoBehaviour
         SetFullscreen(ticked);
 
         fullscreen.isOn = ticked;
-        int qualityLvl = PlayerPrefs.GetInt("quality");
+        //int qualityLvl = PlayerPrefs.GetInt("quality");
 
-        QualitySettings.SetQualityLevel(qualityLvl);
+        //QualitySettings.SetQualityLevel(qualityLvl);
 
-        quality.value = qualityLvl;
-        SetQuality(qualityLvl);
+        //quality.value = qualityLvl;
+        //SetQuality(qualityLvl);
         
     }
     void Start() {
         PreSetup();
         GetResolutions();
-       
-
-        
     }
     public void GetResolutions() {
         resolutions = Screen.resolutions;
@@ -120,4 +117,10 @@ public class SettingsMenu : MonoBehaviour
         GameVars.autoSpeed = speed;
         PlayerPrefs.SetFloat("autoSpeed", speed);
     }
+    public void Quit() {
+        Application.Quit();
+    }
+    
+
+    
 }

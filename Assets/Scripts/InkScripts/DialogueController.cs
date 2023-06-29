@@ -23,6 +23,8 @@ public class DialogueController : MonoBehaviour
     //objects(objects this script interacts with)
     #region Interactable Objects
     [SerializeField]
+    GameObject savesButton;
+    [SerializeField]
     GameObject notificationPrefab;
     [SerializeField]
     GameObject endOfDayBtn;
@@ -154,23 +156,6 @@ public class DialogueController : MonoBehaviour
         {
             GameVars.story = new Story(inkJSON.text);
         }
-        //try
-        //{
-        //    GameVars.story.UnbindExternalFunction("AddCharacter");
-        //    GameVars.story.UnbindExternalFunction("ChangeSprite");
-        //    GameVars.story.UnbindExternalFunction("RemoveCharacter");
-        //}
-        //catch (Exception e) {
-        //    Debug.Log(e);
-        //    GameVars.story.BindExternalFunction("AddCharacter", (string charName, string charType) => characterControl.LoadCharacterSprite(charName, charType, this.customerContainer, characterBox));
-        //    GameVars.story.BindExternalFunction("ChangeSprite", (string charName, string charType) => characterControl.ChangeCharacterSprite(charName, charType, this.customerContainer));
-        //    GameVars.story.BindExternalFunction("RemoveCharacter", (string charName) => characterControl.RemoveCharacter(charName, this.customerContainer));
-        //}
-
-        //characterControl.RefreshCharacters((InkList)GameVars.story.variablesState["characters"], stage, characterBox);
-        //uIControl.SetDialogueBoxActive((string)GameVars.story.variablesState["textBoxIsActive"], backgroundDialogueBox);
-        //uIControl.SetNameTag((string)GameVars.story.variablesState["currentSpeaker"], nameTag);
-        //textLogControl.LoadTextLogContent(textLogList, textLogBox);//load text log
 
     }
     
@@ -348,6 +333,15 @@ public class DialogueController : MonoBehaviour
                         Destroy(greenhouseArrow.transform.GetChild(0).gameObject);
                     }
 
+                }
+                break;
+            case "save_button":
+                if (GameVars.story.variablesState["save_button"].ToString() == "active")
+                {
+                    savesButton.SetActive(true);
+                }
+                else {
+                    savesButton.SetActive(false);
                 }
                 break;
             //case "music":

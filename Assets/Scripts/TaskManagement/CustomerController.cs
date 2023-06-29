@@ -69,6 +69,10 @@ public class CustomerController : MonoBehaviour
     public void ClearCustomers() {
         for (int i = 0; i<gameObject.transform.childCount; i++) {
             Destroy(gameObject.transform.GetChild(i).gameObject);
+            
+        }
+        for (int i = 0; i < speechContainer.transform.childCount; i++)
+        {
             Destroy(speechContainer.transform.GetChild(i).gameObject);
         }
     } 
