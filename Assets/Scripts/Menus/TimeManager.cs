@@ -23,7 +23,9 @@ public class TimeManager : MonoBehaviour
         if (GameVars.story.variablesState["end_of_day"].ToString()=="true") {
             dayText.text = GameManager.Instance.NewDay().ToString();
             //GameVars.story.ChoosePathString($"day_{dayText.text}");
-            interactions.FindRandomInteraction("repeatable");
+            //interactions.FindRandomInteraction("repeatable");
+            //GameVars.story.ChoosePathString(interactions.GetNextUnvisitedMainEvent());
+            interactions.ChooseEventsForCurrentDay();
             GameVars.story.variablesState["end_of_day"] = "false";
             GameManager.Instance.ChangeBackground();
             GameManager.Instance.CloseShop();

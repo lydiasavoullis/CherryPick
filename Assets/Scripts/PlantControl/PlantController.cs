@@ -38,7 +38,8 @@ public class PlantController : MonoBehaviour, IDropHandler
     {
         if (plant == null)
         {
-            plant = GeneratePlants.GenerateRandomNewPlant(GameManager.Instance.level);//GameManager.Instance.level
+            int plantLevel = UnityEngine.Random.Range(1, GameManager.Instance.level+1);
+            plant = GeneratePlants.GenerateRandomNewPlant(plantLevel);//GameManager.Instance.level
         }
         else
         {

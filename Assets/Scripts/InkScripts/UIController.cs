@@ -150,6 +150,9 @@ public class UIController
             case "vera":
                 colour = new Color32(100, 100, 229, 255);
                 break;
+            case "mei":
+                colour = new Color32(200, 50, 100, 255);
+                break;
             default:
                 break;
 

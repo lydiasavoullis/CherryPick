@@ -197,12 +197,19 @@ public class DialogueController : MonoBehaviour
             {
                 string hexCol = ColorUtility.ToHtmlStringRGB(uIControl.SetNameColour(speaker));
                 StartCoroutine(textLogControl.AddToTextLogBox($"\n<color=#{hexCol}>{speaker}:</color> {text.TrimStart('\n')}", logTextBox, scrollBar));
-
             }
 
         }
-        else { 
+        else {
             //if the story is not able to continue we will try and get the next event in GameVars.upcomingEventsToday
+            if (GameVars.upcomingEventsToday.Count == 0)
+            {
+                EndDay();
+            }
+            else {
+                GameVars.story.ChoosePathString(GameVars.upcomingEventsToday[0]);
+                GameVars.upcomingEventsToday.RemoveAt(0);
+            }
         }
 
         GameVars.story.variablesState.variableChangedEvent -= ObserveAnyVar;
@@ -213,7 +220,7 @@ public class DialogueController : MonoBehaviour
         
         if (GameVars.story.variablesState["currentSpeaker"].ToString()=="you")
         {
-            Vector3 characterSpeechPos = new Vector3(customerContainer.transform.position.x+3, customerContainer.transform.position.y - 3.5f, customerContainer.transform.position.z);
+            Vector3 characterSpeechPos = new Vector3(customerContainer.transform.position.x, customerContainer.transform.position.y - 3.5f, customerContainer.transform.position.z);
             speechBubble = Instantiate(speechReversedPrefab, characterSpeechPos, speechReversedPrefab.transform.rotation, speechContainer.transform);
             TextMeshProUGUI yourName = speechBubble.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
             yourName.text = yourname;
@@ -271,6 +278,15 @@ public class DialogueController : MonoBehaviour
             TextMeshProUGUI textBox = speechBubble.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
             StartCoroutine(uIControl.WriteTextNoTyping(text, textBox));
         }
+    }
+
+    public void EndDay() {
+        endOfDayBtn.SetActive(true);
+        GameManager.Instance.ChangeBackground();
+        GameManager.Instance.SetNewNightTemp();
+        GameVars.story.variablesState["end_of_day"] = "true";
+        GameVars.story.variablesState["shop_state"] = "open";
+        GameManager.Instance.IsShopOpen();
     }
 
     //add Play music to audio controller

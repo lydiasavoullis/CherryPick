@@ -119,28 +119,7 @@ public class GameManager : MonoBehaviour
         Debug.Log($"GAME OBJECT WITH TAG {tag} for parent object {parent.name} was not found");
         return null;
     }
-    public void ChooseEventsForCurrentDay() {
-        //check if upcoming events has 4. If less than 4, choose from other random knots
-        //if customer has already been in, don't bring them in again
-        for(int i = 0; i<=4; i++) {
-            if (GameVars.upcomingEvents.Count < i)
-            {
-                GameVars.upcomingEventsToday.Add(GameVars.upcomingEvents[i]);
-                GameVars.upcomingEvents.RemoveAt(i);
-            }
-            else {
-                break;
-            }
-        }
-        InkFindInteractions findInteraction = new InkFindInteractions();
-        if (GameVars.upcomingEventsToday.Count<4) {
-            for (int i= GameVars.upcomingEventsToday.Count; i<4;i++) {
-                GameVars.upcomingEventsToday.Add(findInteraction.FindRandomInteractionString("repeatable"));
-            }
-            
-            //add some more events
-        }
-    }
+    
     //make sure heater heat only counts after shop has closed
     public IEnumerator ChangeDay() {
         bool greenHouseActive = greenHouseCanvas.activeInHierarchy;
@@ -221,16 +200,6 @@ public class GameManager : MonoBehaviour
         {
             Destroy(shopContent.transform.GetChild(i).gameObject);
         }
-        //GameObject item = Instantiate(shopItemPrefab, new Vector3(0, 0, 0), Quaternion.identity, shopContent.transform);
-        //item.transform.GetComponent<Buy>().SetItemDetails("pot");
-        //item = Instantiate(shopItemPrefab, new Vector3(0, 0, 0), Quaternion.identity, shopContent.transform);
-        //item.transform.GetComponent<Buy>().SetItemDetails("plant");
-        //item = Instantiate(shopItemPrefab, new Vector3(0, 0, 0), Quaternion.identity, shopContent.transform);
-        //item.transform.GetComponent<Buy>().SetItemDetails("plant");
-        //item = Instantiate(shopItemPrefab, new Vector3(0, 0, 0), Quaternion.identity, shopContent.transform);
-        //item.transform.GetComponent<Buy>().SetItemDetails("plant");
-        //item = Instantiate(shopItemPrefab, new Vector3(0, 0, 0), Quaternion.identity, shopContent.transform);
-        //item.transform.GetComponent<Buy>().SetItemDetails("heater");
         AddShopItem("plant");
         AddShopItem("plant");
         AddShopItem("plant");
@@ -256,8 +225,10 @@ public class GameManager : MonoBehaviour
         switch (GameVars.story.variablesState["shop_state"])
         {
             case "open":
-                GenerateShopItems();
-                shop.SetActive(true);
+                if (shop.activeInHierarchy == false) {
+                    GenerateShopItems();
+                    shop.SetActive(true);
+                }
                 break;
             case "closed":
                 shop.SetActive(false);
