@@ -29,23 +29,32 @@ public class AudioManager : MonoBehaviour
     }
     public void Play(string name)
     {
-        Debug.Log(name);
         Sound s = Array.Find(sounds, sound => sound.name == name);
         if (s == null) {
             Debug.Log("Sound: " + name +" not found!");
             return;
         }
-        s.source.Play();
+        if (!s.source.isPlaying)
+        {
+            Debug.Log(name);
+            s.source.Play();
+        }
+        
         
     }
     public void Stop(string name) {
         Sound s = Array.Find(sounds, sound => sound.name == name);
+        
         if (s == null)
         {
             //Debug.Log("Sound: " + name + " not found!");
             return;
         }
-        StartCoroutine(StartFade(s.source, 4f, 0f));
+        if (s.source.isPlaying) {
+            Debug.Log(name + " stopped playing");
+            StartCoroutine(StartFade(s.source, 4f, 0f));
+        }
+        
     }
     public IEnumerator StartFade(AudioSource audioSource, float duration, float targetVolume)
     {

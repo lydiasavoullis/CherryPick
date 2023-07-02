@@ -18,8 +18,8 @@ public static class GameVars
     public static Story story;
     public static float delay = 0.02f;
     public static float autoSpeed = 4f;
-    public static string sfxPlaying;
-    public static string musicPlaying;
+    public static string sfxPlaying = "";
+    public static string musicPlaying = "";
     public static string lastFilename;
     public static bool finishedTyping = true;
     public static bool effectJustPlayed = false;

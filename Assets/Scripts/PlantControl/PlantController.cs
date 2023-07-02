@@ -498,6 +498,13 @@ public class PlantController : MonoBehaviour, IDropHandler
         }
         //GameObject inventory = GameObject.Find("Inventory").transform.GetChild(0).GetChild(0).gameObject;
         int noOfChildren = UnityEngine.Random.Range(4, 8);
+        if (!gameObject.GetComponent<AudioSource>().isPlaying)
+        {
+            Debug.Log("plant bred");
+            GameObject.FindGameObjectWithTag("audioManager").GetComponent<AudioManager>().Play("pop");
+            //gameObject.GetComponent<AudioSource>().Play();
+        }
+        
         for (int i = 0; i < noOfChildren; i++)
         {
 
@@ -508,6 +515,7 @@ public class PlantController : MonoBehaviour, IDropHandler
             childSeedGO.GetComponent<SeedController>().seed.category = parent1.GetComponent<PlantController>().plant.category;
             childSeedGO.GetComponent<SeedController>().seed.growthDuration = childSeedGO.GetComponent<SeedController>().seed.category;
             GeneratePlants.CombineGametes(parent1.GetComponent<PlantController>().plant, parent2.GetComponent<PlantController>().plant, childSeedGO.GetComponent<SeedController>().seed);
+            
         }
         RemoveOnePlantFromStack(parent1);
         RemoveOnePlantFromStack(parent2);

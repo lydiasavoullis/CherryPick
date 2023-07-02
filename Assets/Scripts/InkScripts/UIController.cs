@@ -138,14 +138,11 @@ public class UIController
     public Color SetNameColour(string name) {
         Color colour = new Color(0, 0, 0, 255);
         switch (name.ToLower()) {
-            case "alex":
-                colour = new Color32(150, 100, 255, 255);
-                break;
             case "yulia":
                 colour = Color.magenta;
                 break;
-            case "charlie":
-                colour = new Color32(204, 255, 229, 255);
+            case "oliver":
+                colour = new Color32(50, 150, 100, 255);
                 break;
             case "vera":
                 colour = new Color32(100, 100, 229, 255);

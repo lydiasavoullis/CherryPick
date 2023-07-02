@@ -79,7 +79,7 @@ public class DialogueController : MonoBehaviour
     //public bool effectJustPlayed = false;
     TextLogController textLogControl = new TextLogController();
     CharacterController characterControl = new CharacterController();
-    //AudioController audioControl = new AudioController();//audioManager
+    public AudioController audioControl = new AudioController();//audioManager
     SaveController saveControl = new SaveController();
     UIController uIControl = new UIController();
     InkFindInteractions inkFindInteractions = new InkFindInteractions();
@@ -200,9 +200,12 @@ public class DialogueController : MonoBehaviour
             }
 
         }
-        else {
+         else {
+            if (GameVars.story.variablesState["tutorialpt4"].ToString() != "complete") {
+                return;
+            }
             //if the story is not able to continue we will try and get the next event in GameVars.upcomingEventsToday
-            if (GameVars.upcomingEventsToday.Count == 0)
+            if (GameVars.upcomingEventsToday.Count == 0 )
             {
                 EndDay();
             }
@@ -360,15 +363,15 @@ public class DialogueController : MonoBehaviour
                     savesButton.SetActive(false);
                 }
                 break;
-            //case "music":
-            //    audioControl.PlayMusic(newValue.ToString(), audioManager);
+            case "music":
+                audioControl.PlayMusic(newValue.ToString(), audioManager);
+                break;
+            case "sfx":
+                audioControl.PlaySound(newValue.ToString(), audioManager);
+                break;
+            //case "gameScene":
+            //    characterControl.GoToGameScene(newValue.ToString(), GameVars.story.variablesState["scene"].ToString());
             //    break;
-            //case "sfx":
-            //    audioControl.PlaySound(newValue.ToString(), audioManager);
-            //    break;
-            ////case "gameScene":
-            ////    characterControl.GoToGameScene(newValue.ToString(), GameVars.story.variablesState["scene"].ToString());
-            ////    break;
             default:
                 break;
         }

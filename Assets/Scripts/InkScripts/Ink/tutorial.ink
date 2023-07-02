@@ -31,10 +31,12 @@ Nope. Not at all. Have a nice day. Bye.
 ~tutorialpt1 = "incomplete"
 ~tutorialpt2 = "incomplete"
 ~tutorialpt3 = "incomplete"
+~tutorialpt4 = "incomplete"
 ~tutorialCounter = 0
  ~characters+=vera
 ~currentSpeaker = "Vera"
  ~save_button = "inactive"
+ ~music = "future lofi"
 ¬
 Hi
 You must be the new recruit
@@ -86,6 +88,7 @@ Also tasks will have a deadline, they must be completed in a certain number of d
 We can lose reputation from failed tasks so please be punctual
 Great, you're ready to start the day
 Ok byee
+~music = ""
 ¬
 ~characters-=vera
 ~save_button = "active"

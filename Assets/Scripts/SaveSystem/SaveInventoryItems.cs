@@ -290,6 +290,7 @@ public class SaveInventoryItems : MonoBehaviour
         //INK
         GameVars.story.state.LoadJson(data.saveState);
         GameManager.Instance.ChangeBackground();
+        
         if (GameVars.story.variablesState["end_of_day"].ToString() == "true")
         {
             endOfDayBtn.SetActive(true);
@@ -307,6 +308,12 @@ public class SaveInventoryItems : MonoBehaviour
         GameVars.loadedChars = data.loadedChars;
         dialogueController.GetComponent<DialogueController>().LoadCharacters(data.loadedChars);
         GameVars.finishedTyping = true;
+        //set up music
+        dialogueController.GetComponent<DialogueController>().audioControl.PlayMusic(GameVars.story.variablesState["music"].ToString(), GameObject.FindGameObjectWithTag("audioManager"));
+        dialogueController.GetComponent<DialogueController>().audioControl.PlaySound(GameVars.story.variablesState["sfx"].ToString(), GameObject.FindGameObjectWithTag("audioManager"));
+        GameVars.musicPlaying = GameVars.story.variablesState["music"].ToString();
+        GameVars.sfxPlaying = GameVars.story.variablesState["sfx"].ToString();
+
         //load last line and remove colour label
         if ((GameVars.loadedTextLog.Count)>0) {
             // GameVars.loadedTextLog.Last();

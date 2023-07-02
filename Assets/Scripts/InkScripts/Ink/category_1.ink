@@ -29,3 +29,15 @@ I want a short white flower please
 ->END
 
 
+==oliver_repeatable_1==
+~currentSpeaker = "you"
+~currentSpeaker = "Oliver"
+~characters+=oliver
+¬
+Hey
+Over here
+I want a short white flower please
+~task = "Oliver,1,3,height:short"
+¬
+~characters-=oliver
+->END

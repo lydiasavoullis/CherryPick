@@ -8,26 +8,12 @@ using System;
 public class InkFindInteractions
 {
     List<string> interactionsForToday = new List<string>();
-    string[] names = { "yulia", "mei" };
+    string[] names = { "yulia", "mei", "oliver" };
     static int lvl = 1;
     int maxEvents = 4;
     //repeatable main
     //e.g. 1-name-repeatable-5
 
-    public void FindRandomInteraction(string interactionType) {
-        
-        string name = "";
-        name = names[UnityEngine.Random.Range(0,names.Length)];
-        string interactionLevel = UnityEngine.Random.Range(1, lvl+1).ToString();//get a task in a random interaction level
-        string knotName = $"{name}_{interactionType}_{lvl}";
-        GameVars.story.ChoosePathString(knotName);
-        //if (GameVars.story.currentChoices.Count>0) {
-        //    int choiceIndexRandom = Random.Range(0, GameVars.story.currentChoices.Count + 1);//get a task in a random interaction level
-        //    GameVars.story.ChooseChoiceIndex(choiceIndexRandom);
-        //}
-        //interactionsForToday.Add(GameVars.story.path.ToString());
-        
-    }
     public string FindRandomInteractionString(string interactionType) {
         string name = "";
         name = names[UnityEngine.Random.Range(0, names.Length)];

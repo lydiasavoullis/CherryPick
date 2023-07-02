@@ -25,6 +25,8 @@ TagManager:
   - menuNotification
   - slider
   - uiNotification
+  - options
+  - audioManager
   layers:
   - Default
   - TransparentFX

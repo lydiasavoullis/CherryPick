@@ -22,6 +22,7 @@ public class TrashCan : MonoBehaviour, IDropHandler
     {
         if (DragHandler.itemBeingDragged == collision.gameObject) {
             gameObject.GetComponent<Image>().sprite = openSprite;
+            gameObject.GetComponent<AudioSource>().Play();
         }
         
     }
