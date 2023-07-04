@@ -1,6 +1,5 @@
 ==yulia_repeatable_1==
 ~characters+=yulia
- ~currentSpeaker = "you"
 ~currentSpeaker = "Yulia"
 ¬
 //~gift = "5,colour:Rr,height:tt,petals:five,clusters:CC,split:ss"
@@ -13,10 +12,6 @@ Ok, thanks for putting in that order
 -> END
 
 ==mei_repeatable_1==
-~currentSpeaker = "you"
-Wow
-It's a new day
-time for some new work
 ~currentSpeaker = "Mei"
 ~characters+=mei
 ¬
@@ -30,7 +25,6 @@ I want a short white flower please
 
 
 ==oliver_repeatable_1==
-~currentSpeaker = "you"
 ~currentSpeaker = "Oliver"
 ~characters+=oliver
 ¬
@@ -40,4 +34,15 @@ I want a short white flower please
 ~task = "Oliver,1,3,height:short"
 ¬
 ~characters-=oliver
+->END
+==fearn_repeatable_1==
+~currentSpeaker = "Fearn"
+~characters+=fearn
+¬
+Hey
+Over here
+I want a short white flower please
+~task = "Fearn,1,3,height:short"
+¬
+~characters-=fearn
 ->END

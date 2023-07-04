@@ -1,4 +1,4 @@
-LIST characters=yulia,vera, mei, oliver
+LIST characters=yulia,vera, mei, oliver, fearn
 VAR currentSpeaker = ""
 VAR shop_state = "closed"
 LIST Alex = (alex_normal)
@@ -6,6 +6,7 @@ LIST Yulia = (yulia_normal), yulia_sleeping, yulia_crying, yulia_excited, yulia_
 LIST Vera = (vera_normal), vera_shocked, vera_smile, vera_thinking, vera_excited, vera_laugh, vera_sad, vera_tired
 LIST Mei = (mei_normal), mei_shocked, mei_angry, mei_annoyed, mei_crying, mei_peaceful, mei_shouting, mei_sleeping, mei_smug, mei_thining, mei_tired
 LIST Oliver = (oliver_normal), oliver_shocked, oliver_angry, oliver_sad
+LIST Fearn = (fearn_normal), fearn_shocked, fearn_happy, fearn_sad, fearn_annoyed, fearn_laughing, fearn_smile, fearn_smug, fearn_suprised, fearn_sleepy
 VAR day = 0
 VAR task = ""
 VAR end_of_day = "false"

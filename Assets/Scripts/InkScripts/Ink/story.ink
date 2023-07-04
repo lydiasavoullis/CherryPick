@@ -4,6 +4,7 @@ INCLUDE yulia_main_story.ink
 INCLUDE variables.ink
 INCLUDE category_1.ink
 INCLUDE tutorial.ink
+INCLUDE morning_events.ink
 EXTERNAL ChangeSprite(name,sprite)
 EXTERNAL RemoveCharacter(name)
 EXTERNAL AddCharacter(name,sprite)
@@ -35,10 +36,11 @@ EXTERNAL RemoveFromUpcomingEvents(knotName)
 // {ChangeSprite("Yulia", "yulia_normal")}
 Can I have a red flower?
 ~music = ""
-~task = "Yulia,1,3,colour:red"
+~task = "Yulia,1,inf,colour:red~yulia_main_1"
 ~currentSpeaker = "you"
 Ok, thanks for putting in that order
-// And what would you like miss?
+And what would you like miss?
+~task = "Mei,1,3,colour:pink,height:tall~mei_main_1"
 // ~currentSpeaker = "Mei"
 // {ChangeSprite("Vera", "vera_thinking")}
 // Excuse me 

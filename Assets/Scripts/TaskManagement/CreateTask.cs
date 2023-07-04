@@ -22,11 +22,25 @@ public class CreateTask : MonoBehaviour
    
     public void GenerateTask(string info)
     {
-        
+        string nextEvent = null; 
+        if (info.Contains('~'))
+        {
+            string[] taskInfoWithNextEvent = info.Split('~');
+            nextEvent = taskInfoWithNextEvent[1];
+            info = taskInfoWithNextEvent[0];
+        }
+
         string[] infoParse = info.Split(',');
         string name = infoParse[0];
         int quantity = int.Parse(infoParse[1]);
-        int days = int.Parse(infoParse[2]);
+        int days = -0;
+        if (infoParse[2].ToString() == "inf")
+        {
+            days = -0;
+        }
+        else {
+            days = int.Parse(infoParse[2]);
+        }
         Plant plant = new Plant();
         //int quantity = Random.Range(1, orderMaxQuantity + 1);
         //int orderDeadline = quantity * 2;
@@ -49,7 +63,7 @@ public class CreateTask : MonoBehaviour
             phenotypeDescription += $"{label}: {s}\n";
             count++;
         }
-        GameManager.Instance.SetTaskInfo(quantity, days, name, phenotypeDescription, plant.phenotypes);
+        GameManager.Instance.SetTaskInfo(quantity, days, name, phenotypeDescription, plant.phenotypes, nextEvent);
         GameManager.Instance.ActivateNotification("task");
         //return $"Hi, I'm {name}. I would like {info[1]} {phenotypeDescription} flower(s) please, and I need them in {days} days";
     }

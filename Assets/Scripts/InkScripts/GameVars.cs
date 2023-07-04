@@ -48,7 +48,8 @@ public static class GameVars
         else {
             story = null;
         }
-        
+        upcomingEvents = new List<string>();
+        upcomingEventsToday = new List<string>();
         dontAdvanceStory = false;
         autoMode = false;
         finishedTyping = true;

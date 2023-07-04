@@ -61,7 +61,7 @@ public class SaveInventoryItems : MonoBehaviour
     public List<Tuple<string, Dictionary<string, object>, int>> shopItems = new List<Tuple<string, Dictionary<string, object>, int>>();
     //public List<Tuple<string, Dictionary<string, object>>> greenhousePlants = new List<Tuple<string, Dictionary<string, object>>>();
     //int quantity, int orderDeadline, string customerName, string phenotypeDescription, List<string> phenotypes
-    public List<Tuple<int, int, string, string, List<string>>> taskBoardList = new List<Tuple<int, int, string, string, List<string>>>();
+    public List<Tuple<int, int, string, string, List<string>,string>> taskBoardList = new List<Tuple<int, int, string, string, List<string>, string>>();
     public List<Tuple<string, Dictionary<string, object>, int>> taskBoardPlants = new List<Tuple<string, Dictionary<string, object>, int>>();//int here denotes task it belongs to
     //public List<float> plantPots = new List<float>();
     public List<Tuple<string, Dictionary<string, object>, float>> potsInGreenhouse = new List<Tuple<string, Dictionary<string, object>, float>>();
@@ -313,7 +313,9 @@ public class SaveInventoryItems : MonoBehaviour
         dialogueController.GetComponent<DialogueController>().audioControl.PlaySound(GameVars.story.variablesState["sfx"].ToString(), GameObject.FindGameObjectWithTag("audioManager"));
         GameVars.musicPlaying = GameVars.story.variablesState["music"].ToString();
         GameVars.sfxPlaying = GameVars.story.variablesState["sfx"].ToString();
-
+        //set up upcoming events
+        GameVars.upcomingEvents = data.upcomingEvents;
+        GameVars.upcomingEventsToday = data.upcomingEventsToday;
         //load last line and remove colour label
         if ((GameVars.loadedTextLog.Count)>0) {
             // GameVars.loadedTextLog.Last();
@@ -441,11 +443,11 @@ public class SaveInventoryItems : MonoBehaviour
     }
    
     public void LoadTasks(SaveData data) {
-        foreach (Tuple<int, int, string, string, List<string>> taskInfo in data.taskBoardList) {
+        foreach (Tuple<int, int, string, string, List<string>, string> taskInfo in data.taskBoardList) {
             //GameObject taskGO = Instantiate(taskPrefab, new Vector3(0, 0, 0), Quaternion.identity, taskBoard.transform);
             //taskGO.transform.SetAsFirstSibling();
             //taskGO.name = "task";
-            GameManager.Instance.SetTaskInfo(taskInfo.Item1, taskInfo.Item2, taskInfo.Item3, taskInfo.Item4, taskInfo.Item5);
+            GameManager.Instance.SetTaskInfo(taskInfo.Item1, taskInfo.Item2, taskInfo.Item3, taskInfo.Item4, taskInfo.Item5, taskInfo.Item6);
             //taskBoardPrefab
         }
         LoadPlantTasks(data);

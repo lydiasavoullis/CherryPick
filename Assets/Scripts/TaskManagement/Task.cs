@@ -8,4 +8,5 @@ public class Task
     public List<string> phenotypes = new List<string>();
     public string description ="";
     public string customer="";
+    public string nextEvent = null;
 }

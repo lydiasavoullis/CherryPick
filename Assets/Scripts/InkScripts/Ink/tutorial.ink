@@ -1,6 +1,6 @@
 ==tutorial_vera==
  ¬
- ~characters+=vera
+~characters+=vera
 ~currentSpeaker = "Vera"
 Hi, my name's Vera. I'm your assistant
  ~currentSpeaker = "you"

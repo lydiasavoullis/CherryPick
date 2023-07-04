@@ -17,7 +17,7 @@ public class SaveData
     //plants in taskboard
     public List<Tuple<string, Dictionary<string, object>, int>> taskBoardPlants = new List<Tuple<string, Dictionary<string, object>, int>>();
     //task list
-    public List<Tuple<int, int, string, string, List<string>>> taskBoardList = new List<Tuple<int, int, string, string, List<string>>>();
+    public List<Tuple<int, int, string, string, List<string>, string>> taskBoardList = new List<Tuple<int, int, string, string, List<string>,string>>();
     //shop items
     public List<Tuple<string, Dictionary<string, object>, int>> shopItems = new List<Tuple<string, Dictionary<string, object>, int>>();
     //character profiles
@@ -29,6 +29,8 @@ public class SaveData
     public int reputation = 0;
     public int level = 1;
     public Tuple<float, float, float> speechPos = new Tuple<float, float, float>(0f,0f,0f);
+    public List<string> upcomingEvents;
+    public List<string> upcomingEventsToday;
     //public List<string> inventoryObjects; //list of objects by name
     //public List<string> storyLog;
     public SaveData(SaveInventoryItems saveItems)//InkController script
@@ -52,6 +54,8 @@ public class SaveData
         this.loadedChars = GameVars.loadedChars;
         this.currentSpeaker = GameVars.story.variablesState["currentSpeaker"].ToString();
         this.speechPos = new Tuple<float, float, float>(GameVars.loadedSpeechPos.x, GameVars.loadedSpeechPos.y, GameVars.loadedSpeechPos.z);
+        this.upcomingEvents = GameVars.upcomingEvents;
+        this.upcomingEventsToday = GameVars.upcomingEventsToday;
         //in another class loop through all items in inventory
         //if they are a plant save them to inventory plants
 

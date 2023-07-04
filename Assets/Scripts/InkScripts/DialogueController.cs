@@ -205,13 +205,14 @@ public class DialogueController : MonoBehaviour
                 return;
             }
             //if the story is not able to continue we will try and get the next event in GameVars.upcomingEventsToday
-            if (GameVars.upcomingEventsToday.Count == 0 )
+            if (GameVars.upcomingEventsToday == null || GameVars.upcomingEventsToday.Count == 0)
             {
                 EndDay();
             }
             else {
                 GameVars.story.ChoosePathString(GameVars.upcomingEventsToday[0]);
                 GameVars.upcomingEventsToday.RemoveAt(0);
+                KeepLoadingStory();
             }
         }
 

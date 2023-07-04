@@ -1,6 +1,5 @@
 ==yulia_main_1==
 ~characters+=yulia
- ~currentSpeaker = "you"
 ~currentSpeaker = "Yulia"
 ¬
 Hi I'm Yulia, this is my first main event
@@ -10,7 +9,6 @@ Great
 -> END
 ==yulia_main_2==
 ~characters+=yulia
- ~currentSpeaker = "you"
 ~currentSpeaker = "Yulia"
 ¬
 Hi I'm Yulia, this is my second main event
@@ -20,7 +18,6 @@ Great
 -> END
 ==yulia_main_3==
 ~characters+=yulia
- ~currentSpeaker = "you"
 ~currentSpeaker = "Yulia"
 ¬
 Hi I'm Yulia, this is my third main event

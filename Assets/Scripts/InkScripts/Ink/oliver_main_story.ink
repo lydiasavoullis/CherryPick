@@ -1,6 +1,5 @@
 ==oliver_main_1==
 ~characters+=oliver
- ~currentSpeaker = "you"
 ~currentSpeaker = "Oliver"
 ¬
 Hi I'm Oliver, this is my first main event
@@ -10,9 +9,8 @@ Great
 -> END
 ==oliver_main_2==
 ~characters+=oliver
- ~currentSpeaker = "you"
- ¬
 ~currentSpeaker = "Oliver"
+ ¬
 Hi I'm Oliver, this is my second main event
 ~currentSpeaker = "you"
 Great
@@ -21,9 +19,8 @@ Great
 -> END
 ==oliver_main_3==
 ~characters+=oliver
- ~currentSpeaker = "you"
- ¬
 ~currentSpeaker = "Oliver"
+ ¬
 Hi I'm Oliver, this is my third main event
 ~currentSpeaker = "you"
 Great

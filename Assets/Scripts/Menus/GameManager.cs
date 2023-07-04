@@ -317,7 +317,13 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i<taskNo;i++) {
             if(taskContent.transform.GetChild(i).gameObject!=null) {
-                taskContent.transform.GetChild(i).gameObject.GetComponent<TaskController>().DecrementDaysLeft();
+                try {
+                    taskContent.transform.GetChild(i).gameObject.GetComponent<TaskController>().DecrementDaysLeft();
+                }
+                catch (Exception e) {
+                    Debug.Log(e);
+                }
+                
             }
             taskNo = taskContent.transform.childCount;
         }
@@ -537,7 +543,7 @@ public class GameManager : MonoBehaviour
 
     }
     /* SetTaskInfo generates a new task prefab and sets the text values and also assigns a task object to the TaskController class with data about the task*/
-    public void SetTaskInfo(int quantity, int orderDeadline, string customerName, string phenotypeDescription, List<string> phenotypes)
+    public void SetTaskInfo(int quantity, int orderDeadline, string customerName, string phenotypeDescription, List<string> phenotypes, string nextEvent)
     {
         taskBoard.SetActive(true);
         GameObject newTaskPrefab = Instantiate(taskPrefab, new Vector3(0, 0, 0), Quaternion.identity, taskList.transform);
@@ -553,7 +559,13 @@ public class GameManager : MonoBehaviour
         amountText.text = $"quantity: {quantity}";
         nameText.text = $"name: {customerName}";
         phenotypeText.text = $"phenotype: {phenotypeDescription}";
-        deadlineText.text = $"deadline: {orderDeadline} days";
+        if (orderDeadline == -0) {
+            deadlineText.text = $"deadline: none";
+        }
+        else {
+            deadlineText.text = $"deadline: {orderDeadline} days";
+        }
+        
        // Debug.Log($"{amountText.text} | {nameText.text} | {phenotypeText.text} | {deadlineText.text}");
         sellBtn.onClick.AddListener((UnityEngine.Events.UnityAction)delegate
         {
@@ -581,7 +593,7 @@ public class GameManager : MonoBehaviour
                 CheckLevel();
                 fundsGO.GetComponent<TextInteractionMethods>().UpdateText("funds");
                 reputationGO.GetComponent<TextInteractionMethods>().UpdateText("reputation");
-
+                GameVars.upcomingEvents.Add(nextEvent);
                 GameObject popupPrefab = Instantiate(moneyPopup, newTaskPrefab.transform.position, Quaternion.identity, taskList.transform);
                     popupPrefab.transform.SetSiblingIndex(newTaskPrefab.transform.GetSiblingIndex());
                     popupPrefab.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = $"You earned ${moneyCounter}";
@@ -599,9 +611,10 @@ public class GameManager : MonoBehaviour
         task.phenotypes = phenotypes;
         task.quantity = quantity;
         task.description = phenotypeDescription;
+        task.nextEvent = nextEvent;
         taskBoard.SetActive(false);
     }
-    public Tuple<int, int, string, string, List<string>> GetTaskInfo(GameObject taskPrefab) {
+    public Tuple<int, int, string, string, List<string>, string> GetTaskInfo(GameObject taskPrefab) {
         Task task = taskPrefab.GetComponent<TaskController>().task;
         string nameText = task.customer;
         string phenotypeText = task.description;
@@ -609,7 +622,8 @@ public class GameManager : MonoBehaviour
         int amountText = task.quantity;
         int deadlineText = task.daysLeft;
         List<string> phenotypes = taskPrefab.GetComponent<TaskController>().task.phenotypes;
-        Tuple<int, int, string, string, List<string>> taskInfo = new Tuple<int, int, string, string, List<string>>(amountText, deadlineText, nameText, phenotypeText, phenotypes);
+        string taskNextEvent = task.nextEvent;
+        Tuple<int, int, string, string, List<string>, string> taskInfo = new Tuple<int, int, string, string, List<string>, string>(amountText, deadlineText, nameText, phenotypeText, phenotypes, taskNextEvent);
 
         return taskInfo;
 

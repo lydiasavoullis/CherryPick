@@ -144,6 +144,9 @@ public class UIController
             case "oliver":
                 colour = new Color32(50, 150, 100, 255);
                 break;
+            case "fearn":
+                colour = new Color32(150, 50, 150, 255);
+                break;
             case "vera":
                 colour = new Color32(100, 100, 229, 255);
                 break;
