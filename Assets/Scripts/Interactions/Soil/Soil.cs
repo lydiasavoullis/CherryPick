@@ -13,6 +13,13 @@ public class Soil : MonoBehaviour, IDropHandler
     Slider slider;
     public PlantPotState plantPotState;
     bool watering = false;
+    AudioManager audioManager;
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("audioManager").GetComponent<AudioManager>();
+        //wateringCan = gameObject.GetComponent<RectTransform>();
+        
+    }
     public GameObject item
     {
         get
@@ -39,7 +46,10 @@ public class Soil : MonoBehaviour, IDropHandler
             GameVars.story.variablesState["tutorialCounter"] = (int.Parse(GameVars.story.variablesState["tutorialCounter"].ToString()) + 1).ToString();
         }
     }
-
+    private void OnParticleSystemStopped()
+    {
+        
+    }
 
     private void OnParticleCollision(GameObject other)
     {
@@ -47,8 +57,10 @@ public class Soil : MonoBehaviour, IDropHandler
             case "water":
                 if (slider.value <= slider.maxValue)
                 {
+                    
                     slider.value += slider.maxValue / 50;
                     plantPotState.hydrationValue = slider.value;
+                    StartCoroutine(PlayWaterEffect());
                 }
                 //Debug.Log(int.Parse(GameVars.story.variablesState["tutorialCounter"].ToString()));
                 if (int.Parse(GameVars.story.variablesState["tutorialCounter"].ToString()) == 1)
@@ -72,7 +84,12 @@ public class Soil : MonoBehaviour, IDropHandler
         
         //plantPotState.hydrationValue = slider.value;
     }
-    
+    IEnumerator PlayWaterEffect()
+    {
+        audioManager.PlayAtRandomTime("watering pot");
+        yield return new WaitForSeconds(0.2f);
+        audioManager.StopImmediate("watering pot");
+    }
 
     IEnumerator WaterPlant() {
         while ((slider.value <= slider.maxValue) && watering)

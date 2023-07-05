@@ -38,9 +38,46 @@ public class AudioManager : MonoBehaviour
         {
             Debug.Log(name);
             s.source.Play();
+        }  
+    }
+    public void PlayAtRandomTime(string name)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+        if (s == null)
+        {
+            Debug.Log("Sound: " + name + " not found!");
+            return;
+        }
+        float delayTime = UnityEngine.Random.Range(0f, s.source.clip.length);
+        s.source.time = delayTime;
+        if (!s.source.isPlaying)
+        {
+            Debug.Log(name);
+
+            s.source.Play();
+        }
+        else {
+            s.source.Stop();
+            s.source.Play();
         }
         
-        
+    }
+
+    public void TypeSound(string name, float maxPitch, float minPitch)
+    {
+        Debug.Log(name);
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+        s.source.pitch = (UnityEngine.Random.Range(minPitch, maxPitch));
+        if (s == null)
+        {
+            Debug.Log("Sound: " + name + " not found!");
+            return;
+        }
+        if (!s.source.isPlaying)
+        {
+            //Debug.Log();
+            s.source.Play();
+        }
     }
     public void Stop(string name) {
         Sound s = Array.Find(sounds, sound => sound.name == name);
@@ -55,6 +92,22 @@ public class AudioManager : MonoBehaviour
             StartCoroutine(StartFade(s.source, 4f, 0f));
         }
         
+    }
+    public void StopImmediate(string name)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+
+        if (s == null)
+        {
+            //Debug.Log("Sound: " + name + " not found!");
+            return;
+        }
+        if (s.source.isPlaying)
+        {
+            Debug.Log(name + " stopped playing");
+            s.source.Stop();
+        }
+
     }
     public IEnumerator StartFade(AudioSource audioSource, float duration, float targetVolume)
     {

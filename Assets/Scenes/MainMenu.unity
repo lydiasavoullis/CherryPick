@@ -491,6 +491,7 @@ GameObject:
   - component: {fileID: 768874127}
   - component: {fileID: 768874126}
   - component: {fileID: 768874129}
+  - component: {fileID: 768874130}
   m_Layer: 5
   m_Name: menu butttons
   m_TagString: Untagged
@@ -597,6 +598,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7631466a607d50a4ea44842bf3d49895, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &768874130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 768874124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48a6710318ee53946baa48db7f2b23ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: notification
 --- !u!1 &779191311
 GameObject:
   m_ObjectHideFlags: 0
@@ -1241,6 +1255,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
+        - m_Target: {fileID: 768874130}
+          m_TargetAssemblyTypeName: ButtonSound, Assembly-CSharp
+          m_MethodName: PlaySound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
   - eventID: 1
     callback:
       m_PersistentCalls:
@@ -1374,6 +1400,7 @@ GameObject:
   - component: {fileID: 949067009}
   - component: {fileID: 949067008}
   - component: {fileID: 949067011}
+  - component: {fileID: 949067013}
   - component: {fileID: 949067012}
   m_Layer: 5
   m_Name: New game
@@ -1537,6 +1564,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
+        - m_Target: {fileID: 768874130}
+          m_TargetAssemblyTypeName: ButtonSound, Assembly-CSharp
+          m_MethodName: PlaySound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
   - eventID: 1
     callback:
       m_PersistentCalls:
@@ -1581,6 +1620,19 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &949067013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 949067006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48a6710318ee53946baa48db7f2b23ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: play
 --- !u!1 &1014665792
 GameObject:
   m_ObjectHideFlags: 0
@@ -6721,6 +6773,7 @@ GameObject:
   - component: {fileID: 1235951098}
   - component: {fileID: 1235951101}
   - component: {fileID: 1235951102}
+  - component: {fileID: 1235951103}
   m_Layer: 5
   m_Name: options
   m_TagString: Untagged
@@ -6796,6 +6849,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1235951103}
+        m_TargetAssemblyTypeName: ButtonSound, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -6883,6 +6948,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
+        - m_Target: {fileID: 768874130}
+          m_TargetAssemblyTypeName: ButtonSound, Assembly-CSharp
+          m_MethodName: PlaySound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
   - eventID: 1
     callback:
       m_PersistentCalls:
@@ -6927,6 +7004,119 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &1235951103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1235951096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48a6710318ee53946baa48db7f2b23ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: blep
+--- !u!1 &1261452198
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1261452200}
+  - component: {fileID: 1261452199}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: audioManager
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1261452199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1261452198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6063218d3506aec42b25e22879539dde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: pop
+    clip: {fileID: 8300000, guid: 29d73003fc3c7684bb1f02914e0ad631, type: 3}
+    group: {fileID: 24300002, guid: d97f00f5c15186f40b7415b79f34beab, type: 2}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: evening chill
+    clip: {fileID: 8300000, guid: b13e0a3c07db6a8448f9c0028be0ad98, type: 3}
+    group: {fileID: 24300002, guid: d97f00f5c15186f40b7415b79f34beab, type: 2}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: typing
+    clip: {fileID: 8300000, guid: fe031dd2c5c6c7f4f9a6816bfd854842, type: 3}
+    group: {fileID: 24300002, guid: d97f00f5c15186f40b7415b79f34beab, type: 2}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: level up
+    clip: {fileID: 8300000, guid: 476f1abecb2c5554f9719aec3ee6bd43, type: 3}
+    group: {fileID: 24300002, guid: d97f00f5c15186f40b7415b79f34beab, type: 2}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: notification
+    clip: {fileID: 8300000, guid: 8043d788025d5944da0ba1f0dde172dc, type: 3}
+    group: {fileID: 24300002, guid: d97f00f5c15186f40b7415b79f34beab, type: 2}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: play
+    clip: {fileID: 8300000, guid: 3a75f18f777a02a48a22ab527d1b150b, type: 3}
+    group: {fileID: 24300002, guid: d97f00f5c15186f40b7415b79f34beab, type: 2}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: blep
+    clip: {fileID: 8300000, guid: 4d3f95a4a81f4ab409634ab2a4b38182, type: 3}
+    group: {fileID: 24300002, guid: d97f00f5c15186f40b7415b79f34beab, type: 2}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: big-pop
+    clip: {fileID: 8300000, guid: 0a4fb0914e9d1f04bbccf29baa6d21b0, type: 3}
+    group: {fileID: 24300002, guid: d97f00f5c15186f40b7415b79f34beab, type: 2}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+--- !u!4 &1261452200
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1261452198}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.008704752, y: 0.91451114, z: -545.7755}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2052035435
 GameObject:
   m_ObjectHideFlags: 0
@@ -6940,6 +7130,7 @@ GameObject:
   - component: {fileID: 2052035438}
   - component: {fileID: 2052035437}
   - component: {fileID: 2052035440}
+  - component: {fileID: 2052035441}
   - component: {fileID: 2052035442}
   m_Layer: 5
   m_Name: Load game
@@ -7016,6 +7207,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 2052035441}
+        m_TargetAssemblyTypeName: ButtonSound, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -7103,6 +7306,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
+        - m_Target: {fileID: 768874130}
+          m_TargetAssemblyTypeName: ButtonSound, Assembly-CSharp
+          m_MethodName: PlaySound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
   - eventID: 1
     callback:
       m_PersistentCalls:
@@ -7131,6 +7346,19 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &2052035441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2052035435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48a6710318ee53946baa48db7f2b23ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: blep
 --- !u!111 &2052035442
 Animation:
   m_ObjectHideFlags: 0

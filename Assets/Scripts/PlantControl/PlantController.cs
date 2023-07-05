@@ -431,6 +431,7 @@ public class PlantController : MonoBehaviour, IDropHandler
         //Debug.Log("HOVER OVER FLWOER");
         if (Mouse.current.leftButton.wasPressedThisFrame)//Input.GetMouseButtonDown(0)
         {
+            GameObject.FindGameObjectWithTag("audioManager").GetComponent<AudioManager>().Play("pop");
             try {
                 ClearBreedingVisual();
             }
@@ -501,7 +502,7 @@ public class PlantController : MonoBehaviour, IDropHandler
         if (!gameObject.GetComponent<AudioSource>().isPlaying)
         {
             Debug.Log("plant bred");
-            GameObject.FindGameObjectWithTag("audioManager").GetComponent<AudioManager>().Play("pop");
+            GameObject.FindGameObjectWithTag("audioManager").GetComponent<AudioManager>().Play("big-pop");
             //gameObject.GetComponent<AudioSource>().Play();
         }
         

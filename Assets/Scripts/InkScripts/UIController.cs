@@ -11,6 +11,8 @@ public class UIController
     //TextMeshProUGUI storyText;
     //GameObject choicesUI;
     //MonoBehaviour monoBehaviour;
+    static float maxPitch = 1f;
+    static float minPitch = 0.8f;
     public UIController()
     {//GameObject backgroundDialogueBox, GameObject nameTag, TextMeshProUGUI storyText, GameObject choicesUI
         //monoBehaviour = new MonoBehaviour();
@@ -71,7 +73,8 @@ public class UIController
         yield return new WaitForSeconds(0.01f);
         for (int i = 0; i < passage.Length; i++)
         {
-
+            GameObject.FindGameObjectWithTag("audioManager").GetComponent<AudioManager>().TypeSound("typing", maxPitch, minPitch);
+            Debug.Log("pitch: " + maxPitch + " " + minPitch);
             if (Keyboard.current.spaceKey.wasPressedThisFrame)
             {
                 storyText.maxVisibleCharacters = passage.Length;
@@ -86,6 +89,7 @@ public class UIController
         }
         GameVars.finishedTyping = true;
     }
+
     public IEnumerator WriteText(string passage, TextMeshProUGUI storyText, GameObject speechBox, Vector3 pos)
     {
         storyText.text = passage;
@@ -100,7 +104,8 @@ public class UIController
         
         for (int i = 0; i < passage.Length; i++)
         {
-            
+            GameObject.FindGameObjectWithTag("audioManager").GetComponent<AudioManager>().TypeSound("typing", maxPitch, minPitch);
+            Debug.Log("pitch: " + maxPitch + " " + minPitch);
             if (Keyboard.current.spaceKey.wasPressedThisFrame)
             {
                 storyText.maxVisibleCharacters = passage.Length;
