@@ -586,7 +586,7 @@ public class GameManager : MonoBehaviour
                     for (int i = 0; i < slot.transform.childCount; i++)
                     {
                         moneyCounter += 50;
-                        repCounter+=5;
+                        repCounter+=1;
                     }
                 GameManager.Instance.funds += moneyCounter;
                 GameManager.Instance.reputation += repCounter;
