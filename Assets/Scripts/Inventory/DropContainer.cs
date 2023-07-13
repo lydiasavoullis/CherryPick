@@ -22,10 +22,11 @@ public class DropContainer : MonoBehaviour, IDropHandler
         if (newItem==null) {
             return;
         }
-        if (newItem.name=="seed") {
-            SetItemAsChildOfNewSlot(newItem);
-            return;
-        }
+        //if (newItem.tag == "seed")
+        //{
+        //    SetItemAsChildOfNewSlot(newItem);
+        //    return;
+        //}
         for (int i = 0; i < panel.transform.childCount; i++) {
             GameObject currentSlotContainer = panel.transform.GetChild(i).gameObject;//gets slot container
             GameObject currentSlot = currentSlotContainer.transform.GetChild(0).gameObject;//gets slot container
@@ -38,29 +39,34 @@ public class DropContainer : MonoBehaviour, IDropHandler
             }
             
            
-            if (currentItem.name.ToLower() == newItem.name.ToLower()) {
-                if (newItem.name.ToLower().Equals("plant"))
+            if (currentItem.tag.ToLower() == newItem.tag.ToLower()) {
+                //if (newItem.tag == "seed")
+                //{
+                //    SetItemAsChildOfCurrentSlot(newItem, currentSlot, currentSlotContainer);
+                //}
+                if (newItem.tag.ToLower().Equals("plant"))
                 {
                     bool matchingItem = GeneratePlants.CheckIfTwoPlantsAreTheSame(newItem.GetComponent<PlantController>().plant, currentItem.GetComponent<PlantController>().plant);
                     if (matchingItem)
                     {
-                        newItem.transform.SetParent(currentSlot.transform);
-                        newItem.transform.position = currentItem.transform.position;
-                        currentSlotContainer.GetComponent<SlotQuantity>().UpdateQuantityText();
+                        SetItemAsChildOfExistingSlot(newItem, currentSlot, currentSlotContainer);
                         return;
                     }
                 }
                 else {//if not a plant
-                    newItem.transform.SetParent(currentSlot.transform);
-                    newItem.transform.localPosition = Vector3.zero;
-                    newItem.GetComponent<RectTransform>().sizeDelta = new Vector2(GameManager.Instance.slotSize, GameManager.Instance.slotSize);
-                    currentSlotContainer.GetComponent<SlotQuantity>().UpdateQuantityText();
+                    SetItemAsChildOfExistingSlot(newItem, currentSlot, currentSlotContainer);
                     return;
                 }
                
             }
         }
         SetItemAsChildOfNewSlot(newItem);
+    }
+    public void SetItemAsChildOfExistingSlot(GameObject newItem, GameObject currentSlot, GameObject currentSlotContainer) {
+        newItem.transform.SetParent(currentSlot.transform);
+        newItem.transform.localPosition = Vector3.zero;
+        newItem.GetComponent<RectTransform>().sizeDelta = new Vector2(GameManager.Instance.slotSize, GameManager.Instance.slotSize);
+        currentSlotContainer.GetComponent<SlotQuantity>().UpdateQuantityText();
     }
 
     public void SetItemAsChildOfNewSlot(GameObject newItem) {

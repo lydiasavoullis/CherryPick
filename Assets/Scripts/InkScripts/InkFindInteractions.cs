@@ -71,10 +71,17 @@ public class InkFindInteractions
         for (int i = 0; i < GameVars.upcomingEventsToday.Count;i++) {
             foreach (string characterName in characters)
             {
-                if (GameVars.upcomingEventsToday[i].Contains(characterName)) {
-                    characters.Remove(characterName);
-                    break;
+                try {
+                    if (GameVars.upcomingEventsToday[i].Contains(characterName))
+                    {
+                        characters.Remove(characterName);
+                        break;
+                    }
                 }
+                catch (Exception e) {
+                    Debug.Log(e);
+                }
+                
             }
         }
         if (GameVars.upcomingEventsToday.Count < maxEvents)

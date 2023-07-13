@@ -228,7 +228,7 @@ public class DialogueController : MonoBehaviour
         
         if (GameVars.story.variablesState["currentSpeaker"].ToString()=="you")
         {
-            Vector3 characterSpeechPos = new Vector3(customerContainer.transform.position.x, customerContainer.transform.position.y - 3.5f, customerContainer.transform.position.z);
+            Vector3 characterSpeechPos = new Vector3(customerContainer.transform.position.x, customerContainer.transform.position.y - 3f, customerContainer.transform.position.z);
             speechBubble = Instantiate(speechReversedPrefab, characterSpeechPos, speechReversedPrefab.transform.rotation, speechContainer.transform);
             TextMeshProUGUI yourName = speechBubble.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
             yourName.text = yourname;

@@ -342,50 +342,45 @@ public class SaveInventoryItems : MonoBehaviour
     public void LoadInventory(SaveData data) {
         for (int i = 0; i < data.inventoryPlants.Count(); i++)
         {
-
+            GameObject slotGO = Instantiate(itemSlotPrefab, new Vector3(0, 0, 0), Quaternion.identity, inventory.transform);
             if (data.inventoryPlants[i].Item1 == "seed")
             {
-                GameObject slotGO = Instantiate(itemSlotPrefab, new Vector3(0, 0, 0), Quaternion.identity, inventory.transform);
-                slotGO.name = "slot";
-                GameObject seedGO = Instantiate(seedPrefab, new Vector3(0, 0, 0), Quaternion.identity, slotGO.transform.GetChild(0));
-                seedGO.GetComponent<SeedController>().seed = LoadSeedFromList(data.inventoryPlants[i].Item2);
-                seedGO.name = "seed";
-                seedGO.transform.localPosition = Vector3.zero;
-            }
-            else if (data.inventoryPlants[i].Item1 == "plant")
-            {
-                GameObject slotGO = Instantiate(itemSlotPrefab, new Vector3(0, 0, 0), Quaternion.identity, inventory.transform);
-                slotGO.name = "slot";
                 for (int x = 0; x < data.inventoryPlants[i].Item3; x++)
                 {
                     //foreach item in slot
-                    GameObject plantGO = Instantiate(plantPrefab, new Vector3(0, 0, 0), Quaternion.identity, slotGO.transform.GetChild(0));
+                    GameObject seedGO = InstantiateItemInSlot(seedPrefab, slotGO, "seed");
+                    seedGO.GetComponent<SeedController>().seed = LoadSeedFromList(data.inventoryPlants[i].Item2);
+                }
+            }
+            else if (data.inventoryPlants[i].Item1 == "plant")
+            {
+                for (int x = 0; x < data.inventoryPlants[i].Item3; x++)
+                {
+                    //foreach item in slot
+                    GameObject plantGO = InstantiateItemInSlot(plantPrefab, slotGO, "plant");
                     plantGO.GetComponent<PlantController>().plant = LoadPlantFromList(data.inventoryPlants[i].Item2);
-                    plantGO.name = "plant";
-                    plantGO.transform.localPosition = Vector3.zero;
                 }
 
-                slotGO.GetComponent<SlotQuantity>().UpdateQuantityText();
             }
             //other misc item
             else {
-                GameObject slotGO = Instantiate(itemSlotPrefab, new Vector3(0, 0, 0), Quaternion.identity, inventory.transform);
-                slotGO.name = "slot";
                 string itemName = data.inventoryPlants[i].Item1;
                 for (int x = 0; x < data.inventoryPlants[i].Item3; x++)
                 {
                     //foreach item in slot
-                    GameObject itemGO = Instantiate(FindItem(itemName), new Vector3(0, 0, 0), Quaternion.identity, slotGO.transform.GetChild(0));
-                    itemGO.name = itemName;
-                    itemGO.GetComponent<RectTransform>().sizeDelta = new Vector2(GameManager.Instance.slotSize, GameManager.Instance.slotSize);
-                    itemGO.transform.localPosition = Vector3.zero;
+                    InstantiateItemInSlot(FindItem(itemName), slotGO, itemName);
                 }
-
-                slotGO.GetComponent<SlotQuantity>().UpdateQuantityText();
-
             }
-
+            slotGO.name = "slot";
+            slotGO.GetComponent<SlotQuantity>().UpdateQuantityText();
         }
+    }
+    public GameObject InstantiateItemInSlot(GameObject itemPrefab, GameObject slotGO, string itemName) {
+        GameObject itemGO = Instantiate(itemPrefab, new Vector3(0, 0, 0), Quaternion.identity, slotGO.transform.GetChild(0));
+        itemGO.name = itemName;
+        itemGO.GetComponent<RectTransform>().sizeDelta = new Vector2(GameManager.Instance.slotSize, GameManager.Instance.slotSize);
+        itemGO.transform.localPosition = Vector3.zero;
+        return itemGO;
     }
     //update for different game objects added
     public GameObject FindItem(string name) {
